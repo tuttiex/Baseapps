@@ -180,6 +180,10 @@ function AllDapps() {
       <section className="all-dapps-header">
         <div className="container">
           <h1 className="all-dapps-title">All Dapps</h1>
+          {/* DEBUG LINE - Shows the API URL on screen */}
+          <div style={{color: 'yellow', fontSize: '14px', textAlign: 'center', padding: '10px', background: 'rgba(0,0,0,0.5)', borderRadius: '8px', margin: '10px auto', maxWidth: '600px'}}>
+            🔍 DEBUG: Using API = {API_URL}
+          </div>
           <p className="all-dapps-subtitle">Browse and search through all dapps on Base</p>
         </div>
       </section>
