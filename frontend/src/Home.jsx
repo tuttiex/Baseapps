@@ -203,6 +203,16 @@ function Home() {
         </div>
       </section>
 
+      {/* Explore All Dapps Button */}
+      <section className="explore-section">
+        <div className="container">
+          <Link to="/all-dapps" className="explore-all-btn">
+            <span className="explore-text">Explore All Dapps</span>
+            <span className="explore-arrow">→</span>
+          </Link>
+        </div>
+      </section>
+
       {/* Favorite Dapps Section */}
       <section className="featured-section">
         <div className="container">
@@ -228,16 +238,6 @@ function Home() {
               <FeaturedDappCard key={index} dapp={dapp} index={index} />
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Explore All Dapps Button */}
-      <section className="explore-section">
-        <div className="container">
-          <Link to="/all-dapps" className="explore-all-btn">
-            <span className="explore-text">Explore All Dapps</span>
-            <span className="explore-arrow">→</span>
-          </Link>
         </div>
       </section>
 
