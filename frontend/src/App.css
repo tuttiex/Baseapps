@@ -1209,3 +1209,134 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(102, 126, 234, 0.7);
 }
+
+/* ============================================ */
+/* HOME SEARCH SECTION */
+/* ============================================ */
+.home-search-section {
+  padding: 2rem 0;
+  animation: fadeIn 0.8s ease;
+}
+
+.home-search-form {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.home-search-box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.home-search-input {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 50px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.home-search-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.home-search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.home-search-btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.home-search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.home-search-btn:active {
+  transform: translateY(0);
+}
+
+/* ============================================ */
+/* X (TWITTER) SOCIAL ICON */
+/* ============================================ */
+.social-icon {
+  position: fixed;
+  bottom: 2rem;
+  left: 2rem;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(29, 161, 242, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  animation: fadeIn 1s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 12px 30px rgba(29, 161, 242, 0.5);
+}
+
+.social-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ============================================ */
+/* RESPONSIVE - SEARCH & X ICON */
+/* ============================================ */
+@media (max-width: 768px) {
+  .home-search-box {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .home-search-input,
+  .home-search-btn {
+    width: 100%;
+  }
+  
+  /* Move X icon on mobile to avoid conflicts */
+  .social-icon.x-icon {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .social-icon.x-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-icon.x-icon {
+    bottom: 1rem;
+    left: 1rem;
+    width: 48px;
+    height: 48px;
+  }
+}

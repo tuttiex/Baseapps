@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
 
 function AllDapps() {
+  const [searchParams] = useSearchParams()
   const [dapps, setDapps] = useState([])
   const [categories, setCategories] = useState({})
   const [selectedMajorCategory, setSelectedMajorCategory] = useState('all')
@@ -21,6 +22,12 @@ function AllDapps() {
   const [itemsPerPage, setItemsPerPage] = useState(30)
 
   useEffect(() => {
+    // Check for search param in URL (from homepage search)
+    const urlSearch = searchParams.get('search')
+    if (urlSearch) {
+      setSearchTerm(urlSearch)
+    }
+    
     fetchDapps()
     fetchCategories()
     
@@ -164,6 +171,19 @@ function AllDapps() {
       <button className="dark-mode-toggle" onClick={toggleDarkMode} aria-label="Toggle dark mode">
         {darkMode ? '☀️' : '🌙'}
       </button>
+
+      {/* X (Twitter) Icon - Bottom Left */}
+      <a 
+        href="https://x.com/base_dapps" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="social-icon x-icon"
+        aria-label="Follow us on X (Twitter)"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
 
       {/* Header */}
       <header className="header">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import './App.css'
 
@@ -91,6 +91,8 @@ function Home() {
   const [allDapps, setAllDapps] = useState([])
   const [loading, setLoading] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchDappsCount()
@@ -123,6 +125,13 @@ function Home() {
     document.body.classList.toggle('dark-mode', newDarkMode)
   }
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (searchTerm.trim()) {
+      navigate(`/all-dapps?search=${encodeURIComponent(searchTerm.trim())}`)
+    }
+  }
+
   if (loading) {
     return (
       <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
@@ -137,6 +146,19 @@ function Home() {
       <button className="dark-mode-toggle" onClick={toggleDarkMode}>
         {darkMode ? '☀️' : '🌙'}
       </button>
+
+      {/* X (Twitter) Icon - Bottom Left */}
+      <a 
+        href="https://x.com/base_dapps" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="social-icon x-icon"
+        aria-label="Follow us on X (Twitter)"
+      >
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+      </a>
 
       {/* Header */}
       <header className="header">
@@ -171,6 +193,26 @@ function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Search Section */}
+      <section className="home-search-section">
+        <div className="container">
+          <form onSubmit={handleSearch} className="home-search-form">
+            <div className="home-search-box">
+              <input
+                type="text"
+                placeholder="Search for dapps..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="home-search-input"
+              />
+              <button type="submit" className="home-search-btn">
+                🔍 Search
+              </button>
+            </div>
+          </form>
         </div>
       </section>
 
