@@ -61,8 +61,8 @@ function AddDapps() {
                 const price = response.data.ethereum.usd
                 console.log("Current ETH Price:", price)
                 setEthPrice(price)
-                // Calculate fee for $1 USD (rounded to 6 decimals)
-                const fee = (1 / price).toFixed(6)
+                // Calculate fee for $0.01 USD (TEMPORARY FOR TESTING)
+                const fee = (0.01 / price).toFixed(6)
                 setDynamicFee(fee)
             } catch (err) {
                 console.error('Error fetching ETH price:', err)
