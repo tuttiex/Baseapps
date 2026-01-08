@@ -49,11 +49,16 @@ A production-ready, full-stack web application to explore and discover decentral
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 🌐 Live Demo
+Visit the live application at **[baseapps.org](https://baseapps.org)**
+
+### 💻 Local Development
+
+#### Prerequisites
 *   Node.js (v16 or higher)
 *   npm or yarn
 
-### 1. Backend Setup
+#### 1. Backend Setup
 The backend runs on port `3001` and serves the API.
 
 ```bash
