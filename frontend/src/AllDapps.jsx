@@ -22,13 +22,6 @@ function AllDapps() {
   const [itemsPerPage, setItemsPerPage] = useState(30)
 
   useEffect(() => {
-    // Check for search param in URL (from homepage search)
-    const urlSearch = searchParams.get('search')
-    if (urlSearch) {
-      setSearchTerm(urlSearch)
-    }
-
-    fetchDapps()
     fetchCategories()
 
     // Check for saved dark mode preference, default to dark mode if none saved
@@ -39,6 +32,17 @@ function AllDapps() {
       document.body.classList.add('dark-mode')
     }
   }, [])
+
+  // Sync URL search param with state
+  useEffect(() => {
+    const urlSearch = searchParams.get('search')
+    if (urlSearch && urlSearch !== searchTerm) {
+      setSearchTerm(urlSearch)
+    } else if (!urlSearch && searchTerm) {
+      // If URL has no search but state does, clear state (optional, behaves like a reset)
+      setSearchTerm('')
+    }
+  }, [searchParams])
 
   useEffect(() => {
     fetchDapps()
