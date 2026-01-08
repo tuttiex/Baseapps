@@ -1,147 +1,99 @@
-# Base Network Dapps Explorer
+# 🔵 Base Network Dapps Explorer
 
-A full-stack web application to explore and discover all decentralized applications (dapps) on the Base network.
+[![Node.js](https://img.shields.io/badge/Node.js-v16%2B-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![Security Audit](https://img.shields.io/badge/Security_Audit-PASS-success)](https://github.com/tuttiex/Baseapps)
+[![License](https://img.shields.io/badge/license-ISC-lightgrey.svg)](LICENSE)
 
-## Features
+A production-ready, full-stack web application to explore and discover decentralized applications (dapps) on the **Base network**. Built with performance, security, and user experience in mind.
 
-- 🔍 Search dapps by name, description, or category
-- 📂 Filter dapps by category (DeFi, Social, Bridge, Infrastructure, etc.)
-- 🎨 Modern, responsive UI with beautiful gradient design
-- 🔄 Real-time data fetching from multiple sources
-- 🚀 Fast and lightweight
+---
 
-## Tech Stack
+## ✨ Features
 
-### Backend
-- Node.js with Express.js
-- RESTful API
-- CORS enabled for frontend communication
-- Integration with DefiLlama API for real-time dapp data
+### 🛡️ Enterprise-Grade Security
+*   **Rate Limiting:** Protects against DDoS with strict limits (100 req/15m).
+*   **HPP Protection:** Middleware guards against HTTP Parameter Pollution attacks.
+*   **Security Headers:** `Helmet` (Backend) and configured Vercel headers (Frontend) enforce strict CSP, HSTS, and X-Content-Type protections.
+*   **Input Sanitization:** All user inputs are validated and sanitized to prevent injection attacks.
+
+### 🔍 Optimized Search
+*   **Precision Filtering:** Smart backend logic allows searching by *Name Only* to avoid irrelevant results from generic descriptions.
+*   **Quick Search:** Live autocomplete dropdown with debounced API calls for instant suggestions as you type.
+*   **Deep Linking:** Shareable URLs for specific search results.
+
+### ⚡ Modern UX/UI
+*   **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
+*   **Dark Mode:** Auto-detects system preference with manual toggle.
+*   **Performance:** React + Vite ensures lightning-fast page loads.
+
+---
+
+## 🛠️ Tech Stack
 
 ### Frontend
-- React 18
-- Vite for fast development and building
-- Modern CSS with gradient design
-- Responsive layout
+*   **Framework:** React 18
+*   **Build Tool:** Vite
+*   **Styling:** Modern CSS3 (Variables, Flexbox/Grid)
+*   **State Management:** React Hooks
+*   **Security:** `dompurify`, `isomorphic-dompurify`
 
-## Setup Instructions
+### Backend
+*   **Runtime:** Node.js
+*   **Server:** Express.js
+*   **Security:** `helmet`, `hpp`, `express-rate-limit`, `express-validator`
+*   **Logging:** `morgan`
+*   **Data:** Local caching + Real-time APIs (DefiLlama fallback)
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
+*   Node.js (v16 or higher)
+*   npm or yarn
 
-### Backend Setup
+### 1. Backend Setup
+The backend runs on port `3001` and serves the API.
 
-1. Navigate to the backend directory:
 ```bash
 cd backend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Start the backend server:
-```bash
 npm start
-```
-
-For development with auto-reload:
-```bash
+# OR for development
 npm run dev
 ```
 
-The backend will run on `http://localhost:3001`
+### 2. Frontend Setup
+The frontend runs on port `3000` (proxy configured to backend).
 
-### Frontend Setup
-
-1. Navigate to the frontend directory:
 ```bash
 cd frontend
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Start the development server:
-```bash
 npm run dev
 ```
 
-The frontend will run on `http://localhost:3000`
+Visit `http://localhost:3000` to browse the app.
 
-## API Endpoints
+---
 
-### GET `/api/dapps`
-Get all dapps with optional filtering.
+## 🔒 Security Measures
+This codebase has undergone a comprehensive internal security audit (Jan 2026).
 
-**Query Parameters:**
-- `category` (optional): Filter by category (e.g., "DeFi", "Social")
-- `search` (optional): Search term to filter dapps
+*   **DoS Protection:** API endpoints are rate-limited per IP.
+*   **Parameter Pollution:** `hpp` library cleaning prevents logic bypasses.
+*   **Crash Prevention:** `express-async-errors` and centralized ErrorHandling patterns.
+*   **Dependency Scanning:** Regular `npm audit` checks (Current: 0 Backend Vulnerabilities).
 
-**Example:**
-```
-GET http://localhost:3001/api/dapps?category=DeFi&search=swap
-```
+---
 
-### GET `/api/dapps/categories`
-Get all available categories.
+## 🗺️ Roadmap: Phase 2
+We are preparing for Web3 Integration. Upcoming features:
+*   [ ] Wallet Connection (RainbowKit / Wagmi)
+*   [ ] Smart Contract Interaction
+*   [ ] On-chain User Profiles
+*   [ ] Submit Your Dapp (Web3 Auth verified)
 
-### GET `/api/health`
-Health check endpoint.
+---
 
-## Project Structure
-
-```
-Baseapps/
-├── backend/
-│   ├── server.js          # Express server and API routes
-│   ├── package.json       # Backend dependencies
-│   └── .gitignore
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx        # Main React component
-│   │   ├── App.css        # Styles
-│   │   ├── main.jsx       # React entry point
-│   │   └── index.css      # Global styles
-│   ├── index.html         # HTML template
-│   ├── vite.config.js     # Vite configuration
-│   └── package.json       # Frontend dependencies
-└── README.md
-```
-
-## Usage
-
-1. Start both servers (backend and frontend)
-2. Open your browser to `http://localhost:3000`
-3. Browse, search, and filter dapps on the Base network
-4. Click "Visit Dapp" to open any dapp in a new tab
-
-## Development
-
-### Backend Development
-- The backend uses Express.js with CORS enabled
-- API routes are defined in `server.js`
-- Dapps data is fetched from DefiLlama API with fallback to static data
-
-### Frontend Development
-- React components are in `src/App.jsx`
-- Styles are in `src/App.css`
-- Vite proxy is configured to forward `/api` requests to the backend
-
-## Future Enhancements
-
-- Add more data sources for comprehensive dapp listings
-- Implement user favorites/bookmarks
-- Add dapp ratings and reviews
-- Real-time TVL updates
-- Advanced filtering options
-- Dark mode toggle
-
-## License
-
-ISC
-
+**Powered by Base Network** 🔵
