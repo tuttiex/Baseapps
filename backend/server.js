@@ -3,12 +3,65 @@ const cors = require('cors');
 const axios = require('axios');
 const fs = require('fs').promises;
 const path = require('path');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const { query, validationResult } = require('express-validator');
+const morgan = require('morgan');
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+// Security Headers - Helmet
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
+  crossOriginEmbedderPolicy: false, // Allow images from external sources
+  crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow CORS
+}));
+
+// Request Logging - Morgan
+app.use(morgan(':remote-addr - :method :url :status :res[content-length] - :response-time ms'));
+
+// Rate Limiting - General API
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: {
+    success: false,
+    error: 'Too many requests from this IP, please try again later.'
+  },
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Rate Limiting - Search endpoint (stricter)
+const searchLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 50, // Limit each IP to 50 search requests per windowMs
+  message: {
+    success: false,
+    error: 'Too many search requests, please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+// Apply general rate limiter to all /api routes
+app.use('/api', generalLimiter);
+
+// Middleware - CORS
 app.use(cors({
   origin: [
     'http://localhost:5173',
@@ -19,7 +72,10 @@ app.use(cors({
   ],
   credentials: true
 }));
-app.use(express.json());
+
+// Middleware - JSON parsing with size limit
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Base network RPC endpoint
 const BASE_RPC_URL = 'https://mainnet.base.org';
@@ -116,7 +172,7 @@ async function fetchDappsFromDappRadar() {
     // Add it to your .env file as: DAPPRADAR_API_KEY=your_key_here
     const apiKey = process.env.DAPPRADAR_API_KEY || '';
     const headers = apiKey ? { 'X-BLOBR-KEY': apiKey } : {};
-    
+
     // Try multiple DappRadar API endpoints
     const endpoints = [
       {
@@ -132,7 +188,7 @@ async function fetchDappsFromDappRadar() {
         params: { blockchain: 'base', page: 1, resultsPerPage: 100 }
       }
     ];
-    
+
     for (const endpoint of endpoints) {
       try {
         const response = await axios.get(endpoint.url, {
@@ -140,7 +196,7 @@ async function fetchDappsFromDappRadar() {
           params: endpoint.params,
           timeout: 10000  // Increased timeout to 10 seconds
         });
-        
+
         // Handle different response structures
         let dapps = [];
         if (response.data?.results) {
@@ -150,17 +206,17 @@ async function fetchDappsFromDappRadar() {
         } else if (response.data?.data) {
           dapps = Array.isArray(response.data.data) ? response.data.data : [];
         }
-        
+
         // Filter for Base network if not already filtered
         const baseDapps = dapps.filter(dapp => {
           if (!dapp) return false;
           const chains = dapp.chains || dapp.blockchains || dapp.chain || [];
           const chainArray = Array.isArray(chains) ? chains : [chains];
-          return chainArray.some(chain => 
+          return chainArray.some(chain =>
             chain && chain.toString().toLowerCase().includes('base')
           );
         });
-        
+
         if (baseDapps.length > 0) {
           const dappRadarDapps = baseDapps.map(dapp => ({
             name: dapp.name || dapp.title || 'Unknown',
@@ -168,12 +224,12 @@ async function fetchDappsFromDappRadar() {
             category: dapp.category || dapp.categories?.[0] || dapp.type || "DeFi",
             url: dapp.website || dapp.url || dapp.link || `https://${(dapp.name || dapp.title || '').toLowerCase().replace(/\s+/g, '')}.com`,
             logo: dapp.logo || dapp.image || dapp.icon || "",
-            tvl: dapp.volume24h ? `$${(dapp.volume24h / 1e6).toFixed(2)}M` : 
-                 dapp.users24h ? `${(dapp.users24h / 1000).toFixed(1)}K users` : 
-                 dapp.volume7d ? `$${(dapp.volume7d / 1e6).toFixed(2)}M (7d)` : "N/A",
+            tvl: dapp.volume24h ? `$${(dapp.volume24h / 1e6).toFixed(2)}M` :
+              dapp.users24h ? `${(dapp.users24h / 1000).toFixed(1)}K users` :
+                dapp.volume7d ? `$${(dapp.volume7d / 1e6).toFixed(2)}M (7d)` : "N/A",
             chain: "Base"
           }));
-          
+
           return dappRadarDapps;
         }
       } catch (endpointError) {
@@ -189,7 +245,7 @@ async function fetchDappsFromDappRadar() {
       console.log('Error fetching from DappRadar:', error.message);
     }
   }
-  
+
   return [];
 }
 
@@ -227,12 +283,12 @@ async function fetchDappsFromDefiLlama(useCache = true) {
     const response = await axios.get('https://api.llama.fi/protocols', {
       timeout: 10000  // Increased timeout to 10 seconds
     });
-    
+
     if (response.data) {
       const baseProtocols = response.data
-        .filter(protocol => 
-          protocol.chains && 
-          protocol.chains.some(chain => 
+        .filter(protocol =>
+          protocol.chains &&
+          protocol.chains.some(chain =>
             chain.toLowerCase().includes('base')
           )
         )
@@ -245,17 +301,17 @@ async function fetchDappsFromDefiLlama(useCache = true) {
           tvl: protocol.tvl ? `$${(protocol.tvl / 1e9).toFixed(2)}B` : "N/A",
           chain: "Base"
         }));
-      
+
       // Save to cache if we got data
       if (useCache && baseProtocols.length > 0) {
         await saveDappsToCache(baseProtocols);
       }
-      
+
       return baseProtocols;
     }
   } catch (error) {
     console.log('Error fetching from DefiLlama:', error.message);
-    
+
     // If API fails and we want to use cache, try loading from cache
     if (useCache) {
       console.log('Attempting to load from cache...');
@@ -265,7 +321,7 @@ async function fetchDappsFromDefiLlama(useCache = true) {
       }
     }
   }
-  
+
   return [];
 }
 
@@ -283,7 +339,7 @@ async function fetchDappsFromCoinGecko() {
       },
       timeout: 10000
     });
-    
+
     if (response.data && Array.isArray(response.data)) {
       const coinGeckoDapps = response.data
         .filter(coin => coin.platforms && Object.keys(coin.platforms).some(p => p.toLowerCase().includes('base')))
@@ -296,13 +352,13 @@ async function fetchDappsFromCoinGecko() {
           tvl: coin.market_cap ? `$${(coin.market_cap / 1e9).toFixed(2)}B` : "N/A",
           chain: "Base"
         }));
-      
+
       return coinGeckoDapps;
     }
   } catch (error) {
     console.log('Error fetching from CoinGecko:', error.message);
   }
-  
+
   return [];
 }
 
@@ -310,13 +366,13 @@ async function fetchDappsFromCoinGecko() {
 // Note: DappRadar shut down in November 2025, so we're using DefiLlama and other sources
 async function fetchDappsFromAPIs() {
   const allDapps = [];
-  
+
   // Fetch from multiple APIs in parallel for faster response
   const [defiLlamaResult, coinGeckoResult] = await Promise.allSettled([
     fetchDappsFromDefiLlama(),
     fetchDappsFromCoinGecko()
   ]);
-  
+
   // Add DefiLlama results if successful
   if (defiLlamaResult.status === 'fulfilled' && defiLlamaResult.value.length > 0) {
     allDapps.push(...defiLlamaResult.value);
@@ -324,13 +380,13 @@ async function fetchDappsFromAPIs() {
   } else {
     console.log('⚠️ DefiLlama API unavailable or returned no results');
   }
-  
+
   // Add CoinGecko results if successful
   if (coinGeckoResult.status === 'fulfilled' && coinGeckoResult.value.length > 0) {
     allDapps.push(...coinGeckoResult.value);
     console.log(`✅ Fetched ${coinGeckoResult.value.length} dapps from CoinGecko`);
   }
-  
+
   return allDapps;
 }
 
@@ -338,10 +394,10 @@ async function fetchDappsFromAPIs() {
 app.get('/api/dapps', async (req, res) => {
   try {
     const { category, search } = req.query;
-    
+
     // PRIORITY 1: Load from cache file first (contains 1,241 dapps)
     let allDapps = await loadDappsFromCache();
-    
+
     // PRIORITY 2: If cache is empty, try fetching from external APIs
     if (allDapps.length === 0) {
       console.log('📡 Cache is empty, fetching from external APIs...');
@@ -351,23 +407,23 @@ app.get('/api/dapps', async (req, res) => {
       } catch (error) {
         console.log('Using fallback dapps data');
       }
-      
+
       // PRIORITY 3: Combine with fallback data if needed
       allDapps = [...externalDapps, ...DAPPS_DATA_SOURCES.baseDapps];
     }
-    
+
     // Remove duplicates based on name (in case there are any)
     let uniqueDapps = Array.from(
       new Map(allDapps.map(dapp => [dapp.name.toLowerCase(), dapp])).values()
     );
-    
+
     // Filter by category if provided
     if (category && category !== 'all') {
-      uniqueDapps = uniqueDapps.filter(dapp => 
+      uniqueDapps = uniqueDapps.filter(dapp =>
         dapp.category.toLowerCase() === category.toLowerCase()
       );
     }
-    
+
     // Filter by search term if provided
     if (search) {
       const searchLower = search.toLowerCase();
@@ -377,10 +433,10 @@ app.get('/api/dapps', async (req, res) => {
         dapp.category.toLowerCase().includes(searchLower)
       );
     }
-    
+
     // Sort alphabetically by name (A-Z)
     uniqueDapps.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-    
+
     res.json({
       success: true,
       count: uniqueDapps.length,
@@ -400,28 +456,28 @@ app.get('/api/dapps/categories', async (req, res) => {
   try {
     // Load all dapps from cache
     const allDapps = await loadDappsFromCache();
-    
+
     // Extract unique minor categories
     const minorCategories = [...new Set(allDapps.map(dapp => dapp.category))];
-    
+
     // Category hierarchy mapping
     const categoryHierarchy = {
-      "DeFi": ["Dexs", "Lending & CDP", "Derivatives & Options", "Yield & Yield Strategies", 
-               "RWA", "Stablecoins", "Prediction Market", "Portfolio", 
-               "Liquid Staking", "Insurance"],
+      "DeFi": ["Dexs", "Lending & CDP", "Derivatives & Options", "Yield & Yield Strategies",
+        "RWA", "Stablecoins", "Prediction Market", "Portfolio",
+        "Liquid Staking", "Insurance"],
       "Infrastructure": ["Bridges", "Developer Tools", "Data & Analytics",
-                         "Capital Allocators", "Liquidity Manager", "Launchpad",
-                         "Security", "Identity", "Services", "Oracles"],
+        "Capital Allocators", "Liquidity Manager", "Launchpad",
+        "Security", "Identity", "Services", "Oracles"],
       "Consumer": ["Gaming", "NFTs", "Social & Entertainment", "Wallets", "Payments",
-                   "Onramps", "Creator", "DAO", "Real World", "SoFi", "Privacy"],
+        "Onramps", "Creator", "DAO", "Real World", "SoFi", "Privacy"],
       "AI": ["AI", "AI Agents"],
       "Trading": ["CEX", "Basis Trading", "Algo-Stables", "Risk Curators"]
     };
-    
+
     // Organize categories into hierarchy
     const organized = {};
     const uncategorized = [];
-    
+
     minorCategories.forEach(minor => {
       let found = false;
       for (const [major, subs] of Object.entries(categoryHierarchy)) {
@@ -438,12 +494,12 @@ app.get('/api/dapps/categories', async (req, res) => {
         uncategorized.push(minor);
       }
     });
-    
+
     // Add uncategorized to "Other" if any exist
     if (uncategorized.length > 0) {
       organized["Other"] = uncategorized;
     }
-    
+
     res.json({
       success: true,
       categories: organized
@@ -467,9 +523,39 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Error handling middleware (must be last)
+app.use((err, req, res, next) => {
+  // Log the error details (not exposed to client)
+  console.error('Error:', {
+    message: err.message,
+    stack: err.stack,
+    timestamp: new Date().toISOString(),
+    ip: req.ip,
+    path: req.path,
+    method: req.method
+  });
+
+  // Send generic error to client (don't expose internal details)
+  res.status(err.status || 500).json({
+    success: false,
+    error: process.env.NODE_ENV === 'production'
+      ? 'An error occurred processing your request'
+      : err.message
+  });
+});
+
+// 404 handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'Endpoint not found'
+  });
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 Backend server running on http://localhost:${PORT}`);
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
   console.log(`📂 Loading dapps from cache file: ${CACHE_FILE_PATH}`);
+  console.log(`🔒 Security: Helmet, rate limiting, and input validation enabled`);
 });
