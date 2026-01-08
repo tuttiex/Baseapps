@@ -45,7 +45,7 @@ function AddDapps() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitStatus, setSubmitStatus] = useState(null) // 'success', 'error', null
     const [ethPrice, setEthPrice] = useState(null)
-    const [dynamicFee, setDynamicFee] = useState('0.0003') // Fallback default
+    const [dynamicFee, setDynamicFee] = useState('0.000003') // Fallback default (~$0.01 for testing)
 
     const { address, isConnected } = useAccount()
     const chainId = useChainId()
@@ -63,6 +63,7 @@ function AddDapps() {
                 setEthPrice(price)
                 // Calculate fee for $0.01 USD (TEMPORARY FOR TESTING)
                 const fee = (0.01 / price).toFixed(6)
+                console.log("Calculated Fee ($0.01):", fee)
                 setDynamicFee(fee)
             } catch (err) {
                 console.error('Error fetching ETH price:', err)
