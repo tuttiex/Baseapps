@@ -30,21 +30,21 @@ body.dark-mode {
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.4);
   background-color: #0f0f1e !important;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 80% 60%, rgba(118, 75, 162, 0.06) 0%, transparent 50%),
     radial-gradient(circle at 50% 80%, rgba(102, 126, 234, 0.05) 0%, transparent 50%),
     radial-gradient(circle, rgba(102, 126, 234, 0.15) 1px, transparent 1px),
     radial-gradient(circle, rgba(102, 126, 234, 0.2) 2px, transparent 2px),
     radial-gradient(circle, rgba(118, 75, 162, 0.1) 1px, transparent 1px) !important;
-  background-size: 
+  background-size:
     600px 600px,
     800px 800px,
     700px 700px,
     50px 50px,
     80px 80px,
     40px 40px !important;
-  background-position: 
+  background-position:
     0 0,
     400px 200px,
     200px 400px,
@@ -61,21 +61,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ffffff !important;
-  background-image: 
+  background-image:
     radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 60%, rgba(118, 75, 162, 0.12) 0%, transparent 50%),
     radial-gradient(circle at 50% 80%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
     radial-gradient(circle, rgba(102, 126, 234, 0.08) 1px, transparent 1px),
     radial-gradient(circle, rgba(102, 126, 234, 0.12) 2px, transparent 2px),
     radial-gradient(circle, rgba(118, 75, 162, 0.06) 1px, transparent 1px) !important;
-  background-size: 
+  background-size:
     600px 600px,
     800px 800px,
     700px 700px,
     50px 50px,
     80px 80px,
     40px 40px !important;
-  background-position: 
+  background-position:
     0 0,
     400px 200px,
     200px 400px,
@@ -129,17 +129,32 @@ body {
 
 /* Header */
 .header {
-  background: transparent;
-  padding: 2rem 0;
-  border-bottom: none;
-  transition: all 0.3s ease;
+  padding: 1.5rem 0;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-color);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo-container {
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 1rem;
+}
+
+.wallet-connect-wrapper {
+  margin-left: auto;
+  padding-right: 4rem;
+  /* Make space for dark mode toggle */
 }
 
 .logo {
@@ -151,9 +166,12 @@ body {
 }
 
 @keyframes logoBounce {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -199,8 +217,15 @@ body.dark-mode .title {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .subtitle {
@@ -672,6 +697,7 @@ body.dark-mode .category-btn.active {
     opacity: 0;
     transform: translateX(-50%) translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
@@ -1096,6 +1122,7 @@ body.dark-mode .footer {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -1106,6 +1133,7 @@ body.dark-mode .footer {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1117,6 +1145,7 @@ body.dark-mode .footer {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1302,6 +1331,7 @@ body.dark-mode .search-suggestions {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1414,12 +1444,12 @@ body.dark-mode .suggestion-item.active {
     flex-direction: column;
     gap: 0.75rem;
   }
-  
+
   .home-search-input,
   .home-search-btn {
     width: 100%;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: 1rem;
@@ -1430,5 +1460,246 @@ body.dark-mode .suggestion-item.active {
   .footer-x-icon svg {
     width: 20px;
     height: 20px;
+  }
+}
+
+/* ============================================ */
+/* ADD DAPP PAGE STYLES */
+/* ============================================ */
+
+/* Floating Button */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 25px rgba(0, 82, 255, 0.7);
+  }
+
+  100% {
+    box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
+  }
+}
+
+.floating-add-btn {
+  position: fixed;
+  bottom: 1rem;
+  right: 2rem;
+  background: var(--primary-gradient);
+  color: white;
+  padding: 0.75rem 1.2rem;
+  /* Reduced by ~25% from 1rem 1.5rem */
+  border-radius: 50px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 82, 255, 0.4);
+  z-index: 1000;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: pulse-glow 2s infinite;
+}
+
+.floating-add-btn:hover {
+  transform: translateY(-2px);
+  animation: none;
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.6);
+  color: white;
+  text-decoration: none;
+}
+
+.add-text {
+  font-size: 0.9rem;
+  /* Reduced from 1rem */
+}
+
+/* Add Dapp Form Container */
+.add-dapp-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  animation: fadeInUp 0.6s ease;
+}
+
+.form-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+
+.form-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.form-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.required {
+  color: #ff4444;
+  margin-left: 4px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  outline: none;
+  /* Premium Select Styling */
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+/* Custom Dropdown Arrow */
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23667eea' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.2rem;
+  padding-right: 2.5rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  background-color: var(--bg-card);
+}
+
+.form-group input.error,
+.form-group textarea.error,
+.form-group select.error {
+  border-color: #ff4444;
+}
+
+.field-info {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.error-text {
+  color: #ff4444;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* File Upload */
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.file-upload-btn {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px dashed #667eea;
+}
+
+.file-upload-btn:hover {
+  background: rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.file-name {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.logo-preview-container {
+  margin-top: 1rem;
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+}
+
+.logo-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 0.8rem 1.2rem;
+  /* Matching RainbowKit padding/height feel */
+  background: #7b3fe4;
+  /* The exact accent color */
+  color: white;
+  border: none;
+  border-radius: 12px;
+  /* 'medium' usually ~10-12px */
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(123, 63, 228, 0.3);
+  /* Purple shadow */
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  background: #6a35c5;
+  /* Slightly darker on hover */
+  box-shadow: 0 6px 16px rgba(123, 63, 228, 0.5);
+}
+
+@media (max-width: 768px) {
+  .floating-add-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.8rem 1.2rem;
+  }
+
+  .form-card {
+    padding: 2rem 1.5rem;
   }
 }

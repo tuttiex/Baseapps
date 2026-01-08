@@ -8,10 +8,14 @@ const rateLimit = require('express-rate-limit');
 const { query, validationResult } = require('express-validator');
 const hpp = require('hpp');
 const morgan = require('morgan');
+const multer = require('multer'); // For file uploads
 require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// Trust Proxy for Railway load balancer
+app.set('trust proxy', 1);
 
 // Security Headers - Helmet
 app.use(helmet({
@@ -79,7 +83,56 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Prevent HTTP Parameter Pollution
+// Prevent HTTP Parameter Pollution
 app.use(hpp());
+
+// Serve static files (uploaded logos)
+app.use(express.static(path.join(__dirname, 'public')));
+// Explicitly serve uploads directory on /logos path for Volume support
+app.use('/logos', express.static(process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'logos')));
+
+// --- Storage Configuration (Railway Volume Support) ---
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
+const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'logos');
+
+// Ensure directories exist on startup
+(async () => {
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    await fs.mkdir(UPLOADS_DIR, { recursive: true });
+    console.log(`📂 Data Dir: ${DATA_DIR}`);
+    console.log(`📂 Uploads Dir: ${UPLOADS_DIR}`);
+  } catch (err) {
+    console.error('Error creating directories:', err);
+  }
+})();
+
+// Configure Multer for Logo Uploads
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, UPLOADS_DIR);
+  },
+  filename: function (req, file, cb) {
+    // Sanitize: timestamp-random-originalName
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname).toLowerCase();
+    // Simple sanitization of filename
+    const safeName = file.originalname.replace(/[^a-zA-Z0-9.]/g, '_');
+    cb(null, 'logo-' + uniqueSuffix + ext);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed!'), false);
+    }
+  }
+});
 
 // Base network RPC endpoint
 const BASE_RPC_URL = 'https://mainnet.base.org';
@@ -453,6 +506,62 @@ app.get('/api/dapps', async (req, res) => {
   }
 });
 
+// POST /api/submit-dapp - Submit a new dapp (with logo & txHash)
+app.post('/api/submit-dapp', upload.single('logo'), async (req, res) => {
+  try {
+    const { name, description, category, subcategory, customCategory, websiteUrl, txHash } = req.body;
+
+    // Basic Validation
+    if (!name || !description || !category || !websiteUrl) {
+      return res.status(400).json({ success: false, error: 'Missing required fields' });
+    }
+
+    const newDapp = {
+      id: Date.now().toString(),
+      name,
+      description,
+      category,
+      subcategory: subcategory || null,
+      customCategory: customCategory || null,
+      websiteUrl,
+      // Store web-accessible path: /logos/filename.ext
+      logo: req.file ? `/logos/${req.file.filename}` : null,
+      txHash: txHash || null, // Payment usage
+      status: 'pending', // Needs manual review
+      submittedAt: new Date().toISOString(),
+      clientIp: req.ip || req.connection.remoteAddress
+    };
+
+    const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
+
+    // Read existing submissions safely
+    let submissions = [];
+    try {
+      const data = await fs.readFile(SUBMISSIONS_FILE, 'utf8');
+      submissions = JSON.parse(data);
+    } catch (err) {
+      // File likely doesn't exist yet, which is fine
+    }
+
+    submissions.push(newDapp);
+
+    // Save back to file
+    await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf8');
+
+    console.log(`📝 New Dapp Submitted: ${newDapp.name} (ID: ${newDapp.id})`);
+
+    res.json({
+      success: true,
+      message: 'Dapp submitted successfully! Use the admin dashboard to review.',
+      dapp: newDapp
+    });
+
+  } catch (error) {
+    console.error('Error processing submission:', error);
+    res.status(500).json({ success: false, error: 'Internal server error during submission.' });
+  }
+});
+
 // GET /api/dapps/categories - Get all categories (organized hierarchically)
 app.get('/api/dapps/categories', async (req, res) => {
   try {
@@ -513,6 +622,125 @@ app.get('/api/dapps/categories', async (req, res) => {
       success: true,
       categories: { "All": categories.sort() }
     });
+  }
+});
+
+// GET /api/admin/submissions - Secret endpoint to view pending submissions
+app.get('/api/admin/submissions', async (req, res) => {
+  try {
+    const { secret } = req.query;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized: Invalid secret' });
+    }
+
+    const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
+
+    try {
+      const data = await fs.readFile(SUBMISSIONS_FILE, 'utf8');
+      const submissions = JSON.parse(data);
+      res.json({
+        success: true,
+        count: submissions.length,
+        submissions: submissions
+      });
+    } catch (err) {
+      // If file doesn't exist, return empty list
+      res.json({
+        success: true,
+        count: 0,
+        submissions: []
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching submissions:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch submissions' });
+  }
+});
+
+// POST /api/admin/submissions/approve - Approve a submission (Move to cache)
+app.post('/api/admin/submissions/approve', async (req, res) => {
+  try {
+    const { secret, id } = req.body;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
+
+    // 1. Read submissions
+    const subData = await fs.readFile(SUBMISSIONS_FILE, 'utf8');
+    let submissions = JSON.parse(subData);
+
+    const index = submissions.findIndex(s => s.id === id);
+    if (index === -1) {
+      return res.status(404).json({ success: false, error: 'Submission not found' });
+    }
+
+    const approvedDapp = submissions[index];
+
+    // 2. Load current cache
+    let currentDapps = await loadDappsFromCache();
+
+    // 3. Add to cache (map fields if necessary)
+    const formattedDapp = {
+      name: approvedDapp.name,
+      description: approvedDapp.description,
+      category: approvedDapp.subcategory || approvedDapp.category, // Use sub if exists
+      url: approvedDapp.websiteUrl,
+      logo: approvedDapp.logo,
+      tvl: "New",
+      chain: "Base"
+    };
+
+    currentDapps.push(formattedDapp);
+
+    // 4. Save Cache
+    await saveDappsToCache(currentDapps);
+
+    // 5. Remove from submissions
+    submissions.splice(index, 1);
+    await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf8');
+
+    res.json({ success: true, message: 'Dapp approved and moved to live cache!' });
+
+  } catch (error) {
+    console.error('Error approving dapp:', error);
+    res.status(500).json({ success: false, error: 'Failed to approve dapp' });
+  }
+});
+
+// DELETE /api/admin/submissions/:id - Reject/Delete a submission
+app.delete('/api/admin/submissions/:id', async (req, res) => {
+  try {
+    const { secret } = req.query;
+    const { id } = req.params;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
+    const subData = await fs.readFile(SUBMISSIONS_FILE, 'utf8');
+    let submissions = JSON.parse(subData);
+
+    const index = submissions.findIndex(s => s.id === id);
+    if (index === -1) {
+      return res.status(404).json({ success: false, error: 'Submission not found' });
+    }
+
+    submissions.splice(index, 1);
+    await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf8');
+
+    res.json({ success: true, message: 'Submission deleted' });
+
+  } catch (error) {
+    console.error('Error deleting submission:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete submission' });
   }
 });
 

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { ConnectWallet } from './components/ConnectWallet'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -217,11 +218,12 @@ function Home() {
 
       {/* Header */}
       <header className="header">
-        <div className="container">
+        <div className="container header-content">
           <div className="logo-container">
             <img src="/Baseappslogo3.png" alt="BaseApps" className="logo" />
             <h1 className="logo-text">BaseApps</h1>
           </div>
+          <ConnectWallet />
         </div>
       </header>
 
@@ -359,6 +361,11 @@ function Home() {
           </a>
         </div>
       </footer>
+
+      {/* Floating Add Dapp Button */}
+      <Link to="/add-dapps" className="floating-add-btn" aria-label="Add a Dapp">
+        <span className="add-text">Add Dapps</span>
+      </Link>
     </div>
   )
 }

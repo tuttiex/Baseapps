@@ -17,6 +17,7 @@ function AllDapps() {
   const [error, setError] = useState(null)
   const [expandedCategory, setExpandedCategory] = useState(null)
   const [darkMode, setDarkMode] = useState(true)
+  const [showFloatingBtn, setShowFloatingBtn] = useState(false)
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1)
@@ -32,6 +33,16 @@ function AllDapps() {
     if (shouldBeDark) {
       document.body.classList.add('dark-mode')
     }
+
+    // Scroll Listener for Floating Button
+    const handleScroll = () => {
+      // Check if we are near the bottom of the page (within 100px)
+      const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100
+      setShowFloatingBtn(isBottom)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Sync URL search param with state (handles back/forward navigation and new searches)
@@ -365,6 +376,13 @@ function AllDapps() {
           </a>
         </div>
       </footer>
+
+      {/* Floating Add Dapp Button - Conditional Visibility */}
+      {showFloatingBtn && (
+        <Link to="/add-dapps" className="floating-add-btn" aria-label="Add a Dapp">
+          <span className="add-text">Add Dapps</span>
+        </Link>
+      )}
     </div>
   )
 }
