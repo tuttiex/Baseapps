@@ -424,13 +424,11 @@ app.get('/api/dapps', async (req, res) => {
       );
     }
 
-    // Filter by search term if provided
+    // Filter by search term if provided (search only in name)
     if (search) {
       const searchLower = search.toLowerCase();
       uniqueDapps = uniqueDapps.filter(dapp =>
-        dapp.name.toLowerCase().includes(searchLower) ||
-        dapp.description.toLowerCase().includes(searchLower) ||
-        dapp.category.toLowerCase().includes(searchLower)
+        dapp.name.toLowerCase().includes(searchLower)
       );
     }
 

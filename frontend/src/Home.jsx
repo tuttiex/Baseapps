@@ -92,16 +92,59 @@ function Home() {
   const [loading, setLoading] = useState(true)
   const [darkMode, setDarkMode] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
+  const [suggestions, setSuggestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(-1)
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchDappsCount()
-    
+
     // Load dark mode preference
     const savedDarkMode = localStorage.getItem('darkMode')
     const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true'
     setDarkMode(shouldBeDark)
     document.body.classList.toggle('dark-mode', shouldBeDark)
+  }, [])
+
+  // Debounced search for suggestions
+  useEffect(() => {
+    if (searchTerm.trim().length < 2) {
+      setSuggestions([])
+      setShowSuggestions(false)
+      return
+    }
+
+    setLoadingSuggestions(true)
+    const timer = setTimeout(async () => {
+      try {
+        const response = await axios.get(`${API_URL}/dapps?search=${encodeURIComponent(searchTerm.trim())}`)
+        if (response.data.success) {
+          // Limit to top 8 suggestions
+          setSuggestions(response.data.dapps.slice(0, 8))
+          setShowSuggestions(true)
+        }
+      } catch (err) {
+        console.error('Error fetching suggestions:', err)
+        setSuggestions([])
+      } finally {
+        setLoadingSuggestions(false)
+      }
+    }, 300) // 300ms debounce
+
+    return () => clearTimeout(timer)
+  }, [searchTerm])
+
+  // Click outside to close suggestions
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.home-search-box')) {
+        setShowSuggestions(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
   }, [])
 
   const fetchDappsCount = async () => {
@@ -129,6 +172,31 @@ function Home() {
     e.preventDefault()
     if (searchTerm.trim()) {
       navigate(`/all-dapps?search=${encodeURIComponent(searchTerm.trim())}`)
+      setShowSuggestions(false)
+    }
+  }
+
+  const handleSuggestionClick = (dappName) => {
+    setSearchTerm(dappName)
+    navigate(`/all-dapps?search=${encodeURIComponent(dappName)}`)
+    setShowSuggestions(false)
+  }
+
+  const handleKeyDown = (e) => {
+    if (!showSuggestions || suggestions.length === 0) return
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setSelectedIndex(prev => (prev < suggestions.length - 1 ? prev + 1 : prev))
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setSelectedIndex(prev => (prev > 0 ? prev - 1 : -1))
+    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+      e.preventDefault()
+      handleSuggestionClick(suggestions[selectedIndex].name)
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false)
+      setSelectedIndex(-1)
     }
   }
 
@@ -193,11 +261,44 @@ function Home() {
                 placeholder="Search for dapps..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                onKeyDown={handleKeyDown}
                 className="home-search-input"
+                autoComplete="off"
               />
               <button type="submit" className="home-search-btn">
                 🔍 Search
               </button>
+
+              {/* Suggestions Dropdown */}
+              {showSuggestions && (
+                <div className="search-suggestions">
+                  {loadingSuggestions ? (
+                    <div className="suggestion-loading">Searching...</div>
+                  ) : suggestions.length > 0 ? (
+                    suggestions.map((dapp, index) => (
+                      <div
+                        key={dapp.name}
+                        className={`suggestion-item ${index === selectedIndex ? 'active' : ''}`}
+                        onClick={() => handleSuggestionClick(dapp.name)}
+                        onMouseEnter={() => setSelectedIndex(index)}
+                      >
+                        <img
+                          src={dapp.logo || '/placeholder-logo.png'}
+                          alt={dapp.name}
+                          className="suggestion-logo"
+                          onError={(e) => { e.target.style.display = 'none' }}
+                        />
+                        <div className="suggestion-info">
+                          <div className="suggestion-name">{dapp.name}</div>
+                          <div className="suggestion-category">{dapp.category}</div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="suggestion-empty">No dapps found</div>
+                  )}
+                </div>
+              )}
             </div>
           </form>
         </div>
@@ -245,15 +346,15 @@ function Home() {
       <footer className="footer">
         <div className="container footer-content">
           <p>Built for Base Network • Powered by Base</p>
-          <a 
-            href="https://x.com/base_dapps" 
-            target="_blank" 
+          <a
+            href="https://x.com/base_dapps"
+            target="_blank"
             rel="noopener noreferrer"
             className="footer-x-icon"
             aria-label="Follow us on X (Twitter)"
           >
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
           </a>
         </div>
@@ -265,16 +366,16 @@ function Home() {
 // Featured Dapp Card Component
 function FeaturedDappCard({ dapp, index }) {
   return (
-    <a 
-      href={dapp.url} 
-      target="_blank" 
-      rel="noopener noreferrer" 
+    <a
+      href={dapp.url}
+      target="_blank"
+      rel="noopener noreferrer"
       className="featured-card"
       style={{ animationDelay: `${index * 0.1}s` }}
     >
       <div className="featured-card-image">
-        <img 
-          src={dapp.logo || '/placeholder-logo.png'} 
+        <img
+          src={dapp.logo || '/placeholder-logo.png'}
           alt={dapp.name}
           onError={(e) => {
             e.target.src = '/placeholder-logo.png'

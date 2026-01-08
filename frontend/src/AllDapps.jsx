@@ -16,7 +16,7 @@ function AllDapps() {
   const [error, setError] = useState(null)
   const [expandedCategory, setExpandedCategory] = useState(null)
   const [darkMode, setDarkMode] = useState(true)
-  
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(30)
@@ -27,10 +27,10 @@ function AllDapps() {
     if (urlSearch) {
       setSearchTerm(urlSearch)
     }
-    
+
     fetchDapps()
     fetchCategories()
-    
+
     // Check for saved dark mode preference, default to dark mode if none saved
     const savedDarkMode = localStorage.getItem('darkMode')
     const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true'
@@ -48,7 +48,7 @@ function AllDapps() {
     try {
       setLoading(true)
       const params = new URLSearchParams()
-      
+
       // Use minor category if selected, otherwise use major category
       if (selectedMinorCategory !== 'all') {
         params.append('category', selectedMinorCategory)
@@ -56,22 +56,22 @@ function AllDapps() {
         // Filter by any subcategory in the major category
         // We'll handle this in the response
       }
-      
+
       if (searchTerm) {
         params.append('search', searchTerm)
       }
-      
+
       const response = await axios.get(`${API_URL}/dapps?${params.toString()}`)
       let filteredDapps = response.data.dapps || []
-      
+
       // If major category is selected but no minor category, filter by all subcategories
       if (selectedMajorCategory !== 'all' && selectedMinorCategory === 'all') {
         const subcategories = categories[selectedMajorCategory] || []
-        filteredDapps = filteredDapps.filter(dapp => 
+        filteredDapps = filteredDapps.filter(dapp =>
           subcategories.includes(dapp.category)
         )
       }
-      
+
       setDapps(filteredDapps)
       setError(null)
     } catch (err) {
@@ -122,7 +122,7 @@ function AllDapps() {
     const newDarkMode = !darkMode
     setDarkMode(newDarkMode)
     localStorage.setItem('darkMode', newDarkMode)
-    
+
     if (newDarkMode) {
       document.body.classList.add('dark-mode')
     } else {
@@ -218,9 +218,8 @@ function AllDapps() {
               {majorCategories.map((majorCategory) => (
                 <div key={majorCategory} className="category-group">
                   <button
-                    className={`category-btn major ${
-                      selectedMajorCategory === majorCategory ? 'active' : ''
-                    }`}
+                    className={`category-btn major ${selectedMajorCategory === majorCategory ? 'active' : ''
+                      }`}
                     onClick={() => handleMajorCategoryClick(majorCategory)}
                   >
                     {majorCategory}
@@ -237,9 +236,8 @@ function AllDapps() {
                       {categories[majorCategory]?.map((minorCategory) => (
                         <button
                           key={minorCategory}
-                          className={`category-btn minor ${
-                            selectedMinorCategory === minorCategory ? 'active' : ''
-                          }`}
+                          className={`category-btn minor ${selectedMinorCategory === minorCategory ? 'active' : ''
+                            }`}
                           onClick={() => handleMinorCategoryClick(minorCategory)}
                         >
                           {minorCategory}
@@ -256,8 +254,8 @@ function AllDapps() {
               <div className="active-filters">
                 <span className="filter-label">Active filter:</span>
                 <span className="filter-value">
-                  {selectedMinorCategory !== 'all' 
-                    ? selectedMinorCategory 
+                  {selectedMinorCategory !== 'all'
+                    ? selectedMinorCategory
                     : selectedMajorCategory}
                 </span>
                 <button className="clear-filter" onClick={handleResetFilters}>
@@ -283,23 +281,23 @@ function AllDapps() {
                 <div className="stats">
                   <p>Showing <strong>{indexOfFirstDapp + 1}-{Math.min(indexOfLastDapp, dapps.length)}</strong> of <strong>{dapps.length}</strong> dapp{dapps.length !== 1 ? 's' : ''}</p>
                 </div>
-                
+
                 {/* Items per page toggle */}
                 <div className="items-per-page">
                   <span className="items-label">Show:</span>
-                  <button 
+                  <button
                     className={`items-btn ${itemsPerPage === 30 ? 'active' : ''}`}
                     onClick={() => handleItemsPerPageChange(30)}
                   >
                     30
                   </button>
-                  <button 
+                  <button
                     className={`items-btn ${itemsPerPage === 50 ? 'active' : ''}`}
                     onClick={() => handleItemsPerPageChange(50)}
                   >
                     50
                   </button>
-                  <button 
+                  <button
                     className={`items-btn ${itemsPerPage === 100 ? 'active' : ''}`}
                     onClick={() => handleItemsPerPageChange(100)}
                   >
@@ -307,7 +305,7 @@ function AllDapps() {
                   </button>
                 </div>
               </div>
-              
+
               <div className="dapps-grid">
                 {dapps.length === 0 ? (
                   <div className="no-results">
@@ -323,19 +321,19 @@ function AllDapps() {
               {/* Pagination Controls */}
               {dapps.length > 0 && totalPages > 1 && (
                 <div className="pagination-controls">
-                  <button 
+                  <button
                     className="pagination-btn prev"
                     onClick={handlePrevPage}
                     disabled={currentPage === 1}
                   >
                     ← Previous
                   </button>
-                  
+
                   <div className="pagination-info">
                     <span>Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong></span>
                   </div>
-                  
-                  <button 
+
+                  <button
                     className="pagination-btn next"
                     onClick={handleNextPage}
                     disabled={currentPage === totalPages}
@@ -352,15 +350,15 @@ function AllDapps() {
       <footer className="footer">
         <div className="container footer-content">
           <p>Built for Base Network • Powered by Base</p>
-          <a 
-            href="https://x.com/base_dapps" 
-            target="_blank" 
+          <a
+            href="https://x.com/base_dapps"
+            target="_blank"
             rel="noopener noreferrer"
             className="footer-x-icon"
             aria-label="Follow us on X (Twitter)"
           >
             <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
           </a>
         </div>
