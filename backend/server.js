@@ -6,6 +6,7 @@ const path = require('path');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const { query, validationResult } = require('express-validator');
+const hpp = require('hpp');
 const morgan = require('morgan');
 require('dotenv').config();
 
@@ -68,7 +69,7 @@ app.use(cors({
     'http://localhost:3000',
     'https://baseapps-nine.vercel.app',
     'https://baseapps.org',
-    'https://www.baseapps.org'  // Add this line!
+    'https://www.baseapps.org'
   ],
   credentials: true
 }));
@@ -76,6 +77,9 @@ app.use(cors({
 // Middleware - JSON parsing with size limit
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Prevent HTTP Parameter Pollution
+app.use(hpp());
 
 // Base network RPC endpoint
 const BASE_RPC_URL = 'https://mainnet.base.org';
