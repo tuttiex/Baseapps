@@ -11,7 +11,8 @@ function AllDapps() {
   const [categories, setCategories] = useState({})
   const [selectedMajorCategory, setSelectedMajorCategory] = useState('all')
   const [selectedMinorCategory, setSelectedMinorCategory] = useState('all')
-  const [searchTerm, setSearchTerm] = useState('')
+  // Initialize search term directly from URL to avoid race conditions
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [expandedCategory, setExpandedCategory] = useState(null)
@@ -33,14 +34,11 @@ function AllDapps() {
     }
   }, [])
 
-  // Sync URL search param with state
+  // Sync URL search param with state (handles back/forward navigation and new searches)
   useEffect(() => {
-    const urlSearch = searchParams.get('search')
-    if (urlSearch && urlSearch !== searchTerm) {
+    const urlSearch = searchParams.get('search') || ''
+    if (urlSearch !== searchTerm) {
       setSearchTerm(urlSearch)
-    } else if (!urlSearch && searchTerm) {
-      // If URL has no search but state does, clear state (optional, behaves like a reset)
-      setSearchTerm('')
     }
   }, [searchParams])
 
