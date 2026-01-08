@@ -686,12 +686,16 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
     let currentDapps = await loadDappsFromCache();
 
     // 3. Add to cache (map fields if necessary)
+    const backendUrl = req.protocol + '://' + req.get('host');
     const formattedDapp = {
       name: approvedDapp.name,
       description: approvedDapp.description,
       category: approvedDapp.subcategory || approvedDapp.category, // Use sub if exists
       url: approvedDapp.websiteUrl,
-      logo: approvedDapp.logo,
+      // If logo is a relative path, prepend backend URL for frontend access
+      logo: (approvedDapp.logo && approvedDapp.logo.startsWith('/'))
+        ? `${backendUrl}${approvedDapp.logo}`
+        : approvedDapp.logo,
       tvl: "New",
       chain: "Base"
     };
