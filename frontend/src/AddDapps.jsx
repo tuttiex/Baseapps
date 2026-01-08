@@ -395,7 +395,7 @@ function AddDapps() {
                             disabled={isSubmitting}
                             style={{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'wait' : 'pointer' }}
                         >
-                            {isSubmitting ? 'Processing Payment...' : `submit (${dynamicFee} ETH)`}
+                            {isSubmitting ? 'Processing Payment...' : 'submit'}
                         </button>
 
                         {submitStatus === 'success' && (
