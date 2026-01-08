@@ -717,7 +717,35 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
   }
 });
 
-// DELETE /api/admin/submissions/:id - Reject/Delete a submission
+// DELETE /api/admin/dapps/:name - Remove a dapp from the live CACHE (Permanent delete)
+app.delete('/api/admin/dapps/:name', async (req, res) => {
+  try {
+    const { secret } = req.query;
+    const { name } = req.params;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    let dapps = await loadDappsFromCache();
+    const initialCount = dapps.length;
+
+    // Filter out the dapp by name
+    dapps = dapps.filter(d => d.name.toLowerCase() !== name.toLowerCase());
+
+    if (dapps.length === initialCount) {
+      return res.status(404).json({ success: false, error: 'Dapp not found in live cache' });
+    }
+
+    await saveDappsToCache(dapps);
+    res.json({ success: true, message: `Dapp "${name}" permanently removed from live site.` });
+  } catch (error) {
+    console.error('Error deleting dapp from cache:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete dapp' });
+  }
+});
+// DELETE /api/admin/submissions/:id - Reject/Delete a pending submission
 app.delete('/api/admin/submissions/:id', async (req, res) => {
   try {
     const { secret } = req.query;
@@ -741,7 +769,6 @@ app.delete('/api/admin/submissions/:id', async (req, res) => {
     await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf8');
 
     res.json({ success: true, message: 'Submission deleted' });
-
   } catch (error) {
     console.error('Error deleting submission:', error);
     res.status(500).json({ success: false, error: 'Failed to delete submission' });
