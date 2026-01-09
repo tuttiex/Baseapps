@@ -2,11 +2,13 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ConnectWallet } from './components/ConnectWallet'
 import axios from 'axios'
-import { useSendTransaction, useAccount, useChainId, useSwitchChain } from 'wagmi'
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useChainId, useSwitchChain } from 'wagmi'
 import { parseEther } from 'viem'
 import { base } from 'wagmi/chains'
+import registryAbi from './contracts/registry-abi.json'
 
 const ADMIN_WALLET = "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+const REGISTRY_CONTRACT_ADDRESS = "0x138cDd6C3007AE1E4F3818CAdeD3E1fF813b1961"
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
@@ -50,7 +52,7 @@ function AddDapps() {
     const { address, isConnected } = useAccount()
     const chainId = useChainId()
     const { switchChainAsync } = useSwitchChain()
-    const { sendTransactionAsync } = useSendTransaction()
+    const { writeContractAsync } = useWriteContract()
 
     // Fetch ETH price and categories
     useEffect(() => {
@@ -189,14 +191,22 @@ function AddDapps() {
         setSubmitStatus(null)
 
         try {
-            // 1. Payment Step
-            console.log(`Initiating payment for ${dynamicFee} ETH...`)
-            const hash = await sendTransactionAsync({
-                to: ADMIN_WALLET,
-                value: parseEther(dynamicFee), // Dynamic $1.00 USD
+            // 1. Payment Step via Smart Contract
+            console.log(`Initiating smart contract payment for ${dynamicFee} ETH...`)
+
+            if (REGISTRY_CONTRACT_ADDRESS === "0xYour_Mainnet_Contract_Address_Here") {
+                throw new Error("Contract address not configured. Please contact the administrator.")
+            }
+
+            const hash = await writeContractAsync({
+                address: REGISTRY_CONTRACT_ADDRESS,
+                abi: registryAbi,
+                functionName: 'payForListing',
+                args: [formData.name],
+                value: parseEther(dynamicFee),
             })
 
-            console.log("Payment sent! Hash:", hash)
+            console.log("Transaction sent! Hash:", hash)
 
             // 2. Prepare Data
             const data = new FormData()
