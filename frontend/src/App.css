@@ -1159,62 +1159,6 @@ body.dark-mode .footer {
   }
 }
 
-@media (max-width: 768px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-description {
-    font-size: 1rem;
-  }
-
-  .dapps-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .featured-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .category-filters {
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    flex-wrap: nowrap;
-  }
-
-  .category-group {
-    flex-shrink: 0;
-  }
-
-  .category-btn {
-    flex-shrink: 0;
-  }
-
-  .subcategory-dropdown {
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 90vw;
-    max-height: 70vh;
-  }
-
-  .active-filters {
-    flex-wrap: wrap;
-  }
-
-  .dark-mode-toggle {
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-  }
-}
 
 /* Smooth scrolling */
 html {
@@ -1439,29 +1383,7 @@ body.dark-mode .suggestion-item.active {
 /* ============================================ */
 /* RESPONSIVE - SEARCH & FOOTER */
 /* ============================================ */
-@media (max-width: 768px) {
-  .home-search-box {
-    flex-direction: column;
-    gap: 0.75rem;
-  }
 
-  .home-search-input,
-  .home-search-btn {
-    width: 100%;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-x-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-}
 
 /* ============================================ */
 /* ADD DAPP PAGE STYLES */
@@ -1692,23 +1614,85 @@ body.dark-mode .suggestion-item.active {
   box-shadow: 0 6px 16px rgba(123, 63, 228, 0.5);
 }
 
+/* ============================================ */
+/* CONSOLIDATED RESPONSIVE STYLES */
+/* ============================================ */
 @media (max-width: 768px) {
+
+  /* Header Scaling */
+  .header {
+    padding: 1rem 0;
+  }
+
   .logo {
-    height: 45px;
+    height: 40px;
   }
 
   .logo-text {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .logo-container {
     gap: 0.5rem;
+    min-width: 0;
   }
 
   .wallet-connect-wrapper {
-    padding-right: 3.5rem;
+    padding-right: 3rem;
+    min-width: 0;
   }
 
+  /* Content Layout */
+  .title,
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .dapps-grid,
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-search-box {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .category-filters {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-group,
+  .category-btn {
+    flex-shrink: 0;
+  }
+
+  .dark-mode-toggle {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .home-search-input,
+  .home-search-btn {
+    width: 100%;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Components */
   .floating-add-btn {
     bottom: 1.5rem;
     right: 1.5rem;
@@ -1717,5 +1701,54 @@ body.dark-mode .suggestion-item.active {
 
   .form-card {
     padding: 2rem 1.5rem;
+  }
+}
+
+/* Ultra-Mobile Fixes (Phones under 400px) */
+@media (max-width: 400px) {
+  .header {
+    padding: 0.8rem 0;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  .logo-container {
+    gap: 0.4rem;
+  }
+
+  .wallet-connect-wrapper {
+    padding-right: 2.8rem;
+  }
+
+  /* Ensure items wrap if they absolutely cannot fit */
+  .header-content {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .wallet-connect-wrapper {
+    margin-left: initial;
+    padding-right: 0;
+  }
+
+  /* Dark mode toggle placement adjustment if wrapping */
+  .dark-mode-toggle {
+    top: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
+  .footer-x-icon svg {
+    width: 20px;
+    height: 20px;
   }
 }
