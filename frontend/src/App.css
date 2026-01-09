@@ -1693,6 +1693,22 @@ body.dark-mode .suggestion-item.active {
 }
 
 @media (max-width: 768px) {
+  .logo {
+    height: 45px;
+  }
+
+  .logo-text {
+    font-size: 1.4rem;
+  }
+
+  .logo-container {
+    gap: 0.5rem;
+  }
+
+  .wallet-connect-wrapper {
+    padding-right: 3.5rem;
+  }
+
   .floating-add-btn {
     bottom: 1.5rem;
     right: 1.5rem;
