@@ -86,14 +86,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Prevent HTTP Parameter Pollution
 app.use(hpp());
 
-// Serve static files (uploaded logos)
-app.use(express.static(path.join(__dirname, 'public')));
-// Explicitly serve uploads directory on /logos path for Volume support
-app.use('/logos', express.static(process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'logos')));
-
 // --- Storage Configuration (Railway Volume Support) ---
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
-const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'logos');
+const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(DATA_DIR, 'logos');
 
 // Ensure directories exist on startup
 (async () => {
@@ -106,6 +101,11 @@ const UPLOADS_DIR = process.env.UPLOADS_DIR || path.join(__dirname, 'public', 'l
     console.error('Error creating directories:', err);
   }
 })();
+
+// Serve static files (uploaded logos)
+app.use(express.static(path.join(__dirname, 'public')));
+// Explicitly serve uploads directory on /logos path for Volume support
+app.use('/logos', express.static(UPLOADS_DIR));
 
 // Configure Multer for Logo Uploads
 const storage = multer.diskStorage({
@@ -138,7 +138,7 @@ const upload = multer({
 const BASE_RPC_URL = 'https://mainnet.base.org';
 
 // Cache file path for storing dapps locally
-const CACHE_FILE_PATH = path.join(__dirname, 'dapps-cache.json');
+const CACHE_FILE_PATH = path.join(DATA_DIR, 'dapps-cache.json');
 
 // Dapps data source - using multiple sources for comprehensive data
 const DAPPS_DATA_SOURCES = {
