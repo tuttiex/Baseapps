@@ -139,6 +139,26 @@ const BASE_RPC_URL = 'https://mainnet.base.org';
 
 // Cache file path for storing dapps locally
 const CACHE_FILE_PATH = path.join(DATA_DIR, 'dapps-cache.json');
+const APPROVED_DAPPS_FILE = path.join(DATA_DIR, 'approved_dapps.json');
+
+// Helper to save approved dapps
+async function saveApprovedDapps(dapps) {
+  try {
+    await fs.writeFile(APPROVED_DAPPS_FILE, JSON.stringify(dapps, null, 2), 'utf8');
+  } catch (error) {
+    console.log('Error saving approved dapps:', error.message);
+  }
+}
+
+// Helper to load approved dapps
+async function loadApprovedDapps() {
+  try {
+    const data = await fs.readFile(APPROVED_DAPPS_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
 
 // Dapps data source - using multiple sources for comprehensive data
 const DAPPS_DATA_SOURCES = {
@@ -452,10 +472,15 @@ app.get('/api/dapps', async (req, res) => {
   try {
     const { category, search } = req.query;
 
-    // PRIORITY 1: Load from cache file first (contains 1,241 dapps)
-    let allDapps = await loadDappsFromCache();
+    // PRIORITY 1: Load from cache AND approved file
+    const [cachedDapps, approvedDapps] = await Promise.all([
+      loadDappsFromCache(),
+      loadApprovedDapps()
+    ]);
 
-    // PRIORITY 2: If cache is empty, try fetching from external APIs
+    let allDapps = [...approvedDapps, ...cachedDapps];
+
+    // PRIORITY 2: If both are empty, try fetching from external APIs
     if (allDapps.length === 0) {
       console.log('📡 Cache is empty, fetching from external APIs...');
       let externalDapps = [];
@@ -682,17 +707,16 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
 
     const approvedDapp = submissions[index];
 
-    // 2. Load current cache
-    let currentDapps = await loadDappsFromCache();
+    // 2. Load current approved dapps
+    let approvedDapps = await loadApprovedDapps();
 
-    // 3. Add to cache (map fields if necessary)
+    // 3. Add to approved list
     const backendUrl = req.protocol + '://' + req.get('host');
     const formattedDapp = {
       name: approvedDapp.name,
       description: approvedDapp.description,
-      category: approvedDapp.subcategory || approvedDapp.category, // Use sub if exists
+      category: approvedDapp.subcategory || approvedDapp.category,
       url: approvedDapp.websiteUrl,
-      // If logo is a relative path, prepend backend URL for frontend access
       logo: (approvedDapp.logo && approvedDapp.logo.startsWith('/'))
         ? `${backendUrl}${approvedDapp.logo}`
         : approvedDapp.logo,
@@ -700,16 +724,16 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
       chain: "Base"
     };
 
-    currentDapps.push(formattedDapp);
+    approvedDapps.push(formattedDapp);
 
-    // 4. Save Cache
-    await saveDappsToCache(currentDapps);
+    // 4. Save Approved List
+    await saveApprovedDapps(approvedDapps);
 
     // 5. Remove from submissions
     submissions.splice(index, 1);
     await fs.writeFile(SUBMISSIONS_FILE, JSON.stringify(submissions, null, 2), 'utf8');
 
-    res.json({ success: true, message: 'Dapp approved and moved to live cache!' });
+    res.json({ success: true, message: 'Dapp approved and moved to live site!' });
 
   } catch (error) {
     console.error('Error approving dapp:', error);
@@ -728,18 +752,27 @@ app.delete('/api/admin/dapps/:name', async (req, res) => {
       return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
+    // 1. Remove from approved dapps file if it exists there
+    let approvedDapps = await loadApprovedDapps();
+    const approvedInitialCount = approvedDapps.length;
+    approvedDapps = approvedDapps.filter(d => d.name.toLowerCase() !== name.toLowerCase());
+
+    if (approvedDapps.length < approvedInitialCount) {
+      await saveApprovedDapps(approvedDapps);
+    }
+
+    // 2. Remove from cache file 
     let dapps = await loadDappsFromCache();
     const initialCount = dapps.length;
 
     // Filter out the dapp by name
     dapps = dapps.filter(d => d.name.toLowerCase() !== name.toLowerCase());
 
-    if (dapps.length === initialCount) {
-      return res.status(404).json({ success: false, error: 'Dapp not found in live cache' });
+    if (dapps.length < initialCount) {
+      await saveDappsToCache(dapps);
     }
 
-    await saveDappsToCache(dapps);
-    res.json({ success: true, message: `Dapp "${name}" permanently removed from live site.` });
+    res.json({ success: true, message: `Dapp "${name}" removed from live site.` });
   } catch (error) {
     console.error('Error deleting dapp from cache:', error);
     res.status(500).json({ success: false, error: 'Failed to delete dapp' });
