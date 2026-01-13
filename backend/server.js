@@ -9,6 +9,7 @@ const { query, validationResult } = require('express-validator');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const multer = require('multer'); // For file uploads
+const { ethers } = require('ethers');
 require('dotenv').config();
 
 const app = express();
@@ -140,6 +141,21 @@ const BASE_RPC_URL = 'https://mainnet.base.org';
 // Cache file path for storing dapps locally
 const CACHE_FILE_PATH = path.join(DATA_DIR, 'dapps-cache.json');
 const APPROVED_DAPPS_FILE = path.join(DATA_DIR, 'approved_dapps.json');
+const VOTES_FILE = path.join(DATA_DIR, 'votes.json');
+const REGISTRATIONS_FILE = path.join(DATA_DIR, 'registrations.json');
+const DAPP_IDS_FILE = path.join(__dirname, 'dapp-ids.json');
+const VOTING_CONTRACT_ADDRESS = process.env.VOTING_CONTRACT_ADDRESS || '0x26a496b5dfcc453b0f3952c455af3aa6b729793c';
+
+let dappIdMap = [];
+async function loadDappIdMap() {
+  try {
+    const data = await fs.readFile(DAPP_IDS_FILE, 'utf8');
+    dappIdMap = JSON.parse(data);
+  } catch (error) {
+    console.log('Dapp ID map not found:', error.message);
+  }
+}
+loadDappIdMap();
 
 // Helper to save approved dapps
 async function saveApprovedDapps(dapps) {
@@ -159,6 +175,134 @@ async function loadApprovedDapps() {
     return [];
   }
 }
+
+// --- Voting System Logic ---
+
+const VOTE_ABI = [
+  "event VoteCast(address indexed voter, bytes32 indexed dappId, int8 value)",
+  "event DappRegistered(bytes32 indexed dappId)",
+  "event DappUnregistered(bytes32 indexed dappId)",
+  "function dappScore(bytes32 dappId) view returns (int256)",
+  "function isDappRegistered(bytes32 dappId) view returns (bool)"
+];
+
+let voteCache = {}; // dappId -> { totalScore: 0, weeklyScore: 0, votes: [] }
+let registrationCache = {}; // dappId -> true/false
+
+async function loadVotes() {
+  try {
+    const data = await fs.readFile(VOTES_FILE, 'utf8');
+    const votes = JSON.parse(data);
+
+    // Process historical votes into cache
+    const now = Date.now();
+    const oneWeekAgo = now - (7 * 24 * 60 * 60 * 1000);
+
+    // Reset cache
+    voteCache = {};
+
+    votes.forEach(vote => {
+      if (!voteCache[vote.dappId]) {
+        voteCache[vote.dappId] = { totalScore: 0, weeklyScore: 0, votes: [] };
+      }
+
+      voteCache[vote.dappId].votes = voteCache[vote.dappId].votes.filter(v => v.voter !== vote.voter);
+      voteCache[vote.dappId].votes.push(vote);
+    });
+
+    // Re-calculate scores
+    Object.keys(voteCache).forEach(id => {
+      voteCache[id].totalScore = voteCache[id].votes.reduce((acc, v) => acc + v.value, 0);
+      voteCache[id].weeklyScore = voteCache[id].votes
+        .filter(v => v.timestamp > oneWeekAgo)
+        .reduce((acc, v) => acc + v.value, 0);
+    });
+
+  } catch (error) {
+    console.log('No historical votes found or error loading:', error.message);
+  }
+}
+
+async function loadRegistrations() {
+  try {
+    const data = await fs.readFile(REGISTRATIONS_FILE, 'utf8');
+    registrationCache = JSON.parse(data);
+  } catch (error) {
+    console.log('No registration data found.');
+  }
+}
+
+async function saveRegistration(dappId, status) {
+  try {
+    registrationCache[dappId] = status;
+    await fs.writeFile(REGISTRATIONS_FILE, JSON.stringify(registrationCache, null, 2), 'utf8');
+  } catch (error) {
+    console.error('Error saving registration:', error);
+  }
+}
+
+async function saveVote(dappId, voter, value) {
+  try {
+    let allVotes = [];
+    try {
+      const data = await fs.readFile(VOTES_FILE, 'utf8');
+      allVotes = JSON.parse(data);
+    } catch (e) { }
+
+    // Update or add vote (one vote per user per dapp)
+    const existingIndex = allVotes.findIndex(v => v.dappId === dappId && v.voter === voter);
+    if (existingIndex !== -1) {
+      allVotes[existingIndex] = { dappId, voter, value, timestamp: Date.now() };
+    } else {
+      allVotes.push({ dappId, voter, value, timestamp: Date.now() });
+    }
+
+    await fs.writeFile(VOTES_FILE, JSON.stringify(allVotes, null, 2), 'utf8');
+    await loadVotes(); // Refresh cache
+  } catch (error) {
+    console.error('Error saving vote:', error);
+  }
+}
+
+// Start Contract Listener
+function startVotingListener() {
+  if (VOTING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') {
+    console.log('⚠️ No voting contract address set. Indexer disabled.');
+    return;
+  }
+
+  try {
+    const provider = new ethers.JsonRpcProvider(BASE_RPC_URL);
+    const contract = new ethers.Contract(VOTING_CONTRACT_ADDRESS, VOTE_ABI, provider);
+
+    console.log(`📡 Listening for votes on ${VOTING_CONTRACT_ADDRESS}...`);
+
+    contract.on("VoteCast", (voter, dappId, value) => {
+      console.log(`🗳️ New Vote: ${voter} for ${dappId} -> ${value}`);
+      saveVote(dappId, voter, Number(value));
+    });
+
+    contract.on("DappRegistered", (dappId) => {
+      console.log(`✅ Registered Dapp: ${dappId}`);
+      saveRegistration(dappId, true);
+    });
+
+    contract.on("DappUnregistered", (dappId) => {
+      console.log(`❌ Unregistered Dapp: ${dappId}`);
+      saveRegistration(dappId, false);
+    });
+  } catch (error) {
+    console.error('Error starting event listener:', error.message);
+  }
+}
+
+// Initialize Voting System
+async function initVoting() {
+  await loadVotes();
+  await loadRegistrations();
+  startVotingListener();
+}
+initVoting();
 
 // Dapps data source - using multiple sources for comprehensive data
 const DAPPS_DATA_SOURCES = {
@@ -517,6 +661,19 @@ app.get('/api/dapps', async (req, res) => {
     // Sort alphabetically by name (A-Z)
     uniqueDapps.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
 
+    // INJECT VOTING DATA
+    uniqueDapps = uniqueDapps.map(dapp => {
+      const mapping = dappIdMap.find(m => m.url === dapp.url || m.name.toLowerCase() === dapp.name.toLowerCase());
+      const dappId = mapping ? mapping.dappId : null;
+      return {
+        ...dapp,
+        dappId: dappId,
+        isRegistered: !!(dappId && registrationCache[dappId]),
+        score: (dappId && voteCache[dappId]) ? voteCache[dappId].totalScore : 0,
+        weeklyScore: (dappId && voteCache[dappId]) ? voteCache[dappId].weeklyScore : 0
+      };
+    });
+
     res.json({
       success: true,
       count: uniqueDapps.length,
@@ -528,6 +685,42 @@ app.get('/api/dapps', async (req, res) => {
       success: false,
       error: 'Failed to fetch dapps'
     });
+  }
+});
+
+// GET /api/trending - Get top dapps by weekly score
+app.get('/api/trending', async (req, res) => {
+  try {
+    const [cachedDapps, approvedDapps] = await Promise.all([
+      loadDappsFromCache(),
+      loadApprovedDapps()
+    ]);
+    const allDapps = [...approvedDapps, ...cachedDapps];
+
+    // Map scores and sort
+    const trending = allDapps
+      .map(dapp => {
+        const mapping = dappIdMap.find(m => m.url === dapp.url || m.name.toLowerCase() === dapp.name.toLowerCase());
+        const dappId = mapping ? mapping.dappId : null;
+        return {
+          ...dapp,
+          dappId: dappId,
+          isRegistered: !!(dappId && registrationCache[dappId]),
+          score: (dappId && voteCache[dappId]) ? voteCache[dappId].totalScore : 0,
+          weeklyScore: (dappId && voteCache[dappId]) ? voteCache[dappId].weeklyScore : 0
+        };
+      })
+      .filter(d => d.weeklyScore > 0)
+      .sort((a, b) => b.weeklyScore - a.weeklyScore)
+      .slice(0, 10); // Top 10
+
+    res.json({
+      success: true,
+      count: trending.length,
+      dapps: trending
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Failed to fetch trending dapps' });
   }
 });
 

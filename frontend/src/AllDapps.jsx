@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
+import { VoteButtons } from './components/VoteButtons'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -18,6 +19,7 @@ function AllDapps() {
   const [expandedCategory, setExpandedCategory] = useState(null)
   const [darkMode, setDarkMode] = useState(true)
   const [showFloatingBtn, setShowFloatingBtn] = useState(false)
+  const [isTrendingMode, setIsTrendingMode] = useState(false)
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1)
@@ -60,25 +62,22 @@ function AllDapps() {
   const fetchDapps = async () => {
     try {
       setLoading(true)
+      const endpoint = isTrendingMode ? `${API_URL}/trending` : `${API_URL}/dapps`;
       const params = new URLSearchParams()
 
-      // Use minor category if selected, otherwise use major category
-      if (selectedMinorCategory !== 'all') {
-        params.append('category', selectedMinorCategory)
-      } else if (selectedMajorCategory !== 'all') {
-        // Filter by any subcategory in the major category
-        // We'll handle this in the response
+      if (!isTrendingMode) {
+        if (selectedMinorCategory !== 'all') {
+          params.append('category', selectedMinorCategory)
+        }
+        if (searchTerm) {
+          params.append('search', searchTerm)
+        }
       }
 
-      if (searchTerm) {
-        params.append('search', searchTerm)
-      }
-
-      const response = await axios.get(`${API_URL}/dapps?${params.toString()}`)
+      const response = await axios.get(`${endpoint}${params.toString() ? '?' + params.toString() : ''}`)
       let filteredDapps = response.data.dapps || []
 
-      // If major category is selected but no minor category, filter by all subcategories
-      if (selectedMajorCategory !== 'all' && selectedMinorCategory === 'all') {
+      if (!isTrendingMode && selectedMajorCategory !== 'all' && selectedMinorCategory === 'all') {
         const subcategories = categories[selectedMajorCategory] || []
         filteredDapps = filteredDapps.filter(dapp =>
           subcategories.includes(dapp.category)
@@ -221,10 +220,24 @@ function AllDapps() {
             <div className="category-filters">
               {/* All button */}
               <button
-                className={`category-btn major ${selectedMajorCategory === 'all' ? 'active' : ''}`}
-                onClick={handleResetFilters}
+                className={`category-btn major ${selectedMajorCategory === 'all' && !isTrendingMode ? 'active' : ''}`}
+                onClick={() => {
+                  setIsTrendingMode(false);
+                  handleResetFilters();
+                }}
               >
                 All
+              </button>
+
+              <button
+                className={`category-btn trending ${isTrendingMode ? 'active' : ''}`}
+                onClick={() => {
+                  setIsTrendingMode(true);
+                  setSelectedMajorCategory('all');
+                  setSelectedMinorCategory('all');
+                }}
+              >
+                🔥 Trending
               </button>
 
               {/* Major categories */}
@@ -436,6 +449,10 @@ function DappCard({ dapp, index }) {
       <div className="dapp-card-body">
         <h3 className="dapp-name">{dapp.name}</h3>
         <p className="dapp-description">{dapp.description}</p>
+
+        {dapp.dappId && (
+          <VoteButtons dappId={dapp.dappId} initialScore={dapp.score} isRegistered={dapp.isRegistered} />
+        )}
       </div>
       <div className="dapp-card-footer">
         <button className="visit-btn" onClick={handleVisit}>

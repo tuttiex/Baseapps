@@ -47,46 +47,8 @@ const FAVORITE_DAPPS = [
   }
 ]
 
-// ============================================
-// TRENDING DAPPS - Hard-coded data
-// ============================================
-const TRENDING_DAPPS = [
-  {
-    name: "Compound V3",
-    description: "Compound is an algorithmic, autonomous interest rate protocol built for developers, to unlock a universe of open financial applications.",
-    url: "https://v3-app.compound.finance/",
-    logo: "https://icons.llama.fi/compound-v3.png",
-    category: "Lending & CDP"
-  },
-  {
-    name: "Pendle",
-    description: "Pendle Finance is a protocol that enables the trading of tokenized future yield on an AMM system.",
-    url: "https://pendle.finance/",
-    logo: "https://icons.llama.fi/pendle.jpg",
-    category: "Yield & Yield Strategies"
-  },
-  {
-    name: "Parallel Protocol V3",
-    description: "Parallel is an over-collateralized, decentralized, modular & capital-efficient stablecoins protocol deployed on several chains.",
-    url: "https://parallel.best/",
-    logo: "https://icons.llama.fi/parallel-protocol-v3.jpg",
-    category: "Lending & CDP"
-  },
-  {
-    name: "friend.tech V1",
-    description: "Your network is your net worth.",
-    url: "https://www.friend.tech",
-    logo: "https://icons.llama.fi/friend.tech.jpg",
-    category: "SoFi"
-  },
-  {
-    name: "Virtuals Protocol",
-    description: "Infrastructure for building a decentralized society of AI agents onchain.",
-    url: "https://app.virtuals.io",
-    logo: "https://www.google.com/s2/favicons?domain=app.virtuals.io&sz=128",
-    category: "AI"
-  }
-]
+// Hard-coded favorite dapps can remain as "editorial" picks or be fetched separately
+// For now we'll keep FAVORITE_DAPPS and fetch TRENDING_DAPPS from server
 
 function Home() {
   const [allDapps, setAllDapps] = useState([])
@@ -97,10 +59,12 @@ function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [loadingSuggestions, setLoadingSuggestions] = useState(false)
+  const [trendingDapps, setTrendingDapps] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchDappsCount()
+    fetchTrendingDapps()
 
     // Load dark mode preference
     const savedDarkMode = localStorage.getItem('darkMode')
@@ -150,13 +114,22 @@ function Home() {
 
   const fetchDappsCount = async () => {
     try {
-      setLoading(true)
       const response = await axios.get(`${API_URL}/dapps`)
-      setAllDapps(response.data)
+      setAllDapps(response.data.dapps || [])
     } catch (err) {
-      console.error('Error fetching dapps count:', err)
-      // Set default count if API fails
+      console.error('Error fetching dapps:', err)
       setAllDapps([])
+    }
+  }
+
+  const fetchTrendingDapps = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/trending`)
+      if (response.data.success) {
+        setTrendingDapps(response.data.dapps)
+      }
+    } catch (err) {
+      console.error('Error fetching trending dapps:', err)
     } finally {
       setLoading(false)
     }
@@ -331,18 +304,20 @@ function Home() {
       </section>
 
       {/* Trending Dapps Section */}
-      <section className="featured-section trending-section">
-        <div className="container">
-          <h2 className="section-title trending-title">
-            🔥 Trending Dapps
-          </h2>
-          <div className="featured-grid">
-            {TRENDING_DAPPS.map((dapp, index) => (
-              <FeaturedDappCard key={index} dapp={dapp} index={index} />
-            ))}
+      {trendingDapps.length > 0 && (
+        <section className="featured-section trending-section">
+          <div className="container">
+            <h2 className="section-title trending-title">
+              🔥 Trending Dapps
+            </h2>
+            <div className="featured-grid">
+              {trendingDapps.map((dapp, index) => (
+                <FeaturedDappCard key={index} dapp={dapp} index={index} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Footer */}
       <footer className="footer">
@@ -392,9 +367,21 @@ function FeaturedDappCard({ dapp, index }) {
       <div className="featured-card-content">
         <h3 className="featured-card-name">{dapp.name}</h3>
         <p className="featured-card-description">{dapp.description}</p>
-        <button className="featured-card-btn">
-          Explore →
-        </button>
+
+        {dapp.weeklyScore > 0 && (
+          <div className="trending-badge">
+            🔥 +{dapp.weeklyScore} this week
+          </div>
+        )}
+
+        <div className="featured-card-footer">
+          <span className={`featured-score ${dapp.score > 0 ? 'positive' : dapp.score < 0 ? 'negative' : ''}`}>
+            {dapp.score > 0 ? `+${dapp.score}` : dapp.score || 0} points
+          </span>
+          <button className="featured-card-btn">
+            Explore →
+          </button>
+        </div>
       </div>
     </a>
   )
