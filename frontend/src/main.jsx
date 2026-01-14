@@ -16,7 +16,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 const config = getDefaultConfig({
   appName: 'BaseApps',
-  projectId: 'YOUR_PROJECT_ID', // TODO: Get a real ID from WalletConnect Cloud
+  projectId: 'f32b212ba66495832e4c4a2f5e6f0461', // User provided ID
   chains: [base],
 });
 
