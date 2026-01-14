@@ -710,9 +710,9 @@ app.get('/api/trending', async (req, res) => {
           weeklyScore: (dappId && voteCache[dappId]) ? voteCache[dappId].weeklyScore : 0
         };
       })
-      .filter(d => d.weeklyScore > 0)
+      // .filter(d => d.weeklyScore > 0)
       .sort((a, b) => b.weeklyScore - a.weeklyScore)
-      .slice(0, 10); // Top 10
+      .slice(0, 5); // Top 5
 
     res.json({
       success: true,

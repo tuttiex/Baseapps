@@ -47,8 +47,47 @@ const FAVORITE_DAPPS = [
   }
 ]
 
-// Hard-coded favorite dapps can remain as "editorial" picks or be fetched separately
-// For now we'll keep FAVORITE_DAPPS and fetch TRENDING_DAPPS from server
+// ============================================
+// TRENDING DAPPS - Hard-coded data (Manually Curated)
+// ============================================
+const TRENDING_DAPPS = [
+  {
+    name: "Uniswap V3",
+    description: "Swap, earn, and build on the leading decentralized crypto trading protocol.",
+    url: "https://app.uniswap.org/",
+    logo: "https://icons.llama.fi/uniswap-v3.png",
+    category: "Dexs"
+  },
+  {
+    name: "BaseSwap",
+    description: "The premier DEX on Base Chain. Swap, earn, and yield farm with low fees.",
+    url: "https://baseswap.fi",
+    logo: "https://icons.llama.fi/baseswap.png",
+    category: "Dexs"
+  },
+  {
+    name: "Friend.tech",
+    description: "A social network for your friends. Buy shares of your friends.",
+    url: "https://www.friend.tech",
+    logo: "https://icons.llama.fi/friend.tech.png",
+    category: "Social"
+  },
+  {
+    name: "BasePaint",
+    description: "Collaborative pixel art on Base. Paint together, mint together.",
+    url: "https://basepaint.xyz",
+    logo: "https://icons.llama.fi/basepaint.jpg",
+    category: "Art"
+  },
+  {
+    name: "Moonwell",
+    description: "An open lending and borrowing protocol on Base, Moonbeam, and Moonriver.",
+    url: "https://moonwell.fi",
+    logo: "https://icons.llama.fi/moonwell.png",
+    category: "Lending"
+  }
+]
+
 
 function Home() {
   const [allDapps, setAllDapps] = useState([])
@@ -59,12 +98,10 @@ function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [loadingSuggestions, setLoadingSuggestions] = useState(false)
-  const [trendingDapps, setTrendingDapps] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
     fetchDappsCount()
-    fetchTrendingDapps()
 
     // Load dark mode preference
     const savedDarkMode = localStorage.getItem('darkMode')
@@ -122,18 +159,7 @@ function Home() {
     }
   }
 
-  const fetchTrendingDapps = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/trending`)
-      if (response.data.success) {
-        setTrendingDapps(response.data.dapps)
-      }
-    } catch (err) {
-      console.error('Error fetching trending dapps:', err)
-    } finally {
-      setLoading(false)
-    }
-  }
+
 
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode
@@ -304,20 +330,18 @@ function Home() {
       </section>
 
       {/* Trending Dapps Section */}
-      {trendingDapps.length > 0 && (
-        <section className="featured-section trending-section">
-          <div className="container">
-            <h2 className="section-title trending-title">
-              🔥 Trending Dapps
-            </h2>
-            <div className="featured-grid">
-              {trendingDapps.map((dapp, index) => (
-                <FeaturedDappCard key={index} dapp={dapp} index={index} />
-              ))}
-            </div>
+      <section className="featured-section trending-section">
+        <div className="container">
+          <h2 className="section-title trending-title">
+            🔥 Trending Dapps
+          </h2>
+          <div className="featured-grid">
+            {TRENDING_DAPPS.map((dapp, index) => (
+              <FeaturedDappCard key={index} dapp={dapp} index={index} />
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="footer">
