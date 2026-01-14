@@ -4,8 +4,8 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const CONTRACT_ADDRESS = '0x26a496b5dfcc453b0f3952c455af3aa6b729793c';
-const RPC_URL = 'https://mainnet.base.org';
-const BATCH_SIZE = 30;
+const RPC_URL = 'https://base.llamarpc.com';
+const BATCH_SIZE = 100;
 const CHECK_BATCH_SIZE = 10;
 const DELAY_BETWEEN_CHECKS = 150;
 
@@ -98,19 +98,26 @@ async function main() {
         const batch = toRegister.slice(i, i + BATCH_SIZE);
         console.log(`📦 Sending batch ${Math.floor(i / BATCH_SIZE) + 1} (${batch.length} dapps)...`);
 
-        try {
-            const tx = await contract.batchRegisterDapps(batch);
-            console.log(`⏳ Tx: ${tx.hash}`);
-            await tx.wait();
-            console.log(`✅ Confirmed!`);
-            await new Promise(r => setTimeout(r, 1000));
-        } catch (error) {
-            console.error(`❌ Batch failed:`, error.message);
-            if (error.message.includes('insufficient funds')) {
-                console.log(`⚠️ Out of gas. Stopping here for now.`);
-                break;
+        let batchSuccess = false;
+        let batchRetries = 2;
+
+        while (!batchSuccess && batchRetries >= 0) {
+            try {
+                const tx = await contract.batchRegisterDapps(batch);
+                console.log(`⏳ Tx: ${tx.hash}`);
+                await tx.wait();
+                console.log(`✅ Confirmed!`);
+                batchSuccess = true;
+                await new Promise(r => setTimeout(r, 10000)); // 10s delay to respect RPC
+            } catch (error) {
+                console.error(`❌ Batch failed (Retries left: ${batchRetries}):`, error.message);
+                if (error.message.includes('insufficient funds')) {
+                    console.log(`⚠️ Out of gas. Stopping here for now.`);
+                    return;
+                }
+                batchRetries--;
+                await new Promise(r => setTimeout(r, 15000)); // Wait 15s before retry
             }
-            await new Promise(r => setTimeout(r, 5000));
         }
     }
 
