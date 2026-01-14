@@ -229,16 +229,7 @@ function AllDapps() {
                 All
               </button>
 
-              <button
-                className={`category-btn trending ${isTrendingMode ? 'active' : ''}`}
-                onClick={() => {
-                  setIsTrendingMode(true);
-                  setSelectedMajorCategory('all');
-                  setSelectedMinorCategory('all');
-                }}
-              >
-                🔥 Trending
-              </button>
+
 
               {/* Major categories */}
               {majorCategories.map((majorCategory) => (
