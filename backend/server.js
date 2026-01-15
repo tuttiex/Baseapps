@@ -300,7 +300,7 @@ function startVotingListener() {
 async function initVoting() {
   await loadVotes();
   await loadRegistrations();
-  startVotingListener();
+  // startVotingListener(); // TEMPORARILY DISABLED TO STOP LOG SPAM
 }
 initVoting();
 
@@ -1048,13 +1048,38 @@ app.delete('/api/admin/submissions/:id', async (req, res) => {
   }
 });
 
-// GET /api/health - Health check
-app.get('/api/health', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Base Dapps API is running',
-    timestamp: new Date().toISOString()
+message: 'Base Dapps API is running',
+  timestamp: new Date().toISOString()
   });
+});
+
+// GET /api/debug-file - DEBUG ENDPOINT TO CHECK FILESYSTEM
+app.get('/api/debug-file', async (req, res) => {
+  try {
+    const rootFiles = await fs.readdir(__dirname);
+    const dataFiles = await fs.readdir(DATA_DIR).catch(e => ['Error reading data dir: ' + e.message]);
+
+    let cacheStatus = "Missing";
+    try {
+      const stats = await fs.stat(CACHE_FILE_PATH);
+      cacheStatus = `Exists, Size: ${stats.size} bytes`;
+    } catch (e) {
+      cacheStatus = "Not Found at " + CACHE_FILE_PATH;
+    }
+
+    res.json({
+      success: true,
+      cwd: process.cwd(),
+      dirname: __dirname,
+      dataDir: DATA_DIR,
+      cacheFilePath: CACHE_FILE_PATH,
+      cacheStatus: cacheStatus,
+      rootFiles: rootFiles,
+      dataFiles: dataFiles
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Error handling middleware (must be last)
