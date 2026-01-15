@@ -493,7 +493,8 @@ async function loadDappsFromCache() {
     return cacheData.dapps;
   } catch (error) {
     // Cache file doesn't exist or is invalid - that's okay
-    console.log('No cache file found or cache is invalid');
+    console.error('❌ FAILED TO LOAD CACHE:', CACHE_FILE_PATH);
+    console.error('❌ ERROR DETAIL:', error.message);
     return [];
   }
 }
