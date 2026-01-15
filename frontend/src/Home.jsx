@@ -156,6 +156,8 @@ function Home() {
     } catch (err) {
       console.error('Error fetching dapps:', err)
       setAllDapps([])
+    } finally {
+      setLoading(false)
     }
   }
 
