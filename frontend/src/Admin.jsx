@@ -62,7 +62,11 @@ function Admin() {
 
             // Fetch Live Dapps
             const liveRes = await axios.get(`${API_URL}/dapps`)
-            if (liveRes.data.success) setLiveDapps(liveRes.data.dapps)
+            if (liveRes.data.success) {
+                // Sort dapps by score (highest first)
+                const sortedDapps = liveRes.data.dapps.sort((a, b) => (b.score || 0) - (a.score || 0))
+                setLiveDapps(sortedDapps)
+            }
 
         } catch (error) {
             console.error("Error fetching data:", error)
