@@ -6,7 +6,7 @@ import VOTING_ABI from '../contracts/voting-abi.json';
 const VOTING_CONTRACT_ADDRESS = '0x26a496b5dfcc453b0f3952c455af3aa6b729793c';
 const VOTE_FEE = '0.0001'; // 0.0001 ETH (~$0.30)
 
-export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'center', showScore = true }) => {
+export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'center', showScore = true, middleContent }) => {
     const { address, isConnected } = useAccount();
     const [score, setScore] = useState(initialScore || 0);
     const [isHovered, setIsHovered] = useState(null); // 'up' or 'down'
