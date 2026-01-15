@@ -485,16 +485,43 @@ async function saveDappsToCache(dapps) {
 }
 
 // Load dapps from cache file
+// Load dapps from cache file
 async function loadDappsFromCache() {
+  const SEED_FILE = path.join(__dirname, 'dapps-seed.json');
+
   try {
-    const data = await fs.readFile(CACHE_FILE_PATH, 'utf8');
-    const cacheData = JSON.parse(data);
-    console.log(`📂 Loaded ${cacheData.dapps.length} dapps from cache (last updated: ${cacheData.timestamp})`);
-    return cacheData.dapps;
+    // 1. Check if seed file exists in image
+    let seedDapps = [];
+    try {
+      const seedData = await fs.readFile(SEED_FILE, 'utf8');
+      const seedJson = JSON.parse(seedData);
+      seedDapps = seedJson.dapps || [];
+      console.log(`🌱 Found SEED file with ${seedDapps.length} dapps`);
+    } catch (e) {
+      console.log('No seed file found or invalid');
+    }
+
+    // 2. Load current cache from volume
+    let cacheDapps = [];
+    try {
+      const data = await fs.readFile(CACHE_FILE_PATH, 'utf8');
+      const cacheData = JSON.parse(data);
+      cacheDapps = cacheData.dapps || [];
+      console.log(`📂 Loaded ${cacheDapps.length} dapps from Volume Cache`);
+    } catch (e) {
+      console.log('Volume cache missing or invalid.');
+    }
+
+    // 3. COMPARE: If cache is small/empty but Seed is big, RESTORE SEED
+    if (seedDapps.length > cacheDapps.length) {
+      console.log(`♻️ RESTORING CACHE FROM SEED! (Seed: ${seedDapps.length} > Cache: ${cacheDapps.length})`);
+      await saveDappsToCache(seedDapps); // Overwrite volume
+      return seedDapps;
+    }
+
+    return cacheDapps;
   } catch (error) {
-    // Cache file doesn't exist or is invalid - that's okay
-    console.error('❌ FAILED TO LOAD CACHE:', CACHE_FILE_PATH);
-    console.error('❌ ERROR DETAIL:', error.message);
+    console.error('❌ FAILED TO LOAD CACHE logic:', error.message);
     return [];
   }
 }
