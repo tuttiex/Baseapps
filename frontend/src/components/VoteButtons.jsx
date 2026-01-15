@@ -21,7 +21,7 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'cent
 
     const handleVote = async (value, e) => {
         e.stopPropagation(); // Prevent card click
-        if (!isRegistered || !dappId) {
+        if (!dappId) {
             alert("This dapp is not registered for voting yet.");
             return;
         }
