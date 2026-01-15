@@ -394,16 +394,7 @@ function FeaturedDappCard({ dapp, index }) {
         <h3 className="featured-card-name">{dapp.name}</h3>
         <p className="featured-card-description">{dapp.description}</p>
 
-        {dapp.weeklyScore > 0 && (
-          <div className="trending-badge">
-            🔥 +{dapp.weeklyScore} this week
-          </div>
-        )}
-
         <div className="featured-card-footer">
-          <span className={`featured-score ${dapp.score > 0 ? 'positive' : dapp.score < 0 ? 'negative' : ''}`}>
-            {dapp.score > 0 ? `+${dapp.score}` : dapp.score || 0} points
-          </span>
           <button className="featured-card-btn">
             Explore →
           </button>
