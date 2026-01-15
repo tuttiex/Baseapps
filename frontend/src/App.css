@@ -1782,6 +1782,13 @@ body.dark-mode .suggestion-item.active {
   /* Push to bottom if in flex col */
 }
 
+.vote-middle-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .vote-btn {
   background: none;
   border: none;

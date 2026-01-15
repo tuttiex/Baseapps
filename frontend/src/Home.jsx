@@ -395,12 +395,9 @@ function Home() {
 // Featured Dapp Card Component
 function FeaturedDappCard({ dapp, index }) {
   return (
-    <a
-      href={dapp.url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
       className="featured-card"
-      style={{ animationDelay: `${index * 0.1}s` }}
+      style={{ animationDelay: `${index * 0.1}s`, cursor: 'default' }}
     >
       <div className="featured-card-image">
         <img
@@ -409,10 +406,11 @@ function FeaturedDappCard({ dapp, index }) {
           onError={(e) => {
             e.target.src = '/placeholder-logo.png'
           }}
+          style={{ cursor: 'default' }}
         />
       </div>
       <div className="featured-card-content">
-        <h3 className="featured-card-name">{dapp.name}</h3>
+        <h3 className="featured-card-name" style={{ cursor: 'text' }}>{dapp.name}</h3>
         <p className="featured-card-description">{dapp.description}</p>
 
         <div className="featured-card-footer">
@@ -422,10 +420,19 @@ function FeaturedDappCard({ dapp, index }) {
             initialScore={dapp.score}
             layout="split"
             showScore={false}
+            middleContent={
+              <button
+                className="featured-card-btn"
+                onClick={() => window.open(dapp.url, '_blank')}
+                style={{ width: 'auto', padding: '0.4rem 0.8rem', fontSize: '0.8rem', margin: '0 8px' }}
+              >
+                Explore →
+              </button>
+            }
           />
         </div>
       </div>
-    </a>
+    </div>
   )
 }
 

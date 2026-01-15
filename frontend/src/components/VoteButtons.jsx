@@ -64,7 +64,12 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'cent
                 <span className="thumb">👍</span>
             </button>
 
-            {showScore && (
+            {/* Middle Content (like Explore Button) or Score */}
+            {middleContent ? (
+                <div className="vote-middle-content">
+                    {middleContent}
+                </div>
+            ) : showScore && (
                 <div className={`vote-score ${score > 0 ? 'positive' : score < 0 ? 'negative' : ''}`}>
                     {score > 0 ? `+${score}` : score}
                 </div>
