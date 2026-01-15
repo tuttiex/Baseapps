@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ConnectWallet } from './components/ConnectWallet'
+import { VoteButtons } from './components/VoteButtons'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -210,6 +211,26 @@ function Home() {
     )
   }
 
+  // Hydrate manual lists for voting
+  const hydrateDapps = (manualList) => {
+    return manualList.map(manualDapp => {
+      const liveDapp = allDapps.find(d =>
+        d.name.toLowerCase() === manualDapp.name.toLowerCase() ||
+        d.url === manualDapp.url
+      )
+      // Only merge ID/score/registered status. Keep manual text.
+      return liveDapp ? {
+        ...manualDapp,
+        dappId: liveDapp.dappId,
+        isRegistered: liveDapp.isRegistered,
+        score: liveDapp.score
+      } : manualDapp
+    })
+  }
+
+  const hydratedFavorites = hydrateDapps(FAVORITE_DAPPS)
+  const hydratedTrending = hydrateDapps(TRENDING_DAPPS)
+
   return (
     <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
       {/* Dark Mode Toggle */}
@@ -324,7 +345,7 @@ function Home() {
             💙 Favorite Dapps
           </h2>
           <div className="featured-grid">
-            {FAVORITE_DAPPS.map((dapp, index) => (
+            {hydratedFavorites.map((dapp, index) => (
               <FeaturedDappCard key={index} dapp={dapp} index={index} />
             ))}
           </div>
@@ -338,7 +359,7 @@ function Home() {
             🔥 Trending Dapps
           </h2>
           <div className="featured-grid">
-            {TRENDING_DAPPS.map((dapp, index) => (
+            {hydratedTrending.map((dapp, index) => (
               <FeaturedDappCard key={index} dapp={dapp} index={index} />
             ))}
           </div>
@@ -395,9 +416,13 @@ function FeaturedDappCard({ dapp, index }) {
         <p className="featured-card-description">{dapp.description}</p>
 
         <div className="featured-card-footer">
-          <button className="featured-card-btn">
-            Explore →
-          </button>
+          <VoteButtons
+            dappId={dapp.dappId}
+            isRegistered={dapp.isRegistered}
+            initialScore={dapp.score}
+            layout="split"
+            showScore={false}
+          />
         </div>
       </div>
     </a>

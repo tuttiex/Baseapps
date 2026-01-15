@@ -6,7 +6,7 @@ import VOTING_ABI from '../contracts/voting-abi.json';
 const VOTING_CONTRACT_ADDRESS = '0x26a496b5dfcc453b0f3952c455af3aa6b729793c';
 const VOTE_FEE = '0.0001'; // 0.0001 ETH (~$0.30)
 
-export const VoteButtons = ({ dappId, initialScore, isRegistered }) => {
+export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'center', showScore = true }) => {
     const { address, isConnected } = useAccount();
     const [score, setScore] = useState(initialScore || 0);
     const [isHovered, setIsHovered] = useState(null); // 'up' or 'down'
@@ -19,7 +19,8 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered }) => {
     const { writeContract, data: hash, isPending: isVoting } = useWriteContract();
     const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
-    const handleVote = async (value) => {
+    const handleVote = async (value, e) => {
+        e.stopPropagation(); // Prevent card click
         if (!isConnected) {
             alert("Please connect your wallet to vote!");
             return;
@@ -52,10 +53,10 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered }) => {
     }, [isSuccess]);
 
     return (
-        <div className="vote-container">
+        <div className={`vote-container ${layout === 'split' ? 'split-layout' : ''}`}>
             <button
                 className={`vote-btn up ${isVoting || isConfirming ? 'loading' : ''}`}
-                onClick={() => handleVote(1)}
+                onClick={(e) => handleVote(1, e)}
                 onMouseEnter={() => setIsHovered('up')}
                 onMouseLeave={() => setIsHovered(null)}
                 disabled={isVoting || isConfirming}
@@ -63,13 +64,15 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered }) => {
                 <span className="thumb">👍</span>
             </button>
 
-            <div className={`vote-score ${score > 0 ? 'positive' : score < 0 ? 'negative' : ''}`}>
-                {score > 0 ? `+${score}` : score}
-            </div>
+            {showScore && (
+                <div className={`vote-score ${score > 0 ? 'positive' : score < 0 ? 'negative' : ''}`}>
+                    {score > 0 ? `+${score}` : score}
+                </div>
+            )}
 
             <button
                 className={`vote-btn down ${isVoting || isConfirming ? 'loading' : ''}`}
-                onClick={() => handleVote(-1)}
+                onClick={(e) => handleVote(-1, e)}
                 onMouseEnter={() => setIsHovered('down')}
                 onMouseLeave={() => setIsHovered(null)}
                 disabled={isVoting || isConfirming}

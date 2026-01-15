@@ -1772,6 +1772,16 @@ body.dark-mode .suggestion-item.active {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
+.vote-container.split-layout {
+  width: 100%;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-top: auto;
+  /* Push to bottom if in flex col */
+}
+
 .vote-btn {
   background: none;
   border: none;

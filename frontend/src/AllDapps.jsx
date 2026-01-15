@@ -442,7 +442,13 @@ function DappCard({ dapp, index }) {
         <p className="dapp-description">{dapp.description}</p>
 
         {dapp.dappId && (
-          <VoteButtons dappId={dapp.dappId} initialScore={dapp.score} isRegistered={dapp.isRegistered} />
+          <VoteButtons
+            dappId={dapp.dappId}
+            initialScore={dapp.score}
+            isRegistered={dapp.isRegistered}
+            layout="split"
+            showScore={false}
+          />
         )}
       </div>
       <div className="dapp-card-footer">
