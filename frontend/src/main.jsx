@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './Home.jsx'
-import AllDapps from './AllDapps.jsx'
-import AddDapps from './AddDapps.jsx'
+import { BrowserRouter } from 'react-router-dom'
+import App from './App.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import './index.css'
 
@@ -33,11 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             borderRadius: 'medium',
           })}>
             <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/all-dapps" element={<AllDapps />} />
-                <Route path="/add-dapps" element={<AddDapps />} />
-              </Routes>
+              <App />
             </BrowserRouter>
           </RainbowKitProvider>
         </QueryClientProvider>
