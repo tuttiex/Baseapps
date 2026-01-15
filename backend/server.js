@@ -265,34 +265,48 @@ async function saveVote(dappId, voter, value) {
 }
 
 // Start Contract Listener
-function startVotingListener() {
-  if (VOTING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') {
-    console.log('⚠️ No voting contract address set. Indexer disabled.');
-    return;
-  }
+// Polling-based Vote Indexer (More robust than listener for free RPCs)
+async function pollForVotes() {
+  if (VOTING_CONTRACT_ADDRESS === '0x0000000000000000000000000000000000000000') return;
 
+  const provider = new ethers.JsonRpcProvider(BASE_RPC_URL);
+  const contract = new ethers.Contract(VOTING_CONTRACT_ADDRESS, VOTE_ABI, provider);
+
+  console.log('🔄 Starting Vote Polling Service (every 60s)...');
+
+  // Initial fetch
+  await checkRecentEvents(contract, provider);
+
+  // Poll loop or interval
+  setInterval(async () => {
+    try {
+      await checkRecentEvents(contract, provider);
+    } catch (e) {
+      console.log('Poll error:', e.message);
+    }
+  }, 60 * 1000); // Check every 60 seconds
+}
+
+async function checkRecentEvents(contract, provider) {
   try {
-    const provider = new ethers.JsonRpcProvider(BASE_RPC_URL);
-    const contract = new ethers.Contract(VOTING_CONTRACT_ADDRESS, VOTE_ABI, provider);
+    const currentBlock = await provider.getBlockNumber();
+    const fromBlock = currentBlock - 1000; // Look back ~30 mins
 
-    console.log(`📡 Listening for votes on ${VOTING_CONTRACT_ADDRESS}...`);
+    const events = await contract.queryFilter("VoteCast", fromBlock);
 
-    contract.on("VoteCast", (voter, dappId, value) => {
-      console.log(`🗳️ New Vote: ${voter} for ${dappId} -> ${value}`);
-      saveVote(dappId, voter, Number(value));
-    });
+    // Process unique latest events logic or just process all found in range
+    // Since we save duplicates safely in saveVote, we can just process all
+    for (const event of events) {
+      const { args } = event;
+      if (args) {
+        // voter, dappId, value
+        await saveVote(args[1], args[0], Number(args[2]));
+      }
+    }
 
-    contract.on("DappRegistered", (dappId) => {
-      console.log(`✅ Registered Dapp: ${dappId}`);
-      saveRegistration(dappId, true);
-    });
-
-    contract.on("DappUnregistered", (dappId) => {
-      console.log(`❌ Unregistered Dapp: ${dappId}`);
-      saveRegistration(dappId, false);
-    });
-  } catch (error) {
-    console.error('Error starting event listener:', error.message);
+    console.log(`✅ Polled blocks ${fromBlock}-${currentBlock}. Found ${events.length} votes.`);
+  } catch (e) {
+    console.error("Error polling events:", e.message);
   }
 }
 
@@ -300,7 +314,7 @@ function startVotingListener() {
 async function initVoting() {
   await loadVotes();
   await loadRegistrations();
-  // startVotingListener(); // TEMPORARILY DISABLED TO STOP LOG SPAM
+  pollForVotes(); // Start robust poller
 }
 initVoting();
 
