@@ -11,23 +11,23 @@ export const VoteButtons = ({ dappId, initialScore, isRegistered, layout = 'cent
     const [score, setScore] = useState(initialScore || 0);
     const [isHovered, setIsHovered] = useState(null); // 'up' or 'down'
 
-    // If not registered, don't show the voting interface yet
-    if (!isRegistered) {
-        return null;
-    }
+    // If not registered, don't show the voting interface yet -> CHANGED: Show disabled
+    // if (!isRegistered) {
+    //     return null;
+    // }
 
     const { writeContract, data: hash, isPending: isVoting } = useWriteContract();
     const { isLoading: isConfirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
     const handleVote = async (value, e) => {
         e.stopPropagation(); // Prevent card click
-        if (!isConnected) {
-            alert("Please connect your wallet to vote!");
+        if (!isRegistered || !dappId) {
+            alert("This dapp is not registered for voting yet.");
             return;
         }
 
-        if (!dappId) {
-            console.error("Dapp ID missing");
+        if (!isConnected) {
+            alert("Please connect your wallet to vote!");
             return;
         }
 
