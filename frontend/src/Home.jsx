@@ -21,8 +21,8 @@ const FAVORITE_DAPPS = [
   {
     name: "CobaltX",
     description: "The next-gen DEX and liquidity layer on Base.",
-    url: "https://cobaltx.fi", // Assuming likely URL, user can correct if needed
-    logo: "https://pbs.twimg.com/profile_images/1765427429181149184/Fq-4q3j4_400x400.jpg", // Placeholder or likely logo
+    url: "https://cobaltx.fi",
+    logo: "https://ui-avatars.com/api/?name=Cobalt+X&background=0052FF&color=fff&size=256", // High-visibility fallback
     category: "Dexs"
   },
   {
@@ -45,20 +45,6 @@ const FAVORITE_DAPPS = [
     url: "https://aerodrome.finance",
     logo: "https://www.google.com/s2/favicons?domain=aerodrome.finance&sz=256",
     category: "Dexs"
-  },
-  {
-    name: "Curve DEX",
-    description: "Curve is a decentralized exchange liquidity pool designed for extremely efficient stablecoin trading",
-    url: "https://curve.finance",
-    logo: "https://icons.llama.fi/curve.png",
-    category: "Dexs"
-  },
-  {
-    name: "Stargate V2",
-    description: "Stargate V2 offers reduced bridging costs, expands chain connectivity, and improves capital efficiency.",
-    url: "https://stargate.finance/",
-    logo: "https://icons.llama.fi/stargate-v2.png",
-    category: "Bridges"
   }
 ]
 
