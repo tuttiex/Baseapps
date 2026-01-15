@@ -847,7 +847,7 @@ app.get('/api/dapps/categories', async (req, res) => {
 app.get('/api/admin/submissions', async (req, res) => {
   try {
     const { secret } = req.query;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
 
     if (secret !== ADMIN_SECRET) {
       return res.status(401).json({ success: false, error: 'Unauthorized: Invalid secret' });
@@ -969,6 +969,52 @@ app.delete('/api/admin/dapps/:name', async (req, res) => {
   } catch (error) {
     console.error('Error deleting dapp from cache:', error);
     res.status(500).json({ success: false, error: 'Failed to delete dapp' });
+  }
+});
+
+// POST /api/admin/dapps - Add a dapp directly (Admin only)
+app.post('/api/admin/dapps', upload.single('logo'), async (req, res) => {
+  try {
+    const { secret, name, description, category, websiteUrl, chain } = req.body;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    if (!name || !description || !category || !websiteUrl) {
+      return res.status(400).json({ success: false, error: 'Missing required fields' });
+    }
+
+    const backendUrl = req.protocol + '://' + req.get('host');
+    let logoUrl = "";
+
+    if (req.file) {
+      logoUrl = `${backendUrl}/logos/${req.file.filename}`;
+    } else if (req.body.logoUrl) {
+      logoUrl = req.body.logoUrl;
+    }
+
+    const newDapp = {
+      name,
+      description,
+      category,
+      url: websiteUrl,
+      logo: logoUrl,
+      tvl: "New",
+      chain: chain || "Base"
+    };
+
+    // Save to approved dapps
+    let approvedDapps = await loadApprovedDapps();
+    approvedDapps.push(newDapp);
+    await saveApprovedDapps(approvedDapps);
+
+    res.json({ success: true, message: 'Dapp added directly to live site!', dapp: newDapp });
+
+  } catch (error) {
+    console.error('Error adding dapp:', error);
+    res.status(500).json({ success: false, error: 'Failed to add dapp' });
   }
 });
 // DELETE /api/admin/submissions/:id - Reject/Delete a pending submission
