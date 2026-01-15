@@ -12,6 +12,20 @@ const API_URL = 'https://baseapps-production.up.railway.app/api'
 // ============================================
 const FAVORITE_DAPPS = [
   {
+    name: "Virtuals Protocol",
+    description: "The AI agent protocol. Build, own and monetize AI agents.",
+    url: "https://virtuals.io",
+    logo: "https://icons.llama.fi/virtuals-protocol.jpg", // Using a likely logo URL or fallback
+    category: "AI"
+  },
+  {
+    name: "CobaltX",
+    description: "The next-gen DEX and liquidity layer on Base.",
+    url: "https://cobaltx.fi", // Assuming likely URL, user can correct if needed
+    logo: "https://pbs.twimg.com/profile_images/1765427429181149184/Fq-4q3j4_400x400.jpg", // Placeholder or likely logo
+    category: "Dexs"
+  },
+  {
     name: "Aave V3",
     description: "Earn interest, borrow assets, and build applications",
     url: "https://aave.com",
