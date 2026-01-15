@@ -1048,8 +1048,12 @@ app.delete('/api/admin/submissions/:id', async (req, res) => {
   }
 });
 
-message: 'Base Dapps API is running',
-  timestamp: new Date().toISOString()
+// GET /api/health - Health check
+app.get('/api/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Base Dapps API is running',
+    timestamp: new Date().toISOString()
   });
 });
 
