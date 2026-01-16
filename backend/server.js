@@ -692,7 +692,7 @@ app.get('/api/dapps', async (req, res) => {
     // Filter by category if provided
     if (category && category !== 'all') {
       uniqueDapps = uniqueDapps.filter(dapp =>
-        dapp.category.toLowerCase() === category.toLowerCase()
+        dapp.category && dapp.category.toLowerCase() === category.toLowerCase()
       );
     }
 
@@ -705,7 +705,7 @@ app.get('/api/dapps', async (req, res) => {
     }
 
     // Sort alphabetically by name (A-Z)
-    uniqueDapps.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    uniqueDapps.sort((a, b) => (a.name || '').toLowerCase().localeCompare((b.name || '').toLowerCase()));
 
     // INJECT VOTING DATA
     uniqueDapps = uniqueDapps.map(dapp => {
