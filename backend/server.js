@@ -1178,9 +1178,10 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  // TEMPORARY: Force delete cache to rebuild from seed (User Request)
-  const CACHE_FILE_TO_DELETE = path.join(process.env.DATA_DIR || path.join(__dirname, 'data'), 'dapps-cache.json');
-  fs.unlink(CACHE_FILE_TO_DELETE).catch(() => console.log("Cache file already gone or could not be deleted."));
+  // TEMPORARY: Force delete cache AND approved list (User Request)
+  const DATA_DIR_PATH = process.env.DATA_DIR || path.join(__dirname, 'data');
+  fs.unlink(path.join(DATA_DIR_PATH, 'dapps-cache.json')).catch(() => console.log("Cache file already gone."));
+  fs.unlink(path.join(DATA_DIR_PATH, 'approved_dapps.json')).catch(() => console.log("Approved file already gone."));
 
   console.log(`🚀 Backend server running on http://localhost:${PORT}`);
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
