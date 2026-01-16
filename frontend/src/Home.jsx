@@ -19,11 +19,11 @@ const FAVORITE_DAPPS = [
     category: "AI"
   },
   {
-    name: "CobaltX",
-    description: "The next-gen DEX and liquidity layer on Base.",
-    url: "https://cobaltx.fi",
-    logo: "https://ui-avatars.com/api/?name=Cobalt+X&background=0052FF&color=fff&size=256", // High-visibility fallback
-    category: "Dexs"
+    name: "Base Apps",
+    description: "A home for all Dapps on base.",
+    url: "https://www.baseapps.org/",
+    logo: "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
+    category: "Real World"
   },
   {
     name: "Aave V3",
