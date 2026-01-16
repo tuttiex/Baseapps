@@ -1007,6 +1007,25 @@ app.delete('/api/admin/dapps/:name', async (req, res) => {
       await saveDappsToCache(dapps);
     }
 
+    // 3. Remove from SEED file to prevent auto-restore logic from resurrecting it
+    const SEED_FILE = path.join(__dirname, 'dapps-seed.json');
+    try {
+      const seedData = await fs.readFile(SEED_FILE, 'utf8');
+      let seedJson = JSON.parse(seedData);
+      let seedDapps = seedJson.dapps || [];
+      const seedInitialCount = seedDapps.length;
+
+      seedDapps = seedDapps.filter(d => d.name.toLowerCase() !== name.toLowerCase());
+
+      if (seedDapps.length < seedInitialCount) {
+        seedJson.dapps = seedDapps;
+        await fs.writeFile(SEED_FILE, JSON.stringify(seedJson, null, 2), 'utf8');
+        console.log(`🌱 Removed "${name}" from seed file.`);
+      }
+    } catch (e) {
+      console.log('Error updating seed file during deletion:', e.message);
+    }
+
     res.json({ success: true, message: `Dapp "${name}" removed from live site.` });
   } catch (error) {
     console.error('Error deleting dapp from cache:', error);
