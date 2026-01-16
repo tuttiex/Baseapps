@@ -1,15 +1,1 @@
-[
-  {
-    "name": "BaseApps",
-    "description": "The home for all Base dapps",
-    "category": "Services",
-    "url": "https://www.baseapps.org/",
-    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768400241859-692793068.png",
-    "tvl": "New",
-    "chain": "Base",
-    "dappId": "0xc9874d898b18593c86b860a1a4dc5a5602280d590067a9dad198743751b24ffd",
-    "isRegistered": false,
-    "score": 0,
-    "weeklyScore": 0
-  }
-]
+[]
