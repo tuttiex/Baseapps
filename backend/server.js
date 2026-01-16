@@ -526,14 +526,17 @@ async function loadDappsFromCache() {
       console.log('Volume cache missing or invalid.');
     }
 
-    // 3. COMPARE: If cache is dangerously small (< 10) but Seed is big, RESTORE SEED
-    // This acts as a safety net if data is accidentally wiped
-    if (cacheDapps.length < 10 && seedDapps.length > 20) {
-      console.log(`♻️ RESTORING CACHE FROM SEED! (Cache too small: ${cacheDapps.length})`);
-      await saveDappsToCache(seedDapps); // Overwrite volume
+    // 3. MASTER SYNC: Always prioritize Seed File (Codebase) over Volume Cache
+    // This ensures that deployments (GitHub) update the live data, removing deleted dapps.
+    if (seedDapps.length > 0) {
+      console.log(`🔄 SYNC: Overwriting Volume Cache with Codebase Seed (${seedDapps.length} dapps)`);
+      // Check if we need to preserve anything? For now, User requested "Code is Main".
+      // We still save to cache file for consistency/performance if logic changes.
+      await saveDappsToCache(seedDapps);
       return seedDapps;
     }
 
+    // Fallback: Use cache if seed is missing (should not happen in prod usually)
     return cacheDapps;
   } catch (error) {
     console.error('❌ FAILED TO LOAD CACHE logic:', error.message);
@@ -1177,14 +1180,30 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  // TEMPORARY: Force delete cache AND approved list (User Request)
-  const DATA_DIR_PATH = process.env.DATA_DIR || path.join(__dirname, 'data');
-  fs.unlink(path.join(DATA_DIR_PATH, 'dapps-cache.json')).catch(() => console.log("Cache file already gone."));
-  fs.unlink(path.join(DATA_DIR_PATH, 'approved_dapps.json')).catch(() => console.log("Approved file already gone."));
-
+app.listen(PORT, async () => {
   console.log(`🚀 Backend server running on http://localhost:${PORT}`);
   console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
+
+  // --- MASTER SYNC LOGIC (Added per User Request) ---
+  // Overwrite Volume's approved_dapps.json with the Codebase one on startup.
+  // This makes Git the single source of truth for approved dapps.
+  try {
+    const CODE_APPROVED_FILE = path.join(__dirname, 'data', 'approved_dapps.json');
+    const VOLUME_APPROVED_FILE = APPROVED_DAPPS_FILE;
+
+    // Check if we are running in a context where paths differ (i.e. Volume is mounted elsewhere)
+    // Even if paths are same, a copy is harmless (and ensures content matches).
+    try {
+      const codeData = await fs.readFile(CODE_APPROVED_FILE, 'utf8');
+      await fs.writeFile(VOLUME_APPROVED_FILE, codeData, 'utf8');
+      console.log(`🔄 SYNC: Overwrote Volume Approved List with Codebase version.`);
+    } catch (readErr) {
+      console.log(`⚠️ SYNC SKIP: Could not read codebase approved_dapps.json: ${readErr.message}`);
+    }
+  } catch (err) {
+    console.error(`❌ SYNC ERROR: Failed to sync approved dapps: ${err.message}`);
+  }
+  // --------------------------------------------------
   console.log(`📂 Loading dapps from cache file: ${CACHE_FILE_PATH}`);
   console.log(`🔒 Security: Helmet, rate limiting, and input validation enabled`);
 });
