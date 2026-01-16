@@ -2,14 +2,6 @@
   "timestamp": "2026-01-05T10:26:26.444Z",
   "dapps": [
     {
-      "name": "Base Apps",
-      "description": "A home for all Base Dapps",
-      "category": "Infrastructure",
-      "url": "https://www.baseapps.org/",
-      "logo": "https://bafybeihoqspflrkdlwy2jcv6ks2shw7gtngcrkqgzdtx75bkpdwnz4g27e.ipfs.dweb.link?filename=baseapps%20first%20logo.jpg",
-      "chain": "Base"
-    },
-    {
       "name": "Binance CEX",
       "description": "Binance is a cryptocurrency exchange which is the largest exchange in the world in terms of daily trading volume of cryptocurrencies",
       "category": "CEX",
