@@ -53,39 +53,39 @@ const FAVORITE_DAPPS = [
 // ============================================
 const TRENDING_DAPPS = [
   {
-    name: "Uniswap V3",
+    name: "Aerodrome Finance",
+    description: "The central trading and liquidity marketplace on Base.",
+    url: "https://aerodrome.finance",
+    logo: "https://assets.coingecko.com/coins/images/31599/large/Aerodrome.png",
+    category: "Dexs"
+  },
+  {
+    name: "Uniswap",
     description: "Swap, earn, and build on the leading decentralized crypto trading protocol.",
     url: "https://app.uniswap.org/",
-    logo: "https://icons.llama.fi/uniswap-v3.png",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Uniswap_Logo.svg",
     category: "Dexs"
   },
   {
-    name: "BaseSwap",
-    description: "The premier DEX on Base Chain. Swap, earn, and yield farm with low fees.",
-    url: "https://baseswap.fi",
-    logo: "https://icons.llama.fi/baseswap.png",
-    category: "Dexs"
+    name: "Aave",
+    description: "Earn interest, borrow assets, and build applications.",
+    url: "https://aave.com",
+    logo: "https://assets.coingecko.com/coins/images/12645/large/AAVE.png",
+    category: "Lending"
   },
   {
-    name: "Friend.tech",
-    description: "A social network for your friends. Buy shares of your friends.",
-    url: "https://www.friend.tech",
-    logo: "https://icons.llama.fi/friend.tech.png",
+    name: "Farcaster",
+    description: "A sufficiently decentralized social network.",
+    url: "https://warpcast.com",
+    logo: "https://raw.githubusercontent.com/vrypan/farcaster-brand/main/icons/icon-transparent/purple-transparent.png",
     category: "Social"
   },
   {
-    name: "BasePaint",
-    description: "Collaborative pixel art on Base. Paint together, mint together.",
-    url: "https://basepaint.xyz",
-    logo: "https://icons.llama.fi/basepaint.jpg",
+    name: "Zora",
+    description: "Imagine, Create, and Mint on Zora.",
+    url: "https://zora.co",
+    logo: "https://logo.svgcdn.com/token-branded/zora.png",
     category: "Art"
-  },
-  {
-    name: "Moonwell",
-    description: "An open lending and borrowing protocol on Base, Moonbeam, and Moonriver.",
-    url: "https://moonwell.fi",
-    logo: "https://icons.llama.fi/moonwell.png",
-    category: "Lending"
   }
 ]
 
