@@ -526,9 +526,10 @@ async function loadDappsFromCache() {
       console.log('Volume cache missing or invalid.');
     }
 
-    // 3. COMPARE: If cache is small/empty but Seed is big, RESTORE SEED
-    if (seedDapps.length > cacheDapps.length) {
-      console.log(`♻️ RESTORING CACHE FROM SEED! (Seed: ${seedDapps.length} > Cache: ${cacheDapps.length})`);
+    // 3. COMPARE: If cache is dangerously small (< 10) but Seed is big, RESTORE SEED
+    // This acts as a safety net if data is accidentally wiped
+    if (cacheDapps.length < 10 && seedDapps.length > 20) {
+      console.log(`♻️ RESTORING CACHE FROM SEED! (Cache too small: ${cacheDapps.length})`);
       await saveDappsToCache(seedDapps); // Overwrite volume
       return seedDapps;
     }
