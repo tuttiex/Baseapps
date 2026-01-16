@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "name": "BaseApps",
+    "description": "A home for all Dapps on base.",
+    "category": "Real World",
+    "url": "https://www.baseapps.org/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
+    "tvl": "New",
+    "chain": "Base"
+  }
+]
