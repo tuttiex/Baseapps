@@ -56,35 +56,35 @@ const TRENDING_DAPPS = [
     name: "Aerodrome Finance",
     description: "The central trading and liquidity marketplace on Base.",
     url: "https://aerodrome.finance",
-    logo: "https://assets.coingecko.com/coins/images/31599/large/Aerodrome.png",
+    logo: "https://github.com/aerodrome-finance.png",
     category: "Dexs"
   },
   {
     name: "Uniswap",
     description: "Swap, earn, and build on the leading decentralized crypto trading protocol.",
     url: "https://app.uniswap.org/",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Uniswap_Logo.svg",
+    logo: "https://cryptologos.cc/logos/uniswap-uni-logo.png",
     category: "Dexs"
   },
   {
     name: "Aave",
     description: "Earn interest, borrow assets, and build applications.",
     url: "https://aave.com",
-    logo: "https://assets.coingecko.com/coins/images/12645/large/AAVE.png",
+    logo: "https://cryptologos.cc/logos/aave-aave-logo.png",
     category: "Lending"
   },
   {
     name: "Farcaster",
     description: "A sufficiently decentralized social network.",
     url: "https://warpcast.com",
-    logo: "https://raw.githubusercontent.com/vrypan/farcaster-brand/main/icons/icon-transparent/purple-transparent.png",
+    logo: "https://github.com/farcasterxyz.png",
     category: "Social"
   },
   {
     name: "Zora",
     description: "Imagine, Create, and Mint on Zora.",
     url: "https://zora.co",
-    logo: "https://logo.svgcdn.com/token-branded/zora.png",
+    logo: "https://github.com/ourzora.png",
     category: "Art"
   }
 ]
