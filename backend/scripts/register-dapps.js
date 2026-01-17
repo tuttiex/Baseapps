@@ -11,7 +11,9 @@ const DELAY_BETWEEN_CHECKS = 150;
 
 const CACHE_PATH = path.join(__dirname, '../dapps-cache.json');
 const APPROVED_PATH = path.join(__dirname, '../data/approved_dapps.json');
+
 const SUBMITTED_PATH = path.join(__dirname, '../data/submitted_dapps.json');
+const DAPP_IDS_FILE = path.join(__dirname, '../dapp-ids.json');
 
 const ABI = [
     "function batchRegisterDapps(bytes32[] calldata dappIds) external",
@@ -64,6 +66,15 @@ async function main() {
         ...d,
         dappId: generateDappId(d.name, d.url)
     }));
+
+    // SAVE IDs to JSON so Server can use them
+    const idMap = dappsWithIds.map(d => ({
+        name: d.name,
+        url: d.url,
+        dappId: d.dappId
+    }));
+    fs.writeFileSync(DAPP_IDS_FILE, JSON.stringify(idMap, null, 2));
+    console.log(`💾 Saved ${idMap.length} dapp IDs to dapp-ids.json`);
 
     // 3. Check registration status
     console.log(`🔍 Checking on-chain status (Throttled)...`);
