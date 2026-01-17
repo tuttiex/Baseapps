@@ -1579,6 +1579,11 @@ body.dark-mode .suggestion-item.active {
   border-radius: 12px;
   overflow: hidden;
   border: 2px solid var(--border-color);
+  background-color: #ffffff;
+  /* Explicit white background to see transparent logos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo-preview {
