@@ -131,8 +131,15 @@ function AddDapps() {
             return
         }
 
+        // Use FileReader to create a base64 string (Data URL)
+        // This avoids CSP issues with 'blob:' URLs on some hosts.
+        const reader = new FileReader()
+        reader.onloadend = () => {
+            setLogoPreview(reader.result)
+        }
+        reader.readAsDataURL(file)
+
         setFormData(prev => ({ ...prev, logo: file }))
-        setLogoPreview(URL.createObjectURL(file))
         setErrors(prev => ({ ...prev, logo: null }))
     }
 
