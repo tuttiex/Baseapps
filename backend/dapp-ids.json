@@ -25,6 +25,26 @@
     "dappId": "0x8414dcbff74210efe980fec4c532c2902272101cf28a55836d4e1d2aa2853153"
   },
   {
+    "name": "Ohara",
+    "url": "https://ohara.ai",
+    "dappId": "0x9ffc63b665a7e551f6fee60ebc151a5590a167b2084af7fbd0970a1b3aa39783"
+  },
+  {
+    "name": "fxhash",
+    "url": "https://www.fxhash.xyz",
+    "dappId": "0xec712ce3559ab63f2875c4d80e11708f4c3da229b029df2b1303029d85768da9"
+  },
+  {
+    "name": "Astrology",
+    "url": "https://app.ombruja.com",
+    "dappId": "0xe7398fae0bac07e1765f355fca38fc97ad985ab65bd9ba634632a156fd025346"
+  },
+  {
+    "name": "Football.Fun",
+    "url": "https://www.football.fun/",
+    "dappId": "0x59fc63300e733a625c332eede348fc12dae4b374d6cacba0dc5e02295d6131c3"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"
@@ -948,11 +968,6 @@
     "name": "Kasu",
     "url": "https://kasu.finance/",
     "dappId": "0x7bf031185f792d397176fbd37183450eee189eec1350744565c88d7bd589e788"
-  },
-  {
-    "name": "Football.Fun",
-    "url": "https://www.football.fun/",
-    "dappId": "0x59fc63300e733a625c332eede348fc12dae4b374d6cacba0dc5e02295d6131c3"
   },
   {
     "name": "SYMMIO",

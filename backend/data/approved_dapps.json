@@ -39,5 +39,37 @@
     "url": "https://rips.app",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768652542043-198083678.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Ohara",
+    "description": "A no-code platform for creating, deploying, and monetizing onchain mini-apps and app tokens within the Base ecosystem.",
+    "category": "Infrastructure",
+    "url": "https://ohara.ai",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768673311377-409005994.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "fxhash",
+    "description": "An open permissionless generative art and NFT marketplace where artists can publish and collectors can mint algorithmically generated NFT artwork.",
+    "category": "Consumer",
+    "url": "https://www.fxhash.xyz",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768674797280-51152654.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Astrology",
+    "description": "An onchain zodiac art experience and personalized horoscope mini-app.",
+    "category": "Consumer",
+    "url": "https://app.ombruja.com",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768675864470-274188416.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Football.fun",
+    "description": "A football themed prediction and gaming platform where users can engage with sports related markets and digital collectibles.",
+    "category": "DeFi",
+    "url": "https://www.football.fun/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768676262223-815323664.jpg",
+    "chain": "Base"
   }
 ]
