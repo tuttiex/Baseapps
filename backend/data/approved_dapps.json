@@ -7,5 +7,37 @@
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
     "tvl": "New",
     "chain": "Base"
+  },
+  {
+    "name": "Bankr",
+    "description": "An AI powered crypto trading and portfolio management agent.",
+    "category": "AI",
+    "url": "https://bankr.bot/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768650888484-686391098.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Bond",
+    "description": "A creator support platform where users bond funds to creators to earn interest while unlocking recognition and perks.",
+    "category": "SoFi",
+    "url": "https://www.joinbond.xyz",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768651472623-763111218.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Mamo",
+    "description": "A finance companion that automates asset allocation across DeFi protocols to optimize yields and revenue on Base.",
+    "category": "Yield & Yield Strategies",
+    "url": "https://mamo.bot/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768652234067-633627153.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Rips",
+    "description": "A gamified onchain platform where users open packs of ERC‑20 tokens, claim, swap, and track assets with leaderboards and rewards.",
+    "category": "Social & Entertainment",
+    "url": "https://rips.app",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768652542043-198083678.jpg",
+    "chain": "Base"
   }
 ]
