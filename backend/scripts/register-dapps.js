@@ -4,7 +4,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
 const CONTRACT_ADDRESS = '0x26a496b5dfcc453b0f3952c455af3aa6b729793c';
-const RPC_URL = 'https://base.llamarpc.com';
+const RPC_URL = 'https://mainnet.base.org';
 const BATCH_SIZE = 100;
 const CHECK_BATCH_SIZE = 10;
 const DELAY_BETWEEN_CHECKS = 150;
