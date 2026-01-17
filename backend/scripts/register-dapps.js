@@ -13,6 +13,7 @@ const CACHE_PATH = path.join(__dirname, '../dapps-cache.json');
 const APPROVED_PATH = path.join(__dirname, '../data/approved_dapps.json');
 
 const SUBMITTED_PATH = path.join(__dirname, '../data/submitted_dapps.json');
+const SEED_PATH = path.join(__dirname, '../dapps-seed.json');
 const DAPP_IDS_FILE = path.join(__dirname, '../dapp-ids.json');
 
 const ABI = [
@@ -55,6 +56,10 @@ async function main() {
     if (fs.existsSync(SUBMITTED_PATH)) {
         // We usually don't register submitted but just in case
         allSources.push(...JSON.parse(fs.readFileSync(SUBMITTED_PATH, 'utf8')));
+    }
+    if (fs.existsSync(SEED_PATH)) {
+        const seedJson = JSON.parse(fs.readFileSync(SEED_PATH, 'utf8'));
+        allSources.push(...(seedJson.dapps || []));
     }
 
     // Deduplicate by URL
