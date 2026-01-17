@@ -71,5 +71,45 @@
     "url": "https://www.football.fun/",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768676262223-815323664.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "FailSafe",
+    "description": "A security and compliance platform providing smart contract audits, real-time hack alerts, and transaction screening for blockchain and applications.",
+    "category": "Infrastructure",
+    "url": "https://getfailsafe.com",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768677359632-827380606.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Noise",
+    "description": "A trading platform for relevance that allows users to long and short contracts on trends, brands, and ideas based on social attention data.",
+    "category": "DeFi",
+    "url": "https://www.noise.xyz",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768677505359-767069893.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Contango",
+    "description": "A venture firm and incubator focused on investing in products and services that advance the adoption of decentralized artificial intelligence and web3 technologies.",
+    "category": "Infrastructure",
+    "url": "https://www.contango.digital",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768677675455-946330297.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "o1.exchange",
+    "description": "A decentralized trading platform focused on providing real-time market insights, analytical tools, and automated trade execution.",
+    "category": "DeFi",
+    "url": "https://o1.exchange",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768677886135-614374121.png",
+    "chain": "Base"
+  },
+  {
+    "name": "FLock.io",
+    "description": "A decentralized platform for training custom models with full data control, combining federated learning with blockchain-based verification for secure model development.",
+    "category": "AI",
+    "url": "https://www.flock.io/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768678150947-253011607.jpg",
+    "chain": "Base"
   }
 ]

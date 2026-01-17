@@ -45,6 +45,31 @@
     "dappId": "0x59fc63300e733a625c332eede348fc12dae4b374d6cacba0dc5e02295d6131c3"
   },
   {
+    "name": "FailSafe",
+    "url": "https://getfailsafe.com",
+    "dappId": "0xfd4fe304c695277cc0de8976a7a2fcf02c0c67dcfe0d97c4b24fd5cf848b42e3"
+  },
+  {
+    "name": "Noise",
+    "url": "https://www.noise.xyz",
+    "dappId": "0xae05abbf1648f8f1c6f02e8b5d79360cce91d67a31642597df69db12da2ce663"
+  },
+  {
+    "name": "Contango",
+    "url": "https://www.contango.digital",
+    "dappId": "0x381af09ab2d739f55d645f3f29655364bf4cd39b6dadce8454d4f2a590bdb0e0"
+  },
+  {
+    "name": "o1.exchange",
+    "url": "https://o1.exchange",
+    "dappId": "0x63a6a7b18f6d20ea7e945238b42f28c425cc84f7c6e7a949ef9297e025a5137a"
+  },
+  {
+    "name": "FLock.io",
+    "url": "https://www.flock.io/",
+    "dappId": "0xddaf4f50ee13bcfd8557196cfa85a47e5fab5ac63294147ddc9b6d32a5166f33"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"
