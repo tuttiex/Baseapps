@@ -40,28 +40,39 @@ app.use(helmet({
 // Request Logging - Morgan
 app.use(morgan(':remote-addr - :method :url :status :res[content-length] - :response-time ms'));
 
+// Helper to skip rate limiting for trusted origins
+const skipTrustedOrigins = (req) => {
+  const origin = req.get('Origin') || req.get('Referer');
+  if (!origin) return false;
+  return origin.includes('baseapps.org') ||
+    origin.includes('baseapps-nine.vercel.app') ||
+    origin.includes('localhost');
+};
+
 // Rate Limiting - General API
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  max: 1000, // Increased from 100 to 1000
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again later.'
   },
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: skipTrustedOrigins // Whitelist our site
 });
 
-// Rate Limiting - Search endpoint (stricter)
+// Rate Limiting - Search endpoint (stricter for bots, but open for our site)
 const searchLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 50, // Limit each IP to 50 search requests per windowMs
+  max: 300, // Increased from 50 to 300
   message: {
     success: false,
     error: 'Too many search requests, please try again later.'
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: skipTrustedOrigins // Whitelist our site
 });
 
 // Apply general rate limiter to all /api routes
