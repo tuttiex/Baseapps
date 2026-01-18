@@ -70,6 +70,56 @@
     "dappId": "0xddaf4f50ee13bcfd8557196cfa85a47e5fab5ac63294147ddc9b6d32a5166f33"
   },
   {
+    "name": "Hypersurface",
+    "url": "https://app.hypersurface.io/",
+    "dappId": "0x53f76b3c6d0c324fb45a2aa42140b15c91443564a92235df87eb52999f4ac67a"
+  },
+  {
+    "name": "Indexy",
+    "url": "https://indexy.xyz/",
+    "dappId": "0x7da6d8aa0f3d12c0d0bfc4e843373ced6cd07d823c8a8a258691f0222a459646"
+  },
+  {
+    "name": "Hydrex",
+    "url": "https://www.hydrex.fi",
+    "dappId": "0x504b11871ac457e052c918c43f9487855d73f17e298f87fa16432f14a0f3e942"
+  },
+  {
+    "name": "flaunch",
+    "url": "https://flaunch.gg",
+    "dappId": "0x02dedc6eb8faf536fcdd3fe20836cdb1ca926df8e08593a31096675a6e6d437b"
+  },
+  {
+    "name": "Remix",
+    "url": "https://remix.gg/",
+    "dappId": "0x27aa4b8a0eb3b9518a461c2c619595fa12b9245456724060aba93952ced30ef1"
+  },
+  {
+    "name": "Playsout",
+    "url": "https://playsout.com",
+    "dappId": "0xcf912dae9bb7018faf0240e11d7d50e05105b046012fa7a7fddbfed8634cb952"
+  },
+  {
+    "name": "Drip",
+    "url": "https://www.dripshop.live",
+    "dappId": "0xe826b5aa0c0e581792a4e7c854d0fc857af3d7ec137dc25a809f5f0339276fc0"
+  },
+  {
+    "name": "Anichess",
+    "url": "https://www.anichess.club",
+    "dappId": "0x04b38400b0712c3ae00aee62fb36fc69887af0d3e484e467ece9b23bccaf4c71"
+  },
+  {
+    "name": "Builders Garden",
+    "url": "https://www.builders.garden",
+    "dappId": "0xa9f6895a810df42a593bd13bb10ebc9d0f414b01918c45f7442abd07afc217d8"
+  },
+  {
+    "name": "Boinkers",
+    "url": "https://boinkers.io",
+    "dappId": "0xbfe97b706fb5b14b50e6ed9b4f2c09ed2d5fb5691a8f49b08a7bd01a9d82cceb"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"
@@ -1228,11 +1278,6 @@
     "name": "Butter Network",
     "url": "https://www.butterswap.io/swap",
     "dappId": "0x9d349f228233cff9a800130c41ebb9cb1a251cff3e79e825891d1e3adeb13655"
-  },
-  {
-    "name": "flaunch",
-    "url": "https://flaunch.gg",
-    "dappId": "0x02dedc6eb8faf536fcdd3fe20836cdb1ca926df8e08593a31096675a6e6d437b"
   },
   {
     "name": "Meson",

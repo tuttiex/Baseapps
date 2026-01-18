@@ -111,5 +111,85 @@
     "url": "https://www.flock.io/",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768678150947-253011607.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Hypersurface",
+    "description": "A structured yield origination platform that allows users to earn premiums on token holdings through onchain covered calls.",
+    "category": "Yield & Yield Strategies",
+    "url": "https://app.hypersurface.io/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768736011999-213380313.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Indexy",
+    "description": "A platform for discovering, tracking, and creating crypto indexes across multiple chains and thousands of assets to monitor market trends.",
+    "category": "Infrastructure",
+    "url": "https://indexy.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768736143108-770926436.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Hydrex",
+    "description": "A MetaDEX and liquidity hub designed to bring new user segments onchain through swap, earn, and growth features.",
+    "category": "DeFi",
+    "url": "https://www.hydrex.fi",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768736278332-627097288.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Flaunch",
+    "description": "A fair launch platform and ecosystem that allows users to create coins and build onchain economies through groups, enabling shared cashflow from trading fees.",
+    "category": "Infrastructure",
+    "url": "https://flaunch.gg",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768736400908-58080127.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Remix",
+    "description": "A social gaming platform that allows users to create, share, and play instantly playable games.",
+    "category": "Consumer",
+    "url": "https://remix.gg/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768737292592-312887549.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Playsout",
+    "description": "A mini game distribution platform and infrastructure that bridges Web2 and Web3, allowing developers to deploy games across super apps with integrated monetization and rewards.",
+    "category": "Infrastructure",
+    "url": "https://playsout.com",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768737482902-184338146.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Drip",
+    "description": "A live stream shopping platform for physical and digital collectibles, featuring real-time auctions and community driven commerce.",
+    "category": "Consumer",
+    "url": "https://www.dripshop.live",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768737821997-698065377.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Anichess",
+    "description": "A community driven chess game that combines traditional strategy with magic themed spells and decentralized rewards.",
+    "category": "Consumer",
+    "url": "https://www.anichess.club",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768738034352-860212833.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Builders Garden",
+    "description": "A consumer crypto product studio and tech partner that develops onchain applications, social mini apps, and developer tools while providing R&D and prototyping services.",
+    "category": "Infrastructure",
+    "url": "https://www.builders.garden",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768738385830-91996011.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Boinkers",
+    "description": "A social gaming platform where users mine soft currency and engage in competitive play to earn rewards through a meme themed ecosystem.",
+    "category": "Consumer",
+    "url": "https://boinkers.io",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768738525201-248382086.jpg",
+    "chain": "Base"
   }
 ]
