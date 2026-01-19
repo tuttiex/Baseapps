@@ -120,6 +120,76 @@
     "dappId": "0xbfe97b706fb5b14b50e6ed9b4f2c09ed2d5fb5691a8f49b08a7bd01a9d82cceb"
   },
   {
+    "name": "Megapot",
+    "url": "https://megapot.io",
+    "dappId": "0x4bf5ad8a0736913497e7cf56748a73694ec71c1b7b1c15495dc1cef10b8fa9a7"
+  },
+  {
+    "name": "Ponder",
+    "url": "https://ponder.social",
+    "dappId": "0xe2c6812c936cddf41a1972a3bd699be29cd0f26078b7d3f8aa80915cd9b3500b"
+  },
+  {
+    "name": "Retake",
+    "url": "https://retake.tv",
+    "dappId": "0x48b576d3a3bbc78d4137c30d1978d61e15107e7077987733c30f7fedf8e7d7b4"
+  },
+  {
+    "name": "Emerge",
+    "url": "https://www.tryemerge.xyz/",
+    "dappId": "0xb910f5ec5069056e10b1126437c066c99849bfd6a291893ce2dbe5ea2ef38e65"
+  },
+  {
+    "name": "Corners",
+    "url": "https://www.corners.market/",
+    "dappId": "0x81785df1b72cc674ffacfed719d27c801b00f2ceb4166f105cca94680469a152"
+  },
+  {
+    "name": "SongCast",
+    "url": "https://songcast.xyz/",
+    "dappId": "0x7f325963058b2261cab6e4da34478132058f3fae695f2bcd4d191b7af4b13baf"
+  },
+  {
+    "name": "QR",
+    "url": "https://qrcoin.fun/",
+    "dappId": "0x9302cfb42a5531e148795be1b088a263dadf67c4a5b217b15ab94374e03de3e7"
+  },
+  {
+    "name": "Checkr",
+    "url": "https://checkr.social/",
+    "dappId": "0x9017753a333370d7f31053ac50b5be1877289b3bc25959c619f86f44169a942a"
+  },
+  {
+    "name": "RaffleCast",
+    "url": "https://www.rafflecast.xyz/",
+    "dappId": "0xc82792fdbf3e1d5a6bcc7e1e1514cc6b5d0e83606e858a5a8c98ad9f18b5c3d6"
+  },
+  {
+    "name": "NedaPay",
+    "url": "https://www.nedapay.xyz/",
+    "dappId": "0xd239f28747834d953e84d2281f2bcc4bd06afa6442d3d880de96fd26e982232a"
+  },
+  {
+    "name": "Coop Records",
+    "url": "https://cooprecords.xyz/",
+    "dappId": "0x71d18c536722baafb685d3420bfbab449cf7a7f3e21901644da95b2ae7a62e4b"
+  },
+  {
+    "name": "Tortoise Studio",
+    "url": "https://hello.tortoise.studio/",
+    "dappId": "0x58335afce421dc0dd7d3f1db9a86a3dbb06815d3baddb35bbda4bee9c55c4d12"
+  },
+  {
+    "name": "Bolero",
+    "url": "https://app.boleromusic.com/",
+    "dappId": "0x7dbfab8e0219fc61f093237de10024edc386d8756d3b187a3975f32430fa7ddf"
+  },
+  {
+    "name": "Flexa",
+    "url": "https://flexa.co/",
+    "dappId": "0x332d6eecbb66808179f3ae1cf00acacb6813b853d9365c8197b8b51f050e74e6"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"

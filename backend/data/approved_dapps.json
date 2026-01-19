@@ -191,5 +191,117 @@
     "url": "https://boinkers.io",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768738525201-248382086.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Megapot",
+    "description": "A jackpot platform offering daily prize drawings and lottery style games with transparent onchain odds.",
+    "category": "Social & Entertainment",
+    "url": "https://megapot.io",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768744262738-240018588.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Ponder",
+    "description": "A social prediction game where users earn rewards by correctly anticipating collective group sentiment on daily polls.",
+    "category": "DeFi",
+    "url": "https://ponder.social",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768744443336-520324967.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Retake",
+    "description": "A live streaming platform where every streamer is represented by a coin, allowing users to support creators through token trading and engagement.",
+    "category": "Social & Entertainment",
+    "url": "https://retake.tv",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768744610528-864524531.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Emerge",
+    "description": "A platform for generative social interactions that allows users to create, share, and monetize AI generated content directly within social media feeds.",
+    "category": "Social & Entertainment",
+    "url": "https://www.tryemerge.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768744762958-801322172.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Corners",
+    "description": "A prediction market platform focused on social and cultural events, allowing users to trade on the outcomes of trending topics.",
+    "category": "DeFi",
+    "url": "https://www.corners.market/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768745005478-770096640.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "SongCast",
+    "description": "A music social token platform that allows users to support artists and trade tokens linked to musical content and creator engagement",
+    "category": "Social & Entertainment",
+    "url": "https://songcast.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768785256383-240220691.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "QR",
+    "description": "An onchain attention protocol facilitating a daily auction mechanism that allows participants to bid for the right to redirect a universal QR code to a destination of their choice.",
+    "category": "Consumer",
+    "url": "https://qrcoin.fun/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768785464943-645513339.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Checkr",
+    "description": "An analytics platform that evaluates social engagement data across Farcaster and X to monitor attention trends and their correlation with asset price movements.",
+    "category": "Infrastructure",
+    "url": "https://checkr.social/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768785608726-135741201.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "RaffleCast",
+    "description": "An onchain raffle application that enables users to create, discover, and participate in automated prize draws to foster community engagement.",
+    "category": "Social & Entertainment",
+    "url": "https://www.rafflecast.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768786784844-20978035.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "NedaPay",
+    "description": "A cross border payment infrastructure facilitating stablecoin transactions, instant swaps, and global settlement, with a specialized focus on the regulated nTZS stablecoin.",
+    "category": "DeFi",
+    "url": "https://www.nedapay.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768786912905-563275542.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Coop Records",
+    "description": "A music focused platform enabling artists to tokenize their tracks through a presale mechanism, transitioning songs into tradable assets that support creator revenue via secondary market activity.",
+    "category": "Social & Entertainment",
+    "url": "https://cooprecords.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768787034747-186965195.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Tortoise Studio",
+    "description": "An onchain music streaming and collection platform that enables users to discover new tracks, create playlists, and collect digital music assets.",
+    "category": "Social & Entertainment",
+    "url": "https://hello.tortoise.studio/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768787178037-45705641.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Bolero",
+    "description": "A financial marketplace for music rights that enables users to invest in fractionalized song catalogs, providing a mechanism for earning royalty yields and trading shares in intellectual property.",
+    "category": "Consumer",
+    "url": "https://app.boleromusic.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768787551576-477093025.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Flexa",
+    "description": "A payment network that provides merchant infrastructure for instant, fraud proof digital asset transactions, utilizing onchain collateralization to ensure immediate settlement across various channels",
+    "category": "Consumer",
+    "url": "https://flexa.co/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768787826677-973013107.jpg",
+    "chain": "Base"
   }
 ]
