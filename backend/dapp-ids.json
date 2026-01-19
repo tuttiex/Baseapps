@@ -190,6 +190,51 @@
     "dappId": "0x332d6eecbb66808179f3ae1cf00acacb6813b853d9365c8197b8b51f050e74e6"
   },
   {
+    "name": "Beezie",
+    "url": "https://beezie.com/",
+    "dappId": "0x9e916bb14688b37a954ad3af84338b8d5112b350a6ae03bc15de5bc8b69d75d3"
+  },
+  {
+    "name": "Fey",
+    "url": "https://www.fey.money/",
+    "dappId": "0x95cd0f4d2407e8c956399ea11d07714d87930dfa246bd6bbb23bb98ec5d53c57"
+  },
+  {
+    "name": "Fraction AI",
+    "url": "https://fractionai.xyz/",
+    "dappId": "0xa5547d1a91f72163d7b66a1ded98cbdccbb6f4a0016ee417d803f4c53aaefade"
+  },
+  {
+    "name": "SwissBorg",
+    "url": "https://swissborg.com/",
+    "dappId": "0xe3b8d735e47283668e46975a026ed84b9c141bf03b7e69de7580c92dc15eab7e"
+  },
+  {
+    "name": "First Dollar",
+    "url": "https://app.firstdollar.money/",
+    "dappId": "0x16945dc9d8d1235a2afd6e4ee44cd55d70cd4a3b9b7330d7b0a9ae3b8f2a7da7"
+  },
+  {
+    "name": "Upshot",
+    "url": "https://www.upshotcards.com/",
+    "dappId": "0xbce57ebe7e5850b15221335037b0d15b009a59cdf6ba5afb05f2e85742ea86ca"
+  },
+  {
+    "name": "Clash of Coins",
+    "url": "https://clashofcoins.com/",
+    "dappId": "0x2bcba0a74444f316c3cd134929e2c358a12ba22da9ab6302da158c0a63641e31"
+  },
+  {
+    "name": "BaseVol",
+    "url": "https://www.basevol.com/",
+    "dappId": "0x5a9d9033a6805fb2db8f3c8fd1eb4a555e8046cf93cd5e214dbd82f4755e940d"
+  },
+  {
+    "name": "FLIX.fun",
+    "url": "https://flix.fun/",
+    "dappId": "0x0ff0a3d4b44ab96d2708abddb13a88c6908ff0a8d9b41c7a1ed05ca69b7d6e71"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"

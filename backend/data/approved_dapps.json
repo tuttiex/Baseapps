@@ -303,5 +303,77 @@
     "url": "https://flexa.co/",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768787826677-973013107.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Beezie",
+    "description": "A creative production platform and social entertainment application that leverages onchain primitives to facilitate content discovery and audience engagement",
+    "category": "Consumer",
+    "url": "https://beezie.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768828315348-878177838.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Fey",
+    "description": "A user owned launchpad and ecosystem for token distribution on Base.",
+    "category": "Infrastructure",
+    "url": "https://www.fey.money/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768828465965-365108071.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Fraction AI",
+    "description": "An agent centric training platform that facilitates autonomous competition among AI models to generate high quality data.",
+    "category": "AI",
+    "url": "https://fractionai.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768828594643-706290488.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "SwissBorg",
+    "description": "A wealth management platform providing institutional grade infrastructure for digital asset investment.",
+    "category": "DeFi",
+    "url": "https://swissborg.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768828732944-564394054.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "First Dollar",
+    "description": "A talent marketplace and bounty platform that connects professionals with opportunities in content, design, and development, facilitating onchain rewards for verified contributions",
+    "category": "Infrastructure",
+    "url": "https://app.firstdollar.money/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768829437058-220522656.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Upshot",
+    "description": "A gamified prediction platform where users open mystery packs and collect prediction cards representing specific cultural or market outcomes to earn rewards based on accuracy.",
+    "category": "Consumer",
+    "url": "https://www.upshotcards.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768829569964-168497027.jpg",
+    "chain": "Base"
+  },
+  {
+    "name": "Clash of Coins",
+    "description": "A cross platform gaming ecosystem utilizing an open economy and AI driven infrastructure to facilitate competitive gameplay, real time personalization, and a sustainable token utility model",
+    "category": "Consumer",
+    "url": "https://clashofcoins.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768829825070-829199049.png",
+    "chain": "Base"
+  },
+  {
+    "name": "BaseVol",
+    "description": "A gamified options trading platform that offers simplified binary outcomes and zero day to expiration (0DTE) contracts, providing high-leverage opportunities.",
+    "category": "DeFi",
+    "url": "https://www.basevol.com/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768830348096-810895108.png",
+    "chain": "Base"
+  },
+  {
+    "name": "FLIX.fun",
+    "description": "A social entertainment platform that enables users to create personalized homepages and engage with digital content through an integrated onchain incentive model.",
+    "category": "Consumer",
+    "url": "https://flix.fun/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768830688274-591577715.jpg",
+    "chain": "Base"
   }
 ]
