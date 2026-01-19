@@ -33,18 +33,18 @@ const FAVORITE_DAPPS = [
     category: "Lending & CDP"
   },
   {
-    name: "Seamless V2",
-    description: "A decentralized, non-custodial liquidity market that creates a more seamless experience for Suppliers and Borrowers.",
-    url: "https://www.seamlessprotocol.com",
-    logo: "https://icons.llama.fi/seamless-v2.jpg",
-    category: "Lending & CDP"
+    name: "Alchemy",
+    description: "The leading web3 development platform. Build reliable decentralized apps.",
+    url: "https://www.alchemy.com/",
+    logo: "https://www.google.com/s2/favicons?domain=alchemy.com&sz=256",
+    category: "Infrastructure"
   },
   {
-    name: "Aerodrome Finance",
-    description: "The central trading and liquidity marketplace on Base.",
-    url: "https://aerodrome.finance",
-    logo: "https://www.google.com/s2/favicons?domain=aerodrome.finance&sz=256",
-    category: "Dexs"
+    name: "Talent Protocol",
+    description: "The professional network for the onchain era. Build your reputation and unlock opportunities.",
+    url: "https://talentprotocol.com",
+    logo: "https://www.google.com/s2/favicons?domain=talentprotocol.com&sz=256",
+    category: "Social"
   }
 ]
 
