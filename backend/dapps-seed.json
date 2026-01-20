@@ -493,7 +493,7 @@
       "chain": "Base"
     },
     {
-      "name": "UNCX Network V2",
+      "name": "UNCX Network",
       "description": "UNCX Network is a one-stop shop with providing its customers with everything they need to launch and maintain a sustainable and secure protocol. Create your token, secure your LP with our liquidity lockers, vest your supply according to your tokenomics and create farming/staking incentives with customisable rewards.",
       "category": "Portfolio",
       "url": "https://uncx.network/",
@@ -1627,7 +1627,7 @@
       "chain": "Base"
     },
     {
-      "name": "TermFinance Lend",
+      "name": "TermFinance",
       "description": "TermFinance is a fixed rate borrow/lend protocol pioneering an auction model to originate fixed rate, fixed term crypto backed loans at scale.",
       "category": "Lending & CDP",
       "url": "https://term.finance",
@@ -2325,7 +2325,7 @@
       "chain": "Base"
     },
     {
-      "name": "Impermax V2",
+      "name": "impermax",
       "description": "Impermax is a DeFi ecosystem that enables liquidity providers to leverage their LP tokens",
       "category": "Lending & CDP",
       "url": "https://impermax.finance/",
@@ -2524,7 +2524,7 @@
       "chain": "Base"
     },
     {
-      "name": "SMARDEX AMM",
+      "name": "SMARDEX",
       "description": "SMARDEX sophisticated fine-tuned algorithm transforms impermanent loss to impermanent gain!",
       "category": "Dexs",
       "url": "https://smardex.io",
@@ -2932,7 +2932,7 @@
       "chain": "Base"
     },
     {
-      "name": "Kinetix AMM V3",
+      "name": "Kinetix",
       "description": "Fork of Uniswap V3",
       "category": "Dexs",
       "url": "https://kinetix.finance/",
@@ -3241,7 +3241,7 @@
       "chain": "Base"
     },
     {
-      "name": "KIM Exchange V3",
+      "name": "kim exchange",
       "description": "Native DEX for the Mode Network with staking modules to incentivize LPs",
       "category": "Dexs",
       "url": "https://kim.exchange",
@@ -4719,7 +4719,7 @@
       "chain": "Base"
     },
     {
-      "name": "Swapline V1",
+      "name": "Swapline",
       "description": "Swapline is a multichain DEX bringing the power of Liquidity Book AMM to new ecosystems. Experience trading with zero slippage!",
       "category": "Dexs",
       "url": "https://swapline.com",
@@ -5118,7 +5118,7 @@
       "chain": "Base"
     },
     {
-      "name": "Synthswap Perps",
+      "name": "Synthswap",
       "description": "On Synthswap you can open Long and Short Positions with up to x50 Leverage. Alternatively you can use Synthswap Futures for Swapping with 0% Price Impact. Both, Market and Limit Orders are possible.",
       "category": "Derivatives & Options",
       "url": "https://perps.synthswap.io/#/trade",
@@ -7697,7 +7697,7 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Cornucopias",
+      "name": "infinity rising",
       "description": "A new MMO where you have the freedom to live any life you desire in the clouds.",
       "category": "Gaming",
       "url": "https://cornucopias.io",
@@ -10909,7 +10909,7 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Securedapp SecureWatch",
+      "name": "Securedapp",
       "description": "Real-time monitoring tool for smart contracts with automated onchain defense features.",
       "category": "Security",
       "url": "https://securewatch.securedapp.io",
