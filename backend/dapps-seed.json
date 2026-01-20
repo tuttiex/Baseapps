@@ -9626,11 +9626,11 @@
       "description": "Open, permissionless lending and borrowing protocol operating on Base.",
       "category": "Lending & CDP",
       "url": "https://moonwell.fi",
-      "logo": "https://www.google.com/s2/favicons?domain=moonwell.fi&sz=256",
+      "logo": "https://icons.llama.fi/moonwell-lending.png",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
-      "logoSource": "Google Favicon Service"
+      "logoSource": "icons.llama.fi"
     },
     {
       "name": "Moralis",
