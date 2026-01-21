@@ -28,7 +28,7 @@ export const ConnectWallet = () => {
                                         type="button"
                                         className="connect-wallet-btn"
                                         style={{
-                                            backgroundColor: '#0052FF',
+                                            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                                             color: 'white',
                                             padding: '0.75rem 1.5rem',
                                             borderRadius: '12px',
