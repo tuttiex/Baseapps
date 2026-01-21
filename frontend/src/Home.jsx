@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ConnectWallet } from './components/ConnectWallet'
 import { VoteButtons } from './components/VoteButtons'
 import { UserAuth } from './components/UserAuth'
+import { useUser } from './context/UserContext'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -248,7 +249,7 @@ function Home() {
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <UserAuth />
-            <ConnectWallet />
+            {!useUser().isAuthenticated && <ConnectWallet />}
           </div>
         </div>
       </header>
