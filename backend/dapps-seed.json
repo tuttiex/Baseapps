@@ -101,15 +101,6 @@
       "chain": "Base"
     },
     {
-      "name": "Uniswap V3",
-      "description": "A fully decentralized protocol for automated liquidity provision on Ethereum. V2",
-      "category": "Dexs",
-      "url": "https://app.uniswap.org/",
-      "logo": "https://icons.llama.fi/uniswap-v3.png",
-      "tvl": "$2.17B",
-      "chain": "Base"
-    },
-    {
       "name": "Spark Savings",
       "description": "Allows users to deposit stablecoins into USDS Savings to tap into the Sky Savings Rate, which grants users a predictable APY in USDS.",
       "category": "Yield & Yield Strategies",
@@ -134,15 +125,6 @@
       "url": "https://app.spark.fi/points/KNQ5HD",
       "logo": "https://icons.llama.fi/spark-liquidity-layer.jpg",
       "tvl": "$2.04B",
-      "chain": "Base"
-    },
-    {
-      "name": "PancakeSwap AMM",
-      "description": "The #1 AMM and yield farm on Binance Smart Chain",
-      "category": "Dexs",
-      "url": "https://pancakeswap.finance/",
-      "logo": "https://icons.llama.fi/pancakeswap-amm.jpg",
-      "tvl": "$1.82B",
       "chain": "Base"
     },
     {
@@ -219,15 +201,6 @@
       "chain": "Base"
     },
     {
-      "name": "Uniswap V2",
-      "description": "A fully decentralized protocol for automated liquidity provision on Ethereum. V2",
-      "category": "Dexs",
-      "url": "https://app.uniswap.org/",
-      "logo": "https://icons.llama.fi/uniswap-v2.png",
-      "tvl": "$1.30B",
-      "chain": "Base"
-    },
-    {
       "name": "Gauntlet",
       "description": "Our vaults provide risk-adjusted DeFi yields for institutional capital at scale. These strategies are optimized by our automated risk platform— designed by the most vigilant, quantitative minds in crypto.",
       "category": "Risk Curators",
@@ -274,15 +247,6 @@
       "chain": "Base"
     },
     {
-      "name": "Uniswap V4",
-      "description": "Uniswap v4 inherits all of the capital efficiency gains of Uniswap v3, but provides flexibility via hooks and gas optimizations across the entire lifecycle",
-      "category": "Dexs",
-      "url": "https://app.uniswap.org/",
-      "logo": "https://icons.llama.fi/uniswap-v4.png",
-      "tvl": "$0.68B",
-      "chain": "Base"
-    },
-    {
       "name": "Optimism Bridge",
       "description": "Bridge between Optimism and Ethereum",
       "category": "Bridges",
@@ -316,15 +280,6 @@
       "url": "https://cian.app",
       "logo": "https://icons.llama.fi/cian-yield-layer.jpg",
       "tvl": "$0.52B",
-      "chain": "Base"
-    },
-    {
-      "name": "PancakeSwap AMM V3",
-      "description": "PancakeSwap V3: A More Efficient and User-Friendly DEX on BNB Chain",
-      "category": "Dexs",
-      "url": "https://pancakeswap.finance/swap",
-      "logo": "https://icons.llama.fi/pancakeswap-amm-v3.jpg",
-      "tvl": "$0.50B",
       "chain": "Base"
     },
     {
@@ -530,15 +485,6 @@
       "source": "base.org"
     },
     {
-      "name": "Stargate V2",
-      "description": "Stargate V2 offers reduced bridging costs, expands chain connectivity, and improves capital efficiency using transaction batching, Hydra, and an AI-driven Planning Module (AIPM).",
-      "category": "Bridges",
-      "url": "https://stargate.finance/",
-      "logo": "https://icons.llama.fi/stargate-v2.png",
-      "tvl": "$0.17B",
-      "chain": "Base"
-    },
-    {
       "name": "Reserve Protocol",
       "description": "The Reserve Protocol is a platform which enables anyone to create yield-bearing, decentralized, and asset-backed currencies (RTokens). RTokens provide an alternative to inflation-prone currencies, empowering people to maintain their purchasing power over time and across borders",
       "category": "Portfolio",
@@ -659,15 +605,6 @@
       "source": "base.org"
     },
     {
-      "name": "SushiSwap V3",
-      "description": "SushiSwap V3: A Uniswap V3 fork",
-      "category": "Dexs",
-      "url": "https://sushi.com/",
-      "logo": "https://icons.llama.fi/sushiswap.png",
-      "tvl": "$0.10B",
-      "chain": "Base"
-    },
-    {
       "name": "Balancer V3",
       "description": "Balancer V3 is a decentralized AMM protocol featuring a flexible vault architecture and customizable pools with dynamic swap fees and hooks for tailored liquidity management.",
       "category": "Dexs",
@@ -722,15 +659,6 @@
       "chain": "Base"
     },
     {
-      "name": "Moonwell Lending",
-      "description": "Moonwell is an open lending and borrowing DeFi protocol on Base, Optimism, Moonbeam & Moonriver.",
-      "category": "Lending & CDP",
-      "url": "https://moonwell.fi",
-      "logo": "https://icons.llama.fi/moonwell-lending.png",
-      "tvl": "$0.09B",
-      "chain": "Base"
-    },
-    {
       "name": "Arrakis Modular",
       "description": "Arrakis Modular represents the next evolution of the Arrakis liquidity management smart contract framework, aiming to overcome the limitations of previous versions (V1 and V2). Arrakis Modular introduces a universal Meta Vault standard. This modular framework allows Arrakis to create entirely different two-sided LP Vault integrations, which all reuse the same Meta Vault infrastructure and interfaces.",
       "category": "Liquidity Manager",
@@ -754,15 +682,6 @@
       "category": "Liquid Staking",
       "url": "https://www.originprotocol.com/oeth",
       "logo": "https://icons.llama.fi/origin-ether.png",
-      "tvl": "$0.08B",
-      "chain": "Base"
-    },
-    {
-      "name": "Seamless V2",
-      "description": "A decentralized, non-custodial liquidity market that creates a more seamless experience for Suppliers and Borrowers.",
-      "category": "Lending & CDP",
-      "url": "https://www.seamlessprotocol.com",
-      "logo": "https://icons.llama.fi/seamless-v2.jpg",
       "tvl": "$0.08B",
       "chain": "Base"
     },
@@ -848,29 +767,11 @@
       "chain": "Base"
     },
     {
-      "name": "PancakeSwap Infinity",
-      "description": "Multiple pool types for capital efficiency & low price impact ",
-      "category": "Dexs",
-      "url": "https://pancakeswap.finance/",
-      "logo": "https://icons.llama.fi/pancakeswap-infinity.jpg",
-      "tvl": "$0.06B",
-      "chain": "Base"
-    },
-    {
       "name": "Penpie",
       "description": "Penpie is a next-generation product by @magpiexyz_io that's set to revolutionize @pendle_fi",
       "category": "Yield & Yield Strategies",
       "url": "https://www.pendle.magpiexyz.io/stake",
       "logo": "https://icons.llama.fi/penpie.jpg",
-      "tvl": "$0.06B",
-      "chain": "Base"
-    },
-    {
-      "name": "Moonwell Vaults",
-      "description": "Moonwell is an open lending and borrowing protocol on Optimism, Base, Moonbeam, and Moonriver. Moonwell`s intuitive interface simplifies the lending experience for everyone, from newcomers to crypto experts.",
-      "category": "Capital Allocators",
-      "url": "https://moonwell.fi/vaults",
-      "logo": "https://icons.llama.fi/moonwell-vaults.jpg",
       "tvl": "$0.06B",
       "chain": "Base"
     },
@@ -1010,15 +911,6 @@
       "chain": "Base"
     },
     {
-      "name": "Seamless Vaults",
-      "description": "A decentralized, non-custodial liquidity market that creates a more seamless experience for Suppliers and Borrowers.",
-      "category": "Capital Allocators",
-      "url": "https://www.seamlessprotocol.com",
-      "logo": "https://icons.llama.fi/seamless-vaults.jpg",
-      "tvl": "$0.04B",
-      "chain": "Base"
-    },
-    {
       "name": "Extra Finance Leverage Farming",
       "description": "Extra Finance is a community-driven lending & leveraged yield farming protocol built on Optimism.",
       "category": "Yield & Yield Strategies",
@@ -1097,15 +989,6 @@
       "category": "Liquidity Manager",
       "url": "https://steer.finance",
       "logo": "https://icons.llama.fi/steer-protocol.jpg",
-      "tvl": "$0.04B",
-      "chain": "Base"
-    },
-    {
-      "name": "UNCX Network V3",
-      "description": "Liquidity Locked Tokens Locked with V3.",
-      "category": "Portfolio",
-      "url": "https://uncx network v3.com",
-      "logo": "https://icons.llama.fi/uncx-network-v3.png",
       "tvl": "$0.04B",
       "chain": "Base"
     },
@@ -1300,15 +1183,6 @@
       "chain": "Base"
     },
     {
-      "name": "Stargate V1",
-      "description": "Stargate is a fully composable liquidity transport protocol that lives at the heart of Omnichain DeFi. With Stargate, users & dApps can transfer native assets cross-chain while accessing the protocol’s unified liquidity pools with instant guaranteed finality.",
-      "category": "Bridges",
-      "url": "https://stargate.finance/",
-      "logo": "https://icons.llama.fi/stargate-v1.png",
-      "tvl": "$0.02B",
-      "chain": "Base"
-    },
-    {
       "name": "dHEDGE Vaults",
       "description": "Explore the universe of top-tier tokenized vaults.",
       "category": "Portfolio",
@@ -1360,15 +1234,6 @@
       "category": "Capital Allocators",
       "url": "https://app.extrafi.io/",
       "logo": "https://icons.llama.fi/extra-finance-vaults.jpg",
-      "tvl": "$0.02B",
-      "chain": "Base"
-    },
-    {
-      "name": "TermFinance Vaults",
-      "description": "Fixed-rate lending via on-chain auctions",
-      "category": "Yield & Yield Strategies",
-      "url": "https://www.term.finance",
-      "logo": "https://icons.llama.fi/termfinance-vaults.jpg",
       "tvl": "$0.02B",
       "chain": "Base"
     },
@@ -1818,15 +1683,6 @@
       "source": "base.org"
     },
     {
-      "name": "Sablier Lockup",
-      "description": "Token distribution protocol for onchain vesting and airdrops",
-      "category": "Payments",
-      "url": "https://sablier.com/",
-      "logo": "https://icons.llama.fi/sablier-finance.jpg",
-      "tvl": "$0.01B",
-      "chain": "Base"
-    },
-    {
       "name": "MaxShot",
       "description": "Maxshot AI is an AI Agent Factory that builds an open network of autonomous agents. These agents specialize in DeFi strategies and other automatable tasks, forming a collaborative network that efficiently deploys capital, executes trading strategies, and automates complex workflows. By continuously optimizing both processes and agent-to-agent collaboration, Maxshot AI empowers users to achieve effortless returns and let intelligent agents work for them.",
       "category": "Capital Allocators",
@@ -1868,15 +1724,6 @@
       "category": "Lending & CDP",
       "url": "https://app.mai.finance",
       "logo": "https://icons.llama.fi/qidao.jpg",
-      "tvl": "$0.01B",
-      "chain": "Base"
-    },
-    {
-      "name": "SynFutures V3",
-      "description": "SynFutures is a leading decentralized protocol for perpetual futures, democratizing the derivatives market by empowering users to trade any asset and create arbitrary futures contracts within seconds. Its V3 oAMM introduces the industry's first-ever integration of a unified AMM and on-chain matching order book model.",
-      "category": "Derivatives & Options",
-      "url": "https://trade.synfutures.com/#/trade",
-      "logo": "https://icons.llama.fi/synfutures.svg",
       "tvl": "$0.01B",
       "chain": "Base"
     },
@@ -2298,15 +2145,6 @@
       "chain": "Base"
     },
     {
-      "name": "Seamless V1",
-      "description": "A decentralized, non-custodial liquidity market that creates a more seamless experience for Suppliers and Borrowers.",
-      "category": "Lending & CDP",
-      "url": "https://www.seamlessprotocol.com",
-      "logo": "https://icons.llama.fi/seamless-v1.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Hinkal",
       "description": "Hinkal is an institutional-grade protocol enabling confidential on-chain transactions. It is a category-defining solution, that allows liquid funds and retail users to create shielded addresses and transact on major dApps in complete confidentiality (the origin and destination of transaction, value).",
       "category": "Privacy",
@@ -2529,15 +2367,6 @@
       "category": "Prediction Market",
       "url": "https://azuro.org",
       "logo": "https://icons.llama.fi/azuro.png",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "Sablier Flow",
-      "description": "Pay at a constant rate. Top up over time",
-      "category": "Payments",
-      "url": "https://app.sablier.com/payments/",
-      "logo": "https://icons.llama.fi/sablier-flow.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -3305,15 +3134,6 @@
       "chain": "Base"
     },
     {
-      "name": "SwapBased AMM",
-      "description": "Kickstarting the Base ecosystem, SwapBased is THE DEX on Base.",
-      "category": "Dexs",
-      "url": "https://swapbased.finance",
-      "logo": "https://icons.llama.fi/swapbased-amm.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "BMX Freestyle",
       "description": "Freestyle is a SYMMIO (intent-based) frontend for derivatives trading that we operate alongside our Classic GMX spot and margin markets",
       "category": "Derivatives & Options",
@@ -3446,15 +3266,6 @@
       "category": "Yield & Yield Strategies",
       "url": "https://app.lucidly.finance",
       "logo": "https://icons.llama.fi/lucidly-finance.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "SwapBased Concentrated Liquidity",
-      "description": "Concentrated Liquidity AMM on Base",
-      "category": "Dexs",
-      "url": "https://swapbased.finance/#/swap",
-      "logo": "https://icons.llama.fi/swapbased-concentrated-liquidity.png",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -4120,15 +3931,6 @@
       "chain": "Base"
     },
     {
-      "name": "Synthswap V2",
-      "description": "Synthswap is one of the first decentralized exchanges (DEX) with an automated market-maker (AMM) in the Base ecosystem.",
-      "category": "Dexs",
-      "url": "https://synthswap.io",
-      "logo": "https://icons.llama.fi/synthswap-v2.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Stabil Finance",
       "description": "Compound APR to APY on Stabil Finance",
       "category": "Yield & Yield Strategies",
@@ -4143,15 +3945,6 @@
       "category": "SoFi",
       "url": "https://words.art.com",
       "logo": "https://icons.llama.fi/words.art.png",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "SwapBased Perp",
-      "description": "Trade main assets on Base Chain with no price impact, low fees & up-to 30x leverage",
-      "category": "Derivatives & Options",
-      "url": "https://perps.swapbased.finance",
-      "logo": "https://icons.llama.fi/swapbased-perp.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -4409,15 +4202,6 @@
       "chain": "Base"
     },
     {
-      "name": "SMARDEX P2P Lending",
-      "description": "P2P Lending is a simple on-chain lending and borrowing protocol for ERC20 tokens on Ethereum. It uses a fixed-term loan model with upfront collateral to avoid liquidation risks. Borrowers create loan proposals directly on-chain, and lenders can choose to accept them—no off-chain signatures or processes are required, making the system fully decentralized",
-      "category": "Lending & CDP",
-      "url": "https://smardex.io",
-      "logo": "https://icons.llama.fi/smardex-p2p-lending.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Frensly",
       "description": "The next-generation SocialFi app focused on effective trading features and users' on-chain identity. Built on Base.",
       "category": "SoFi",
@@ -4490,15 +4274,6 @@
       "tvl": "$0.00B",
       "chain": "Base",
       "source": "base.org"
-    },
-    {
-      "name": "Synthswap V3",
-      "description": "Synthswap is one of the first decentralized exchanges (DEX) with an automated market-maker (AMM) in the Base ecosystem.",
-      "category": "Dexs",
-      "url": "https://synthswap.io",
-      "logo": "https://icons.llama.fi/synthswap-v3.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
     },
     {
       "name": "A51 Finance V3",
@@ -4638,15 +4413,6 @@
       "chain": "Base"
     },
     {
-      "name": "Swapline V2",
-      "description": "Swapline is a multichain DEX bringing the power of Liquidity Book AMM to new ecosystems. Experience trading with zero slippage.",
-      "category": "Dexs",
-      "url": "https://swapline.com",
-      "logo": "https://icons.llama.fi/swapline-v2.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Zero-G Finance",
       "description": "Zero-G Finance stands as an innovative Liquid Restaking Platform, carving a niche for itself by granting users seamless entry into the vast domain of EigenLayer",
       "category": "Liquid Staking",
@@ -4734,15 +4500,6 @@
       "category": "CEX",
       "url": "https://bitcointry.com/en",
       "logo": "https://icons.llama.fi/bitcointry.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "Panoptic V1.1",
-      "description": "Panoptic is the first on-chain, permissionless options protocol, revolutionizing trading and liquidity provision.",
-      "category": "Derivatives & Options",
-      "url": "https://panoptic.xyz",
-      "logo": "https://icons.llama.fi/panoptic-v1.1.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -5402,15 +5159,6 @@
       "category": "Prediction Market",
       "url": "https://www.belief.market/",
       "logo": "https://icons.llama.fi/belief-market.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "LogX V2",
-      "description": "DeFi Superapp. Trade exotic perps, leveraged prediction markets and memecoins.",
-      "category": "Derivatives & Options",
-      "url": "https://logx.network/",
-      "logo": "https://icons.llama.fi/logx-v2.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -6301,17 +6049,6 @@
       "category": "AI",
       "url": "https://agentipy.fun",
       "logo": "https://www.google.com/s2/favicons?domain=agentipy.fun&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "AI Agent Arena",
-      "description": "Enter the arena where your custom AI agents engage in electrifying prompt battles!",
-      "category": "AI Agents",
-      "url": "https://play.agent-arena.xyz",
-      "logo": "https://www.google.com/s2/favicons?domain=play.agent-arena.xyz&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -8551,17 +8288,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Gun Game",
-      "description": "Russian Roulette game played via Telegram with instant onchain settlement and gas abstraction.",
-      "category": "Gaming",
-      "url": "https://gungame.tech",
-      "logo": "https://www.google.com/s2/favicons?domain=gungame.tech&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Halliday",
       "description": "Programmable Smart Accounts designed to help game developers scale Web3 experiences.",
       "category": "Payments",
@@ -8842,17 +8568,6 @@
       "category": "AI",
       "url": "https://karum.ai",
       "logo": "https://www.google.com/s2/favicons?domain=karum.ai&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "King of the Degens",
-      "description": "Onchain RPG on Farcaster where players use real-time $DEGEN streams to storm the castle.",
-      "category": "Gaming",
-      "url": "https://degen.game",
-      "logo": "https://www.google.com/s2/favicons?domain=degen.game&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9277,17 +8992,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Mnemonic",
-      "description": "NFT data and analytics provider for brands and enterprises building in Web3.",
-      "category": "Data & Analytics",
-      "url": "https://mnemonichq.com",
-      "logo": "https://www.google.com/s2/favicons?domain=mnemonichq.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Mobula",
       "description": "Curated dataset provider offering market, wallet, and metadata through REST and SQL.",
       "category": "Data & Analytics",
@@ -9618,17 +9322,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "OKX NFT",
-      "description": "Zero-fee, one-stop shop for trading NFTs across various chains and marketplaces.",
-      "category": "NFTs",
-      "url": "https://okx.com",
-      "logo": "https://www.google.com/s2/favicons?domain=okx.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Omni Network",
       "description": "Layer 1 blockchain empowering developers to build global applications across all rollups.",
       "category": "Bridges",
@@ -9744,17 +9437,6 @@
       "category": "Wallets",
       "url": "https://openfort.xyz",
       "logo": "https://www.google.com/s2/favicons?domain=openfort.xyz&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "OpenFriend",
-      "description": "Data analytics tool for building onchain reputation based on Friend.Tech metrics.",
-      "category": "Social & Entertainment",
-      "url": "https://openfriend.tech",
-      "logo": "https://www.google.com/s2/favicons?domain=openfriend.tech&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9942,17 +9624,6 @@
       "category": "NFTs",
       "url": "https://pentacletarot.com",
       "logo": "https://www.google.com/s2/favicons?domain=pentacletarot.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Phantom",
-      "description": "User-friendly crypto wallet designed for interacting with DeFi and NFTs.",
-      "category": "Wallets",
-      "url": "https://phantom.app",
-      "logo": "https://www.google.com/s2/favicons?domain=phantom.app&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -10245,17 +9916,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Redlion Printer",
-      "description": "Solution for the cryptoart community to bridge digital art with physical forms.",
-      "category": "NFTs",
-      "url": "https://app.prints.red",
-      "logo": "https://www.google.com/s2/favicons?domain=app.prints.red&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "RedStone",
       "description": "Oracle provider offering flexible data feeds with high update frequency for DeFi.",
       "category": "Data & Analytics",
@@ -10377,17 +10037,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Rivo",
-      "description": "Crypto app powered by AI agents to automate passive income strategies in DeFi.",
-      "category": "AI",
-      "url": "https://app.rivo.xyz",
-      "logo": "https://www.google.com/s2/favicons?domain=app.rivo.xyz&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "RockX",
       "description": "Global node network offering institutional-grade staking and developer infrastructure.",
       "category": "Developer Tools",
@@ -10481,17 +10130,6 @@
       "category": "AI",
       "url": "https://sapien.io",
       "logo": "https://www.google.com/s2/favicons?domain=sapien.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Satsuma",
-      "description": "Hosted subgraph indexing service for building GraphQL APIs for dApps quickly.",
-      "category": "Data & Analytics",
-      "url": "https://satsuma.xyz",
-      "logo": "https://www.google.com/s2/favicons?domain=satsuma.xyz&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -10806,17 +10444,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Streamm.tv",
-      "description": "Onchain livestreaming platform and creative playground.",
-      "category": "Social & Entertainment",
-      "url": "https://streamm.tv",
-      "logo": "https://www.google.com/s2/favicons?domain=streamm.tv&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "stVol",
       "description": "Simplified and gamified options trading platform.",
       "category": "Dexs",
@@ -10899,17 +10526,6 @@
       "category": "Data & Analytics",
       "url": "https://supraoracles.com",
       "logo": "https://www.google.com/s2/favicons?domain=supraoracles.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Surreal",
-      "description": "Mobile app for discovering and curating onchain media like music, art, and memes.",
-      "category": "Social & Entertainment",
-      "url": "https://surr.app",
-      "logo": "https://www.google.com/s2/favicons?domain=surr.app&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -11158,17 +10774,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Threebalance",
-      "description": "Portfolio rebalancing tool built on 1inch API to reposition assets via a simple interface.",
-      "category": "Portfolio",
-      "url": "https://threebalance.co",
-      "logo": "https://www.google.com/s2/favicons?domain=threebalance.co&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Tide Protocol",
       "description": "Retention platform that helps projects keep users engaged via points and targeted airdrops.",
       "category": "Social & Entertainment",
@@ -11229,17 +10834,6 @@
       "category": "Wallets",
       "url": "https://tokenpocket.pro",
       "logo": "https://www.google.com/s2/favicons?domain=tokenpocket.pro&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "TokenTerminal",
-      "description": "Capital markets and liquidity management platform designed for DeFi and NFT projects.",
-      "category": "Data & Analytics",
-      "url": "https://app.xtokenterminal.io",
-      "logo": "https://www.google.com/s2/favicons?domain=app.xtokenterminal.io&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -11477,17 +11071,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "USDC",
-      "description": "Regulated digital dollar redeemable 1:1 for US dollars, issued by Circle.",
-      "category": "Stablecoins",
-      "url": "https://circle.com",
-      "logo": "https://www.google.com/s2/favicons?domain=circle.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Valora",
       "description": "Mobile wallet app designed to make crypto simple and accessible for global users.",
       "category": "Wallets",
@@ -11515,17 +11098,6 @@
       "category": "Portfolio",
       "url": "https://app.vaults.fyi",
       "logo": "https://www.google.com/s2/favicons?domain=app.vaults.fyi&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "VaultX",
-      "description": "Platform connecting real-world stories and assets (RWA) to the blockchain to protect artist IP.",
-      "category": "Real World",
-      "url": "https://vault-x.io",
-      "logo": "https://www.google.com/s2/favicons?domain=vault-x.io&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -11713,17 +11285,6 @@
       "category": "Onramps",
       "url": "https://wert.io",
       "logo": "https://www.google.com/s2/favicons?domain=wert.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Wildcard",
-      "description": "Farcaster social client built on Base designed for the 'degen' community.",
-      "category": "Social & Entertainment",
-      "url": "https://app.wildcard.lol",
-      "logo": "https://www.google.com/s2/favicons?domain=app.wildcard.lol&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
