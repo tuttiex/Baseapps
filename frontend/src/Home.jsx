@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ConnectWallet } from './components/ConnectWallet'
 import { VoteButtons } from './components/VoteButtons'
+import { UserAuth } from './components/UserAuth'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -245,7 +246,10 @@ function Home() {
             <img src="/Baseappslogo3.png" alt="BaseApps" className="logo" />
             <h1 className="logo-text">BaseApps</h1>
           </div>
-          <ConnectWallet />
+          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+            <UserAuth />
+            <ConnectWallet />
+          </div>
         </div>
       </header>
 
