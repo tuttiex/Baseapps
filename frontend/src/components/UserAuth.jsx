@@ -2,47 +2,17 @@ import { useState } from 'react';
 import { useUser } from '../context/UserContext';
 
 export function UserAuth() {
-    const { user, isAuthenticated, signIn, signOut, loading, isConnected } = useUser();
+    const { user, isAuthenticated, signOut } = useUser();
     const [showMenu, setShowMenu] = useState(false);
-    const [signingIn, setSigningIn] = useState(false);
-
-    const handleSignIn = async () => {
-        setSigningIn(true);
-        try {
-            await signIn();
-        } catch (error) {
-            console.error('Sign in failed:', error);
-        } finally {
-            setSigningIn(false);
-        }
-    };
 
     const handleSignOut = () => {
         signOut();
         setShowMenu(false);
     };
 
-    // Show loading state
-    if (loading) {
-        return <div className="user-auth-loading">Loading...</div>;
-    }
-
-    // Not connected to wallet
-    if (!isConnected) {
-        return null; // RainbowKit ConnectWallet button handles this
-    }
-
-    // Connected but not authenticated
-    if (!isAuthenticated) {
-        return (
-            <button
-                className="sign-in-btn"
-                onClick={handleSignIn}
-                disabled={signingIn}
-            >
-                {signingIn ? '🔄 Signing...' : '✍️ Sign In'}
-            </button>
-        );
+    // Don't show anything if not authenticated (auto-sign-in handles login)
+    if (!isAuthenticated || !user) {
+        return null;
     }
 
     // Authenticated - show user menu
