@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useUser } from '../context/UserContext';
 import { ProfileCard } from '../components/ProfileCard';
 import { EditProfile } from '../components/EditProfile';
+import { LoadingIcon, ErrorIcon, StarIcon, VoteIcon, DocumentIcon } from '../components/Icons';
 import '../Profile.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
@@ -18,6 +19,20 @@ export default function Profile() {
     const [favorites, setFavorites] = useState([]);
 
     const isOwnProfile = currentUser?.walletAddress?.toLowerCase() === address?.toLowerCase();
+
+    // Force dark mode on profile pages
+    useEffect(() => {
+        document.body.classList.add('dark-mode');
+
+        // Cleanup: don't remove dark mode on unmount since Home page also defaults to dark
+        return () => {
+            // Only remove if user has explicitly chosen light mode
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'false') {
+                document.body.classList.remove('dark-mode');
+            }
+        };
+    }, []);
 
     useEffect(() => {
         fetchProfile();
@@ -63,9 +78,11 @@ export default function Profile() {
 
     if (loading) {
         return (
-            <div className="profile-page">
+            <div className="profile-page dark-mode">
                 <div className="container">
-                    <div className="profile-loading">⏳ Loading profile...</div>
+                    <div className="profile-loading" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
+                        <LoadingIcon size={20} /> Loading profile...
+                    </div>
                 </div>
             </div>
         );
@@ -73,10 +90,12 @@ export default function Profile() {
 
     if (error) {
         return (
-            <div className="profile-page">
+            <div className="profile-page dark-mode">
                 <div className="container">
-                    <div className="profile-error">
-                        ❌ {error}
+                    <div className="profile-error" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <ErrorIcon size={20} /> {error}
+                        </div>
                         <br />
                         <button
                             className="btn btn-primary"
@@ -92,7 +111,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="profile-page">
+        <div className="profile-page dark-mode">
             <div className="container">
                 <div className="profile-content">
                     <ProfileCard
@@ -104,7 +123,9 @@ export default function Profile() {
                     {/* Favorites Section */}
                     {isOwnProfile && favorites.length > 0 && (
                         <div className="profile-section">
-                            <h3 className="section-title">⭐ Favorite Dapps</h3>
+                            <h3 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <StarIcon size={20} /> Favorite Dapps
+                            </h3>
                             <div className="favorites-grid">
                                 {favorites.map((fav) => (
                                     <div key={fav.dappName} className="favorite-item">
@@ -120,7 +141,9 @@ export default function Profile() {
 
                     {/* Voting History Section */}
                     <div className="profile-section">
-                        <h3 className="section-title">🗳️ Recent Votes</h3>
+                        <h3 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <VoteIcon size={20} /> Recent Votes
+                        </h3>
                         <div className="votes-placeholder">
                             <p>Voting history will appear here</p>
                             <small>This feature will be populated with on-chain voting data</small>
@@ -129,7 +152,9 @@ export default function Profile() {
 
                     {/* Submissions Section */}
                     <div className="profile-section">
-                        <h3 className="section-title">📝 Submitted Dapps</h3>
+                        <h3 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <DocumentIcon size={20} /> Submitted Dapps
+                        </h3>
                         <div className="submissions-placeholder">
                             <p>Submitted dapps will appear here</p>
                             <small>This feature will show dapps submitted by this user</small>

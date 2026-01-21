@@ -1,4 +1,5 @@
 import { UserAvatar } from './UserAvatar';
+import { EditIcon } from './Icons';
 
 export function ProfileCard({ user, showActions = false, onEdit }) {
     if (!user) {
@@ -25,8 +26,8 @@ export function ProfileCard({ user, showActions = false, onEdit }) {
                     <p className="profile-card-joined">Joined {joinedDate}</p>
                 </div>
                 {showActions && onEdit && (
-                    <button className="profile-edit-btn" onClick={onEdit}>
-                        ✏️ Edit Profile
+                    <button className="profile-edit-btn" onClick={onEdit} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <EditIcon size={16} /> Edit Profile
                     </button>
                 )}
             </div>

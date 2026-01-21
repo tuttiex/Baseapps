@@ -124,7 +124,7 @@ export function UserAuth() {
                     <img src={user.avatarUrl} alt={user.username || 'User'} className="user-avatar-small" />
                 ) : (
                     <div className="user-avatar-placeholder">
-                        {user?.username?.[0]?.toUpperCase() || '👤'}
+                        {user?.username?.[0]?.toUpperCase() || <UserIcon size={16} />}
                     </div>
                 )}
                 <span className="user-name">

@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { useUser } from '../context/UserContext';
 import { UserAvatar } from './UserAvatar';
+import { LoadingIcon, CameraIcon, AlertIcon } from './Icons';
 
 export function EditProfile({ isOpen, onClose }) {
     const { user, updateProfile, uploadAvatar } = useUser();
@@ -88,8 +89,9 @@ export function EditProfile({ isOpen, onClose }) {
                                 className="avatar-upload-btn"
                                 onClick={handleAvatarClick}
                                 disabled={uploading}
+                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
                             >
-                                {uploading ? '⏳ Uploading...' : '📷 Change'}
+                                {uploading ? <><LoadingIcon size={16} /> Uploading...</> : <><CameraIcon size={16} /> Change</>}
                             </button>
                             <input
                                 ref={fileInputRef}
@@ -134,8 +136,8 @@ export function EditProfile({ isOpen, onClose }) {
                     </div>
 
                     {error && (
-                        <div className="form-error">
-                            ⚠️ {error}
+                        <div className="form-error" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <AlertIcon size={16} /> {error}
                         </div>
                     )}
 
@@ -153,7 +155,7 @@ export function EditProfile({ isOpen, onClose }) {
                             className="btn btn-primary"
                             disabled={saving || uploading}
                         >
-                            {saving ? '💾 Saving...' : '💾 Save Changes'}
+                            {saving ? 'Saving...' : 'Save Changes'}
                         </button>
                     </div>
                 </form>
