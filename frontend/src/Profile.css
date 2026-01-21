@@ -110,16 +110,6 @@
     cursor: pointer;
     transition: all 0.2s ease;
     font-size: 0.9rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.menu-item:last-child {
-    border-bottom: none;
-    border-radius: 0 0 12px 12px;
-}
-
-.menu-item:first-child {
-    border-radius: 12px 12px 0 0;
 }
 
 .menu-item:hover {
@@ -132,6 +122,35 @@
 
 .menu-item-danger:hover {
     background: rgba(255, 68, 68, 0.1);
+}
+
+.menu-section {
+    padding: 0.75rem 1rem;
+}
+
+.menu-wallet-info {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 8px;
+    margin: 0.5rem;
+}
+
+.wallet-address-display {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+
+.wallet-balance {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.menu-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 0.5rem 0;
 }
 
 /* User Avatar Component */

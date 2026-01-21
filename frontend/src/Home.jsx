@@ -249,7 +249,7 @@ function Home() {
           </div>
           <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
             <UserAuth />
-            {!useUser().isAuthenticated && <ConnectWallet />}
+            <ConnectWallet />
           </div>
         </div>
       </header>
