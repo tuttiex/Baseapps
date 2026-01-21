@@ -3,12 +3,24 @@ import { useUser } from '../context/UserContext';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 
 export function UserAuth() {
-    const { user, isAuthenticated, signOut } = useUser();
+    const { user, isAuthenticated, signIn, signOut, isConnected } = useUser();
     const { address } = useAccount();
     const { data: balance } = useBalance({ address });
     const { disconnect } = useDisconnect();
     const [showMenu, setShowMenu] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [signingIn, setSigningIn] = useState(false);
+
+    const handleSignIn = async () => {
+        setSigningIn(true);
+        try {
+            await signIn();
+        } catch (error) {
+            console.error('Sign in failed:', error);
+        } finally {
+            setSigningIn(false);
+        }
+    };
 
     const handleDisconnect = () => {
         disconnect();
@@ -24,13 +36,32 @@ export function UserAuth() {
         }
     };
 
-    const handleViewOnBasescan = () => {
-        if (address) {
-            window.open(`https://basescan.org/address/${address}`, '_blank');
-        }
-    };
+    // Connected but not authenticated - show Sign In button
+    if (isConnected && !isAuthenticated) {
+        return (
+            <button
+                className="sign-in-btn"
+                onClick={handleSignIn}
+                disabled={signingIn}
+                style={{
+                    backgroundColor: '#0052FF',
+                    color: 'white',
+                    padding: '0.75rem 1.5rem',
+                    borderRadius: '12px',
+                    border: 'none',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: signingIn ? 'not-allowed' : 'pointer',
+                    opacity: signingIn ? 0.6 : 1,
+                    transition: 'all 0.2s',
+                }}
+            >
+                {signingIn ? 'Signing In...' : 'Sign In'}
+            </button>
+        );
+    }
 
-    // Don't show anything if not authenticated (auto-sign-in handles login)
+    // Not authenticated - don't show anything (ConnectWallet handles it)
     if (!isAuthenticated || !user) {
         return null;
     }
@@ -73,25 +104,22 @@ export function UserAuth() {
                         <div className="menu-divider" />
 
                         <a href={`/profile/${user?.walletAddress}`} className="menu-item">
-                            👤 My Profile
+                            Profile
                         </a>
                         <a href={`/profile/${user?.walletAddress}#favorites`} className="menu-item">
-                            ⭐ Favorites
+                            Favorites
                         </a>
 
                         <div className="menu-divider" />
 
                         <button onClick={handleCopyAddress} className="menu-item">
-                            {copied ? '✅ Copied!' : '📋 Copy Address'}
-                        </button>
-                        <button onClick={handleViewOnBasescan} className="menu-item">
-                            🔍 View on Basescan
+                            {copied ? 'Copied!' : 'Copy Address'}
                         </button>
 
                         <div className="menu-divider" />
 
                         <button onClick={handleDisconnect} className="menu-item menu-item-danger">
-                            🚪 Disconnect Wallet
+                            Disconnect
                         </button>
                     </div>
                 </>
