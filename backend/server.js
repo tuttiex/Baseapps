@@ -146,6 +146,24 @@ const upload = multer({
   }
 });
 
+// ============================================
+// USER PROFILES - Routes
+// ============================================
+const authRoutes = require('./routes/auth');
+const profileRoutes = require('./routes/profile');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes);
+
+// Serve avatars directory
+const AVATARS_DIR = process.env.UPLOADS_DIR || path.join(DATA_DIR, 'avatars');
+app.use('/avatars', express.static(AVATARS_DIR));
+
+// ============================================
+// BASE NETWORK INTEGRATION
+// ============================================
+
+
 // Base network RPC endpoint
 const BASE_RPC_URL = 'https://mainnet.base.org';
 
