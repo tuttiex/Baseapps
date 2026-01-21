@@ -131,7 +131,7 @@ export function EditProfile({ isOpen, onClose }) {
                             placeholder="Enter username (optional)"
                             minLength={3}
                             maxLength={50}
-                            pattern="[a-zA-Z0-9_-]+"
+                            pattern="[a-zA-Z0-9_\-]+"
                             title="Letters, numbers, hyphens, and underscores only"
                         />
                         <p className="form-hint">3-50 characters. Letters, numbers, - and _ only.</p>

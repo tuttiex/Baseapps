@@ -48,6 +48,40 @@ const upload = multer({
 });
 
 /**
+ * GET /api/profile/me
+ * Get own profile (authenticated)
+ */
+router.get('/me', authenticateToken, async (req, res) => {
+    try {
+        const user = await getUserByAddress(req.walletAddress);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: 'Profile not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            user: {
+                walletAddress: user.wallet_address,
+                username: user.username,
+                bio: user.bio,
+                avatarUrl: user.avatar_url,
+                createdAt: user.created_at
+            }
+        });
+    } catch (error) {
+        console.error('Error fetching own profile:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to fetch profile'
+        });
+    }
+});
+
+/**
  * GET /api/profile/:address
  * Get public profile by address or username
  */
@@ -84,40 +118,6 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
         });
     } catch (error) {
         console.error('Error fetching profile:', error);
-        res.status(500).json({
-            success: false,
-            error: 'Failed to fetch profile'
-        });
-    }
-});
-
-/**
- * GET /api/profile/me
- * Get own profile (authenticated)
- */
-router.get('/me', authenticateToken, async (req, res) => {
-    try {
-        const user = await getUserByAddress(req.walletAddress);
-
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                error: 'Profile not found'
-            });
-        }
-
-        res.json({
-            success: true,
-            user: {
-                walletAddress: user.wallet_address,
-                username: user.username,
-                bio: user.bio,
-                avatarUrl: user.avatar_url,
-                createdAt: user.created_at
-            }
-        });
-    } catch (error) {
-        console.error('Error fetching own profile:', error);
         res.status(500).json({
             success: false,
             error: 'Failed to fetch profile'
