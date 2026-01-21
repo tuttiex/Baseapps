@@ -6022,17 +6022,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Add3",
-      "description": "EVM smart contract creation and management for web3 projects - deploy customizable & compliant products in minutes.",
-      "category": "Developer Tools",
-      "url": "https://add3.io",
-      "logo": "https://www.google.com/s2/favicons?domain=add3.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Aerodrome Finance",
       "description": "The central trading and liquidity marketplace on Base.",
       "category": "Dexs",
