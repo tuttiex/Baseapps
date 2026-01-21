@@ -259,7 +259,7 @@ function Home() {
             </p>
             <div className="hero-stats">
               <div className="stat-card">
-                <div className="stat-number">1240+</div>
+                <div className="stat-number">1200+</div>
                 <div className="stat-label">Dapps</div>
               </div>
               <div className="stat-card">
