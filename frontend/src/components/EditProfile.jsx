@@ -89,9 +89,19 @@ export function EditProfile({ isOpen, onClose }) {
                                 className="avatar-upload-btn"
                                 onClick={handleAvatarClick}
                                 disabled={uploading}
-                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}
                             >
-                                {uploading ? <><LoadingIcon size={16} /> Uploading...</> : <><CameraIcon size={16} /> Change</>}
+                                {uploading ? (
+                                    <>
+                                        <LoadingIcon size={16} />
+                                        <span>Uploading...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <CameraIcon size={16} />
+                                        <span>Change</span>
+                                    </>
+                                )}
                             </button>
                             <input
                                 ref={fileInputRef}
