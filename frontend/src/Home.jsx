@@ -255,7 +255,7 @@ function Home() {
           <div className="hero-content">
             <h1 className="hero-title">Discover the best <strong>Dapps</strong> on Base</h1>
             <p className="hero-description">
-              Explore the fastest-growing ecosystem of decentralized applications
+              Explore the fastest growing ecosystem of decentralized applications
             </p>
             <div className="hero-stats">
               <div className="stat-card">
