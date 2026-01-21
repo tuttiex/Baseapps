@@ -4,6 +4,7 @@ import axios from 'axios'
 import { ConnectWallet } from './components/ConnectWallet'
 import { VoteButtons } from './components/VoteButtons'
 import { UserAuth } from './components/UserAuth'
+import { Header } from './components/Header'
 import { useUser } from './context/UserContext'
 import './App.css'
 
@@ -240,19 +241,7 @@ function Home() {
         {darkMode ? '☀️' : '🌙'}
       </button>
 
-      {/* Header */}
-      <header className="header">
-        <div className="container header-content">
-          <div className="logo-container">
-            <img src="/Baseappslogo3.png" alt="BaseApps" className="logo" />
-            <h1 className="logo-text">BaseApps</h1>
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            <UserAuth />
-            <ConnectWallet />
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className="hero">

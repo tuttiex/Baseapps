@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import { VoteButtons } from './components/VoteButtons'
+import { Header } from './components/Header'
 import './App.css'
 
 const API_URL = 'https://baseapps-production.up.railway.app/api'
@@ -184,16 +185,7 @@ function AllDapps() {
         {darkMode ? '☀️' : '🌙'}
       </button>
 
-      {/* Header */}
-      <header className="header">
-        <div className="container">
-          <div className="logo-container">
-            <Link to="/">
-              <img src="/Baseappslogo3.png" alt="BaseApps" className="logo" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       {/* Page Title */}
       <section className="all-dapps-header">

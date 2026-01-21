@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ConnectWallet } from './components/ConnectWallet'
+import { Header } from './components/Header'
 import axios from 'axios'
 import { useWriteContract, useWaitForTransactionReceipt, useAccount, useChainId, useSwitchChain } from 'wagmi'
 import { parseEther } from 'viem'
@@ -258,17 +259,7 @@ function AddDapps() {
                 {darkMode ? '☀️' : '🌙'}
             </button>
 
-            <header className="header">
-                <div className="container header-content">
-                    <div className="logo-container">
-                        <Link to="/">
-                            <img src="/Baseappslogo3.png" alt="BaseApps" className="logo" />
-                        </Link>
-                        <h1 className="logo-text">BaseApps</h1>
-                    </div>
-                    <ConnectWallet />
-                </div>
-            </header>
+            <Header />
 
             <main className="container add-dapp-container">
                 <div className="form-card">

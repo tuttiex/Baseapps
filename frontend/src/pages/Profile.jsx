@@ -5,6 +5,7 @@ import { useUser } from '../context/UserContext';
 import { ProfileCard } from '../components/ProfileCard';
 import { EditProfile } from '../components/EditProfile';
 import { LoadingIcon, ErrorIcon, StarIcon, VoteIcon, DocumentIcon } from '../components/Icons';
+import { Header } from '../components/Header';
 import '../Profile.css';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
@@ -79,6 +80,7 @@ export default function Profile() {
     if (loading) {
         return (
             <div className="profile-page dark-mode">
+                <Header />
                 <div className="container">
                     <div className="profile-loading" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center' }}>
                         <LoadingIcon size={20} /> Loading profile...
@@ -91,6 +93,7 @@ export default function Profile() {
     if (error) {
         return (
             <div className="profile-page dark-mode">
+                <Header />
                 <div className="container">
                     <div className="profile-error" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -112,6 +115,7 @@ export default function Profile() {
 
     return (
         <div className="profile-page dark-mode">
+            <Header />
             <div className="container">
                 <div className="profile-content">
                     <ProfileCard
