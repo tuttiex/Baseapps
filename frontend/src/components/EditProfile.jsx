@@ -32,6 +32,8 @@ export function EditProfile({ isOpen, onClose }) {
         const file = e.target.files?.[0];
         if (!file) return;
 
+        console.log('Selected file:', file.name, file.type, file.size);
+
         // Validate file
         if (!file.type.startsWith('image/')) {
             setError('Please select an image file');
@@ -47,9 +49,13 @@ export function EditProfile({ isOpen, onClose }) {
         setError(null);
 
         try {
-            await uploadAvatar(file);
+            console.log('Starting upload...');
+            const result = await uploadAvatar(file);
+            console.log('Upload successful:', result);
         } catch (err) {
-            setError(err.message || 'Failed to upload avatar');
+            console.error('Upload error:', err);
+            console.error('Error response:', err.response?.data);
+            setError(err.response?.data?.error || err.message || 'Failed to upload avatar');
         } finally {
             setUploading(false);
         }
