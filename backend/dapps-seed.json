@@ -812,7 +812,7 @@
       "chain": "Base"
     },
     {
-      "name": "Synthetix V3",
+      "name": "Synthetix",
       "description": "Synthetix provides liquidity for permissionless derivatives like perpetual futures, options, parimutuel markets, and more across EVM chains. Powering the next generation of permissionless protocols.",
       "category": "Derivatives & Options",
       "url": "https://synthetix.io",
@@ -1609,7 +1609,7 @@
       "chain": "Base"
     },
     {
-      "name": "Theo Straddle Vaults",
+      "name": "Theo",
       "description": "Theo is a full-stack platform connecting onchain capital to global financial markets.",
       "category": "Basis Trading",
       "url": "https://theo.xyz/",
@@ -4229,7 +4229,7 @@
       "chain": "Base"
     },
     {
-      "name": "Panoptic V1",
+      "name": "Panoptic",
       "description": "Panoptic is the first on-chain, permissionless options protocol, revolutionizing trading and liquidity provision.",
       "category": "Derivatives & Options",
       "url": "https://panoptic.xyz",
