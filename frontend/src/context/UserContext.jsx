@@ -68,6 +68,25 @@ export function UserProvider({ children }) {
         }
     }, [isConnected]);
 
+    // Auto sign-in when wallet connects (if not already authenticated)
+    useEffect(() => {
+        const autoSignIn = async () => {
+            if (isConnected && address && !user && !loading) {
+                const token = getToken();
+                if (!token || !isAuthenticated()) {
+                    try {
+                        await handleSignIn();
+                    } catch (err) {
+                        // User cancelled or sign-in failed, that's okay
+                        console.log('Auto sign-in skipped or failed');
+                    }
+                }
+            }
+        };
+
+        autoSignIn();
+    }, [isConnected, address]);
+
     /**
      * Sign in with wallet
      */
