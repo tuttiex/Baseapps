@@ -375,5 +375,21 @@
     "url": "https://flix.fun/",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768830688274-591577715.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Moonwell",
+    "description": "An open lending and borrowing protocol that enables users to supply digital assets to earn interest or borrow against their holdings.",
+    "category": "Lending & CDP",
+    "url": "https://moonwell.fi/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768993478743-634523395.png",
+    "chain": "Base"
+  },
+  {
+    "name": "Omni Exchange",
+    "description": "An omnichain liquidity aggregator and trading platform designed to facilitate seamless asset swaps and yield opportunities across multiple blockchain ecosystems.",
+    "category": "Dexs",
+    "url": "https://omni.exchange/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1768993747783-938535961.jpg",
+    "chain": "Base"
   }
 ]
