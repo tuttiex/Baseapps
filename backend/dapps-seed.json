@@ -2000,15 +2000,6 @@
       "chain": "Base"
     },
     {
-      "name": "Maverick V2",
-      "description": "The DeFi infrastructure built to bring higher capital efficiency + greater capital control to the liquidity market, powered by Maverick AMM.",
-      "category": "Dexs",
-      "url": "https://www.mav.xyz",
-      "logo": "https://icons.llama.fi/maverick-v2.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Reya Bridge",
       "description": "The only trading-optimised modular L2. Giving you instant liquidity, lightning fast transactions, superior APYs and the smartest margining.",
       "category": "Bridges",
@@ -2406,15 +2397,6 @@
       "chain": "Base"
     },
     {
-      "name": "Maverick V1",
-      "description": "The DeFi infrastructure built to bring higher capital efficiency + greater capital control to the liquidity market, powered by Maverick AMM.",
-      "category": "Dexs",
-      "url": "https://www.mav.xyz",
-      "logo": "https://icons.llama.fi/maverick-v1.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "RealtyX",
       "description": "RealtyX is building an RWAfi platform that brings real estate onchain, offering yield-generating opportunities backed by real assets and connecting users to RWA, DeFi, and Web3 with improved capital efficiency.",
       "category": "RWA",
@@ -2748,15 +2730,6 @@
       "category": "Yield & Yield Strategies",
       "url": "https://app.gammaswap.com/yield-tokens",
       "logo": "https://icons.llama.fi/gammaswap-open-interest.png",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "Impermax V3",
-      "description": "Impermax is a DeFi ecosystem that enables liquidity providers to leverage their LP tokens",
-      "category": "Lending & CDP",
-      "url": "https://impermax.finance",
-      "logo": "https://icons.llama.fi/impermax-v3.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -3259,15 +3232,6 @@
       "chain": "Base"
     },
     {
-      "name": "Omni Exchange V3",
-      "description": "Omni Exchange connects liquidity across chains through a single onchain engine.",
-      "category": "Dexs",
-      "url": "https://omni.exchange",
-      "logo": "https://icons.llama.fi/omni-exchange.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "ZKP2P",
       "description": "ZKP2P is a peer-to-peer, non-custodial protocol that enables seamless crypto <> fiat on and off ramping. Liquidity providers earn yield by pricing above market rate with zero platform fees, often making ZKP2P cheaper for users than traditional on-ramp options (such as Moonpay, Ramp Network). Built on privacy-preserving zero-knowledge proofs, ZKP2P offers a trustless and user-owned alternative to centralized ramps.",
       "category": "Payments",
@@ -3428,15 +3392,6 @@
       "category": "RWA",
       "url": "https://www.verified.network/",
       "logo": "https://icons.llama.fi/verified-network.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "KIM Exchange V2",
-      "description": "Native DEX for the Mode Network with staking modules to incentivize LPs",
-      "category": "Dexs",
-      "url": "https://kim.exchange",
-      "logo": "https://icons.llama.fi/kim-exchange.jpg",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -4174,15 +4129,6 @@
       "chain": "Base"
     },
     {
-      "name": "Omni Exchange V2",
-      "description": "Omni Exchange connects liquidity across chains through a single onchain engine.",
-      "category": "Dexs",
-      "url": "https://omni.exchange",
-      "logo": "https://icons.llama.fi/omni-exchange-v2.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "Stabil Finance",
       "description": "Compound APR to APY on Stabil Finance",
       "category": "Yield & Yield Strategies",
@@ -4486,15 +4432,6 @@
       "category": "SoFi",
       "url": "https://www.simps.com/",
       "logo": "https://icons.llama.fi/simps.png",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "Nether.Fi",
-      "description": "Trade confidently on Nether.Fi, offering both spot and leveraged trading up to 50x with remarkably low transaction fees. We prioritize your protection against sudden price fluctuations by utilizing Chainlink price feeds for enhanced trade stability. Stake NFI or mint NLP to benefit from our unique reward system, ensuring participants share in the protocol's success",
-      "category": "Derivatives & Options",
-      "url": "https://nether.fi/",
-      "logo": "https://icons.llama.fi/nether.fi.png",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -5019,15 +4956,6 @@
       "chain": "Base"
     },
     {
-      "name": "Omni Exchange Flux",
-      "description": "Omni Exchange connects liquidity across chains through a single onchain engine.",
-      "category": "Dexs",
-      "url": "https://omni.exchange",
-      "logo": "https://icons.llama.fi/omni-exchange-flux.jpg",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
       "name": "CrescentSwap",
       "description": "CrescentSwap is an Arbitrum-based ecosystem-focused and community-driven DEX based off the Uniswap v3 model. CrescentSwap was designed to be a highly efficient and adaptable protocol that allows both builders and users to harness our bespoke infrastructure for deep, sustained, and adaptive liquidity. Moonlight goes beyond the conventional DEX design to provide a tailored approach that favors composability.",
       "category": "Dexs",
@@ -5357,15 +5285,6 @@
       "category": "Dexs",
       "url": "https://ring.exchange/#/swap",
       "logo": "https://icons.llama.fi/ring-protocol.png",
-      "tvl": "$0.00B",
-      "chain": "Base"
-    },
-    {
-      "name": "Kinetix AMM V2",
-      "description": "Fork of Uniswap V2",
-      "category": "Dexs",
-      "url": "https://kinetix.finance/",
-      "logo": "https://icons.llama.fi/kinetix-amm-v2.png",
       "tvl": "$0.00B",
       "chain": "Base"
     },
@@ -6806,17 +6725,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Based Associates DAO",
-      "description": "A Nounish DAO building collective projects on Base with art, story, and culture.",
-      "category": "DAO",
-      "url": "https://based.associates",
-      "logo": "https://www.google.com/s2/favicons?domain=based.associates&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Based Nebula",
       "description": "Procedurally generated NFTs that produce nebulae from perlin noise based on wallet address.",
       "category": "NFTs",
@@ -7323,17 +7231,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "CBomber",
-      "description": "Classic Bomb Game with AI Agents & Web3 PVP & PVE battles.",
-      "category": "Gaming",
-      "url": "https://cbomber.io",
-      "logo": "https://www.google.com/s2/favicons?domain=cbomber.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Cede.Store",
       "description": "Access and transfer your assets from 10+ centralized exchanges with a DeFi UX.",
       "category": "Onramps",
@@ -7730,17 +7627,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Cradles",
-      "description": "AAA MMORPG blockchain game featuring PvP, PvE, and ecological strategies.",
-      "category": "Gaming",
-      "url": "https://cradles.io",
-      "logo": "https://pbs.twimg.com/profile_images/1676865215751241729/7Z_X7_7_400x400.jpg",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Crate",
       "description": "The music trading platform. Launch a tokenized song in seconds.",
       "category": "Other",
@@ -7812,17 +7698,6 @@
       "category": "Security",
       "url": "https://cyberscope.io",
       "logo": "https://www.google.com/s2/favicons?domain=cyberscope.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Cymbal",
-      "description": "Cymbal's mission is to make billions of onchain events understandable through a 'human readable' blockchain explorer.",
-      "category": "Data & Analytics",
-      "url": "https://cymbal.xyz",
-      "logo": "https://cymbal.xyz/logo.svg",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -7928,17 +7803,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "DeGenerous DAO",
-      "description": "Converging AI and Gaming to build infrastructure for interactive storytelling and quality content consumption.",
-      "category": "DAO",
-      "url": "https://degenerousdao.com",
-      "logo": "https://unavatar.io/twitter/degenerousdao",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "DeGov.AI",
       "description": "Open-source DAO governance platform integrating an AI agent delegate and voting assistant.",
       "category": "DAO",
@@ -8027,17 +7891,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "DLN",
-      "description": "High performance non-custodial exchange enabling fast, secure native trading across chains.",
-      "category": "Bridges",
-      "url": "https://dln.trade",
-      "logo": "https://www.google.com/s2/favicons?domain=dln.trade&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Dmail Network",
       "description": "AI-powered decentralized communication infrastructure offering encrypted emails and targeted marketing.",
       "category": "Social & Entertainment",
@@ -8093,17 +7946,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Drakula",
-      "description": "A social network specifically for video creators on the Base network.",
-      "category": "Social & Entertainment",
-      "url": "https://drakula.app",
-      "logo": "https://www.google.com/s2/favicons?domain=drakula.app&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Drop Dimes to Support Creators",
       "description": "Creator-first platform allowing artists and developers to receive 100% of fan support instantly.",
       "category": "Payments",
@@ -8131,17 +7973,6 @@
       "category": "Developer Tools",
       "url": "https://drpc.org",
       "logo": "https://www.google.com/s2/favicons?domain=drpc.org&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Ducky City",
-      "description": "GameFi project on Base featuring a browser-run MMORPG compatible with all devices.",
-      "category": "Gaming",
-      "url": "https://duckycity.io",
-      "logo": "https://pbs.twimg.com/profile_images/1684828135802314752/wzWq_f8-_400x400.jpg",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -8368,17 +8199,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "F1337",
-      "description": "The world's first memetic onchain game exclusively for Farcaster users.",
-      "category": "Gaming",
-      "url": "https://f1337.vercel.app",
-      "logo": "https://s2.coinmarketcap.com/static/img/coins/200x200/1337.png",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Factor.fi",
       "description": "No-code DeFi strategy builder to create, share, and automate multi-protocol yield amplification.",
       "category": "Yield & Yield Strategies",
@@ -8395,17 +8215,6 @@
       "category": "Gaming",
       "url": "https://farworld.gg",
       "logo": "https://www.google.com/s2/favicons?domain=farworld.gg&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Fashion.Fun",
-      "description": "Financial fashion platform combining digital fashion drops from leading creators with prize opportunities.",
-      "category": "NFTs",
-      "url": "https://fashion.fun",
-      "logo": "https://www.google.com/s2/favicons?domain=fashion.fun&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -8566,17 +8375,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "FWB",
-      "description": "A community-led social DAO for builders, creatives, and investors using social tokens.",
-      "category": "DAO",
-      "url": "https://fwb.help",
-      "logo": "https://unavatar.io/twitter/FWBtweets",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Galaxy Exchange",
       "description": "Cross-chain hub for non-custodial token swaps and bridging across 100+ blockchains.",
       "category": "Bridges",
@@ -8604,17 +8402,6 @@
       "category": "Gaming",
       "url": "https://game7.io",
       "logo": "https://www.google.com/s2/favicons?domain=game7.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "GangstaVerse",
-      "description": "Multi-chain RPG and simulation game where players battle for power in a digital city.",
-      "category": "Gaming",
-      "url": "https://war-base.gangstaverse.co",
-      "logo": "https://unavatar.io/twitter/GangstaVerse",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -8863,28 +8650,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Humanode Biomapper",
-      "description": "Sybil-resistance tool using facial scans to verify unique wallet ownership onchain.",
-      "category": "Identity",
-      "url": "https://mainnet.biomapper.hmnd.app",
-      "logo": "https://unavatar.io/twitter/humanode_io",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Hypersub",
-      "description": "Subscription platform for creators offering perks, benefits, and rewards to fans.",
-      "category": "Creator",
-      "url": "https://hypersub.xyz",
-      "logo": "https://www.google.com/s2/favicons?domain=hypersub.xyz&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "IceCream Swap",
       "description": "Multi-chain DeFi ecosystem for swapping, bridging, and farming across blockchains.",
       "category": "Dexs",
@@ -8967,17 +8732,6 @@
       "category": "Wallets",
       "url": "https://infinitywallet.io",
       "logo": "https://www.google.com/s2/favicons?domain=infinitywallet.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Innovaz",
-      "description": "Marketplace-as-a-Service providing templates to launch NFT marketplaces quickly.",
-      "category": "NFTs",
-      "url": "https://innovaz.io",
-      "logo": "https://www.google.com/s2/favicons?domain=innovaz.io&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9270,17 +9024,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Lobster Fishing League",
-      "description": "Decentralized social fishing game built on Base for a relaxing onchain experience.",
-      "category": "Gaming",
-      "url": "https://lobsterfishingleague.com",
-      "logo": "https://www.google.com/s2/favicons?domain=lobsterfishingleague.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "LogX",
       "description": "Orderbook DEX providing instant trades, deep liquidity, and a gas-free trading experience.",
       "category": "Dexs",
@@ -9330,17 +9073,6 @@
       "category": "Creator",
       "url": "https://get.lyvely.com",
       "logo": "https://www.google.com/s2/favicons?domain=get.lyvely.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "MADNFT",
-      "description": "Creator-first NFT platform with tools for minting, listing, and community engagement.",
-      "category": "NFTs",
-      "url": "https://madnft.io",
-      "logo": "https://www.google.com/s2/favicons?domain=madnft.io&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9418,17 +9150,6 @@
       "category": "Yield & Yield Strategies",
       "url": "https://mellow.finance",
       "logo": "https://www.google.com/s2/favicons?domain=mellow.finance&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Memstagram",
-      "description": "Platform designed to help users monetize meme engagement.",
-      "category": "Creator",
-      "url": "https://memstagram.com",
-      "logo": "https://www.google.com/s2/favicons?domain=memstagram.com&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9534,17 +9255,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Mint.fun",
-      "description": "Aggregator for minting new NFT projects with a focus on speed and rewards.",
-      "category": "NFTs",
-      "url": "https://mint.fun",
-      "logo": "https://www.google.com/s2/favicons?domain=mint.fun&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Mintpad",
       "description": "Tool for launching NFT collections without needing developer assistance.",
       "category": "NFTs",
@@ -9589,17 +9299,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Momentify",
-      "description": "Onchain platform dedicated to creating and sharing music-based memories.",
-      "category": "Social & Entertainment",
-      "url": "https://app.momentify.xyz",
-      "logo": "https://www.google.com/s2/favicons?domain=app.momentify.xyz&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "MoonLightPixels.com",
       "description": "AI-powered platform for creating adventure games without code while earning rewards.",
       "category": "AI",
@@ -9620,17 +9319,6 @@
       "chain": "Base",
       "source": "base.org",
       "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Moonwell",
-      "description": "Open, permissionless lending and borrowing protocol operating on Base.",
-      "category": "Lending & CDP",
-      "url": "https://moonwell.fi",
-      "logo": "https://icons.llama.fi/moonwell-vaults.jpg",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "icons.llama.fi"
     },
     {
       "name": "Moralis",
@@ -9732,17 +9420,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "NetherFi",
-      "description": "Perpetuals and spot DEX distributing 100% of generated fees back to the community.",
-      "category": "Dexs",
-      "url": "https://nether.fi",
-      "logo": "https://www.google.com/s2/favicons?domain=nether.fi&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Neurobro",
       "description": "AI intelligence layer for onchain markets specializing in smart money analytics.",
       "category": "AI",
@@ -9781,17 +9458,6 @@
       "category": "NFTs",
       "url": "https://apps.apple.com",
       "logo": "https://www.google.com/s2/favicons?domain=apps.apple.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "NFTarot",
-      "description": "Onchain tarot reading experience using energy exchange for guidance.",
-      "category": "NFTs",
-      "url": "https://nftarot.com",
-      "logo": "https://pbs.twimg.com/profile_images/1884186590404071424/jFPFTMIo_400x400.jpg",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -9908,17 +9574,6 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "Obvious",
-      "description": "ERC-4337 compatible smart contract wallet focused on simplifying the transaction experience.",
-      "category": "Wallets",
-      "url": "https://obvious.technology",
-      "logo": "https://www.google.com/s2/favicons?domain=obvious.technology&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "Odos",
       "description": "Smart order router that traverses complex token swap combinations for greater savings.",
       "category": "Dexs",
@@ -9963,44 +9618,11 @@
       "logoSource": "Google Favicon Service"
     },
     {
-      "name": "OKX DEX",
-      "description": "Cross-chain aggregator using an intelligent routing algorithm to find the best market prices.",
-      "category": "Dexs",
-      "url": "https://okx.com",
-      "logo": "https://www.google.com/s2/favicons?domain=okx.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
       "name": "OKX NFT",
       "description": "Zero-fee, one-stop shop for trading NFTs across various chains and marketplaces.",
       "category": "NFTs",
       "url": "https://okx.com",
       "logo": "https://www.google.com/s2/favicons?domain=okx.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "OKX Wallet",
-      "description": "Universal multi-platform crypto wallet available as an app, web portal, or extension.",
-      "category": "Wallets",
-      "url": "https://okx.com",
-      "logo": "https://www.google.com/s2/favicons?domain=okx.com&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "Omni Exchange",
-      "description": "Next-gen multichain DEX with veToken governance and unified cross-chain liquidity.",
-      "category": "Dexs",
-      "url": "https://omni.exchange",
-      "logo": "https://www.google.com/s2/favicons?domain=omni.exchange&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -10023,17 +9645,6 @@
       "category": "NFTs",
       "url": "https://omnihub.xyz",
       "logo": "https://www.google.com/s2/favicons?domain=omnihub.xyz&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "OmniKingdoms",
-      "description": "Onchain MMORPG where players earn rewards for questing, battling, and crafting.",
-      "category": "Gaming",
-      "url": "https://omnikingdoms.io",
-      "logo": "https://unavatar.io/twitter/OmniKingdoms",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
@@ -10177,17 +9788,6 @@
       "category": "NFTs",
       "url": "https://opensea.io",
       "logo": "https://www.google.com/s2/favicons?domain=opensea.io&sz=256",
-      "tvl": "N/A",
-      "chain": "Base",
-      "source": "base.org",
-      "logoSource": "Google Favicon Service"
-    },
-    {
-      "name": "OpenVotes",
-      "description": "Transparent and secured voting platform utilizing blockchain for democratized decisions.",
-      "category": "DAO",
-      "url": "https://openvotes.io",
-      "logo": "https://www.google.com/s2/favicons?domain=openvotes.io&sz=256",
       "tvl": "N/A",
       "chain": "Base",
       "source": "base.org",
