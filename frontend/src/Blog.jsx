@@ -125,7 +125,7 @@ function Blog() {
                 <div className="container footer-content">
                     <p>Built for Base Network • Powered by Base</p>
                     <a
-                        href="https://x.com/base_dapps"
+                        href="https://x.com/baseapps_"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="footer-x-icon"

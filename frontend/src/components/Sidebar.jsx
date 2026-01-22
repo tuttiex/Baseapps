@@ -83,7 +83,7 @@ export function Sidebar() {
 
                 <div className="sidebar-footer">
                     <a
-                        href="https://x.com/base_dapps"
+                        href="https://x.com/baseapps_"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="sidebar-x-link"
