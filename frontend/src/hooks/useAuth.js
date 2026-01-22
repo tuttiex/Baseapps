@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+const API_URL = 'https://baseapps-production.up.railway.app/api';
 
 /**
  * Authentication hook for wallet-based sign-in
