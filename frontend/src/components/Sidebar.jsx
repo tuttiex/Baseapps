@@ -57,11 +57,11 @@ export function Sidebar() {
             {/* Sidebar */}
             <div className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <div className="sidebar-header">
-                    <h2 className="sidebar-title">Navigation</h2>
                     <button
                         className="sidebar-close"
                         onClick={() => setIsOpen(false)}
                         aria-label="Close menu"
+                        style={{ marginLeft: 'auto' }}
                     >
                         ✕
                     </button>
@@ -82,6 +82,17 @@ export function Sidebar() {
                 </nav>
 
                 <div className="sidebar-footer">
+                    <a
+                        href="https://x.com/base_dapps"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="sidebar-x-link"
+                        aria-label="Follow us on X (Twitter)"
+                    >
+                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
                     <div className="sidebar-footer-text">
                         BaseApps • Base Network
                     </div>
