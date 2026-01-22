@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useUser } from '../context/UserContext';
 import { useAccount, useBalance, useDisconnect } from 'wagmi';
 
@@ -54,6 +54,24 @@ export function UserAuth() {
     const [copied, setCopied] = useState(false);
     const [signingIn, setSigningIn] = useState(false);
     const [signInError, setSignInError] = useState(null);
+    const menuRef = useRef(null);
+
+    // Close menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        if (showMenu) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showMenu]);
 
     const handleSignIn = async () => {
         setSigningIn(true);
@@ -146,7 +164,7 @@ export function UserAuth() {
 
     // Authenticated - show user menu
     return (
-        <div className="user-auth">
+        <div className="user-auth" ref={menuRef}>
             <button
                 className="user-menu-trigger"
                 onClick={() => setShowMenu(!showMenu)}
