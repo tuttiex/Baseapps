@@ -336,7 +336,7 @@ function Home() {
       <section className="featured-section">
         <div className="container">
           <h2 className="section-title favorite-title">
-            💙 Favorite Dapps
+            Favorite Dapps
           </h2>
           <div className="featured-grid">
             {hydratedFavorites.map((dapp, index) => (
@@ -350,7 +350,7 @@ function Home() {
       <section className="featured-section trending-section">
         <div className="container">
           <h2 className="section-title trending-title">
-            🔥 Trending Dapps
+            Trending Dapps
           </h2>
           <div className="featured-grid">
             {hydratedTrending.map((dapp, index) => (
