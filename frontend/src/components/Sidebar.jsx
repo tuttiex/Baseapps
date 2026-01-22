@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import { HomeIcon, GridIcon, PlusIcon, BlogIcon, UserIcon } from './Icons';
+import { HomeIcon, GridIcon, PlusIcon, BlogIcon, UserIcon, BountiesIcon } from './Icons';
 import './Sidebar.css';
 
 export function Sidebar() {
@@ -13,6 +13,7 @@ export function Sidebar() {
     const menuItems = [
         { name: 'Home', path: '/', icon: <HomeIcon size={20} /> },
         { name: 'All Dapps', path: '/all-dapps', icon: <GridIcon size={20} /> },
+        { name: 'Bounties', path: '/bounties', icon: <BountiesIcon size={20} /> },
         { name: 'Add Dapp', path: '/add-dapps', icon: <PlusIcon size={20} /> },
         { name: 'Blog', path: '/blog', icon: <BlogIcon size={20} /> },
     ];

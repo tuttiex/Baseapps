@@ -1,0 +1,547 @@
+/* ============================================
+   BOUNTIES PAGE STYLES
+   ============================================ */
+
+/* Hero Section */
+.bounties-hero {
+    padding: 4rem 0 3rem 0;
+    background: transparent;
+    animation: fadeIn 0.8s ease;
+}
+
+.bounties-hero-content {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.bounties-hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    animation: fadeInUp 0.6s ease;
+}
+
+body.dark-mode .bounties-hero-title {
+    background: linear-gradient(135deg, #8b9dea 0%, #9d7bc2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bounties-hero-description {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    animation: fadeInUp 0.8s ease;
+}
+
+.bounties-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.bounty-stat-card {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease;
+}
+
+.bounty-stat-card:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.bounty-stat-number {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.bounty-stat-label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+/* Search Section */
+.bounties-filters-section {
+    padding: 2rem 0 3rem 0;
+    animation: fadeIn 0.8s ease;
+}
+
+.bounties-search-box {
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+}
+
+.bounties-search-input {
+    width: 100%;
+    padding: 1.2rem 3.5rem 1.2rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 60px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.15);
+}
+
+.bounties-search-input:focus {
+    border-color: rgba(102, 126, 234, 0.6);
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.25);
+    transform: translateY(-2px);
+}
+
+.bounties-search-icon {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+}
+
+/* Filters */
+.bounties-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.filter-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.filter-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 30px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.filter-btn:hover {
+    background: rgba(102, 126, 234, 0.15);
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    font-weight: 600;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+}
+
+/* Bounties Grid Section */
+.bounties-grid-section {
+    padding: 2rem 0 4rem 0;
+    animation: fadeIn 0.8s ease;
+}
+
+.bounties-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 2rem;
+    animation: fadeInUp 0.6s ease;
+}
+
+/* Bounty Card */
+.bounty-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    animation: fadeInUp 0.6s ease both;
+}
+
+.bounty-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(102, 126, 234, 0.25);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* Card Header */
+.bounty-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bounty-dapp-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.bounty-dapp-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    object-fit: contain;
+    background: rgba(102, 126, 234, 0.05);
+    padding: 4px;
+}
+
+.bounty-dapp-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-primary);
+}
+
+.bounty-posted-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.bounty-type-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Content */
+.bounty-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bounty-card-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Skills */
+.bounty-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.bounty-skill-tag {
+    padding: 0.4rem 0.9rem;
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.2s ease;
+}
+
+body.dark-mode .bounty-skill-tag {
+    background: rgba(102, 126, 234, 0.15);
+    color: #b0b0ff;
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.bounty-skill-tag:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: scale(1.05);
+}
+
+/* Meta Info */
+.bounty-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+}
+
+.bounty-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.meta-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.meta-value {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.difficulty-badge {
+    font-weight: 700;
+}
+
+/* Card Footer */
+.bounty-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.bounty-reward {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.reward-label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.reward-amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.bounty-apply-btn {
+    padding: 0.75rem 1.75rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.bounty-apply-btn:hover {
+    transform: translateX(5px) scale(1.05);
+    box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+}
+
+/* Empty State */
+.bounties-empty {
+    text-align: center;
+    padding: 5rem 2rem;
+    animation: fadeIn 0.6s ease;
+}
+
+.empty-icon {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.5;
+}
+
+.bounties-empty h3 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.bounties-empty p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .bounties-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .bounties-hero-title {
+        font-size: 2.5rem;
+    }
+
+    .bounties-hero-description {
+        font-size: 1.1rem;
+    }
+
+    .bounties-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .bounty-stat-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .bounty-stat-number {
+        font-size: 2.5rem;
+    }
+
+    .bounties-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .filter-buttons {
+        gap: 0.5rem;
+    }
+
+    .filter-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .bounty-meta {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .bounty-card-footer {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .bounty-apply-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .bounties-hero-title {
+        font-size: 2rem;
+    }
+
+    .bounties-hero-description {
+        font-size: 1rem;
+    }
+
+    .bounties-search-input {
+        font-size: 1rem;
+        padding: 1rem 3rem 1rem 1.2rem;
+    }
+
+    .bounty-card {
+        padding: 1.25rem;
+    }
+
+    .bounty-card-title {
+        font-size: 1.2rem;
+    }
+
+    .reward-amount {
+        font-size: 1.2rem;
+    }
+}

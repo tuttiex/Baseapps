@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+﻿import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './Home'
 import AllDapps from './AllDapps'
@@ -6,6 +6,7 @@ import AddDapps from './AddDapps'
 import Admin from './Admin'
 import Profile from './pages/Profile'
 import Blog from './Blog'
+import Bounties from './Bounties'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/admin" element={<Admin />} />
       <Route path="/profile/:address" element={<Profile />} />
       <Route path="/blog" element={<Blog />} />
+      <Route path="/bounties" element={<Bounties />} />
     </Routes>
   )
 }
