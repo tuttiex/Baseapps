@@ -53,13 +53,30 @@ export function UserAuth() {
     const [showMenu, setShowMenu] = useState(false);
     const [copied, setCopied] = useState(false);
     const [signingIn, setSigningIn] = useState(false);
+    const [signInError, setSignInError] = useState(null);
 
     const handleSignIn = async () => {
         setSigningIn(true);
+        setSignInError(null);
+
         try {
+            console.log('Manual sign-in initiated...');
             await signIn();
+            console.log('Sign-in successful');
         } catch (error) {
             console.error('Sign in failed:', error);
+
+            // Show user-friendly error message
+            if (error.message?.includes('User rejected')) {
+                setSignInError('Signature request was rejected');
+            } else if (error.message?.includes('not connected')) {
+                setSignInError('Please connect your wallet first');
+            } else {
+                setSignInError('Sign-in failed. Please try again');
+            }
+
+            // Clear error after 5 seconds
+            setTimeout(() => setSignInError(null), 5000);
         } finally {
             setSigningIn(false);
         }
@@ -82,25 +99,39 @@ export function UserAuth() {
     // Connected but not authenticated - show Sign In button
     if (isConnected && !isAuthenticated) {
         return (
-            <button
-                className="sign-in-btn"
-                onClick={handleSignIn}
-                disabled={signingIn}
-                style={{
-                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                    color: 'white',
-                    padding: '0.75rem 1.5rem',
-                    borderRadius: '12px',
-                    border: 'none',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    cursor: signingIn ? 'not-allowed' : 'pointer',
-                    opacity: signingIn ? 0.6 : 1,
-                    transition: 'all 0.2s',
-                }}
-            >
-                {signingIn ? 'Signing In...' : 'Sign In'}
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
+                <button
+                    className="sign-in-btn"
+                    onClick={handleSignIn}
+                    disabled={signingIn}
+                    style={{
+                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        color: 'white',
+                        padding: '0.75rem 1.5rem',
+                        borderRadius: '12px',
+                        border: 'none',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        cursor: signingIn ? 'not-allowed' : 'pointer',
+                        opacity: signingIn ? 0.6 : 1,
+                        transition: 'all 0.2s',
+                    }}
+                >
+                    {signingIn ? 'Signing In...' : 'Sign In'}
+                </button>
+                {signInError && (
+                    <div style={{
+                        fontSize: '0.875rem',
+                        color: '#ff4444',
+                        padding: '0.5rem',
+                        background: 'rgba(255, 68, 68, 0.1)',
+                        borderRadius: '8px',
+                        whiteSpace: 'nowrap'
+                    }}>
+                        {signInError}
+                    </div>
+                )}
+            </div>
         );
     }
 

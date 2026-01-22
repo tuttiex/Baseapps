@@ -70,22 +70,61 @@ export function UserProvider({ children }) {
 
     // Auto sign-in when wallet connects (if not already authenticated)
     useEffect(() => {
+        let timeoutId;
+        let isSubscribed = true;
+
         const autoSignIn = async () => {
+            // Wait a bit for wallet to fully connect
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+            if (!isSubscribed) return;
+
+            // Only attempt if wallet is connected, we have an address, and we're not already authenticated
             if (isConnected && address && !user && !loading) {
                 const token = getToken();
-                if (!token || !isAuthenticated()) {
+
+                // Check if we have a valid token for this address
+                let shouldSignIn = false;
+
+                if (!token) {
+                    shouldSignIn = true;
+                } else {
+                    // Check if token is valid and for the current address
                     try {
+                        const payload = JSON.parse(atob(token.split('.')[1]));
+                        const isExpired = payload.exp * 1000 < Date.now();
+                        const isWrongAddress = payload.address?.toLowerCase() !== address?.toLowerCase();
+
+                        if (isExpired || isWrongAddress) {
+                            shouldSignIn = true;
+                        }
+                    } catch {
+                        shouldSignIn = true;
+                    }
+                }
+
+                if (shouldSignIn) {
+                    try {
+                        console.log('Attempting auto sign-in...');
                         await handleSignIn();
                     } catch (err) {
-                        // User cancelled or sign-in failed, that's okay
-                        console.log('Auto sign-in skipped or failed');
+                        // User cancelled or sign-in failed
+                        console.log('Auto sign-in cancelled or failed:', err.message);
                     }
                 }
             }
         };
 
-        autoSignIn();
-    }, [isConnected, address]);
+        // Debounce the auto sign-in to prevent multiple attempts
+        timeoutId = setTimeout(() => {
+            autoSignIn();
+        }, 1000);
+
+        return () => {
+            isSubscribed = false;
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, [isConnected, address, user, loading]);
 
     /**
      * Sign in with wallet
