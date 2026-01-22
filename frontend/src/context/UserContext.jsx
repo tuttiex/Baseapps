@@ -30,7 +30,12 @@ export function UserProvider({ children }) {
             const cachedUser = localStorage.getItem('user');
             if (cachedUser) {
                 try {
-                    setUser(JSON.parse(cachedUser));
+                    const parsedUser = JSON.parse(cachedUser);
+                    // Fix avatar URL if needed
+                    if (parsedUser.avatarUrl && !parsedUser.avatarUrl.startsWith('http')) {
+                        parsedUser.avatarUrl = `https://baseapps-production.up.railway.app${parsedUser.avatarUrl}`;
+                    }
+                    setUser(parsedUser);
                 } catch (e) {
                     console.error('Error parsing cached user:', e);
                 }
@@ -43,8 +48,13 @@ export function UserProvider({ children }) {
                 });
 
                 if (response.data.success) {
-                    setUser(response.data.user);
-                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    const freshUser = response.data.user;
+                    // Fix avatar URL if needed
+                    if (freshUser.avatarUrl && !freshUser.avatarUrl.startsWith('http')) {
+                        freshUser.avatarUrl = `https://baseapps-production.up.railway.app${freshUser.avatarUrl}`;
+                    }
+                    setUser(freshUser);
+                    localStorage.setItem('user', JSON.stringify(freshUser));
                 }
             } catch (err) {
                 console.error('Error loading user:', err);
@@ -197,6 +207,12 @@ export function UserProvider({ children }) {
 
             if (response.data.success) {
                 const updatedUser = response.data.user;
+
+                // Fix avatar URL to include full backend URL
+                if (updatedUser.avatarUrl && !updatedUser.avatarUrl.startsWith('http')) {
+                    updatedUser.avatarUrl = `https://baseapps-production.up.railway.app${updatedUser.avatarUrl}`;
+                }
+
                 setUser(updatedUser);
                 localStorage.setItem('user', JSON.stringify(updatedUser));
                 return updatedUser;
