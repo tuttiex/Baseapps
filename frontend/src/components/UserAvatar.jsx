@@ -13,13 +13,17 @@ export function UserAvatar({ user, size = 'medium', onClick }) {
 
     // If avatar URL exists and hasn't errored
     if (user?.avatarUrl && !imageError) {
+        console.log('Loading avatar from:', user.avatarUrl);
         return (
             <img
                 src={user.avatarUrl}
                 alt={user.username || 'User avatar'}
                 className={className}
                 onClick={onClick}
-                onError={() => setImageError(true)}
+                onError={(e) => {
+                    console.error('Avatar failed to load:', user.avatarUrl, e);
+                    setImageError(true);
+                }}
                 style={{ cursor: onClick ? 'pointer' : 'default' }}
             />
         );

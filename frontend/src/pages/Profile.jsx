@@ -50,7 +50,12 @@ export default function Profile() {
             const response = await axios.get(`${API_URL}/profile/${address}`);
 
             if (response.data.success) {
-                setProfileUser(response.data.user);
+                const fetchedUser = response.data.user;
+                // Fix avatar URL if needed
+                if (fetchedUser.avatarUrl && !fetchedUser.avatarUrl.startsWith('http')) {
+                    fetchedUser.avatarUrl = `https://baseapps-production.up.railway.app${fetchedUser.avatarUrl}`;
+                }
+                setProfileUser(fetchedUser);
             }
         } catch (err) {
             console.error('Error fetching profile:', err);
