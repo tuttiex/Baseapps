@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "Create Marketing Video",
+        "type": "task",
+        "category": "Content",
+        "dappName": "Base Apps",
+        "dappLogo": "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
+        "description": "Produce a 60-second explainer video showcasing BaseApps platform features. Should be engaging and professional.",
+        "reward": "500",
+        "currency": "USDC",
+        "difficulty": "Intermediate",
+        "timeframe": "1 week",
+        "skills": [
+            "Video Editing",
+            "Motion Graphics",
+            "Storytelling"
+        ],
+        "postedDate": "2026-01-21",
+        "applicants": 34,
+        "status": "open"
+    }
+]

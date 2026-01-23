@@ -1309,6 +1309,124 @@ app.delete('/api/admin/blog/:id', async (req, res) => {
   }
 });
 
+// ============================================
+// BOUNTIES - Routes
+// ============================================
+
+const BOUNTIES_FILE = path.join(DATA_DIR, 'bounties.json');
+
+// GET /api/bounties - Get all bounties
+app.get('/api/bounties', async (req, res) => {
+  try {
+    const data = await fs.readFile(BOUNTIES_FILE, 'utf8');
+    const bounties = JSON.parse(data);
+
+    // Support filtering via query params if needed, or return all
+    res.json({ success: true, bounties });
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      res.json({ success: true, bounties: [] });
+    } else {
+      res.status(500).json({ success: false, error: 'Failed to fetch bounties' });
+    }
+  }
+});
+
+// POST /api/admin/bounties - Add a new bounty
+app.post('/api/admin/bounties', upload.single('logo'), async (req, res) => {
+  try {
+    const { secret, title, type, category, dappName, description, reward, currency, difficulty, timeframe, skills } = req.body;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    if (!title || !description || !reward || !dappName) {
+      return res.status(400).json({ success: false, error: 'Missing required fields' });
+    }
+
+    const backendUrl = req.protocol + '://' + req.get('host');
+    let logoUrl = ''; // Default or empty
+
+    // Handle Logo: Upload > URL > Default
+    if (req.file) {
+      logoUrl = `${backendUrl}/logos/${req.file.filename}`;
+    } else if (req.body.dappLogo) {
+      logoUrl = req.body.dappLogo;
+    } else {
+      logoUrl = 'https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png'; // Fallback to BaseApps logo
+    }
+
+    // Load existing bounties
+    let bounties = [];
+    try {
+      const data = await fs.readFile(BOUNTIES_FILE, 'utf8');
+      bounties = JSON.parse(data);
+    } catch (e) { bounties = []; }
+
+    const newBounty = {
+      id: bounties.length > 0 ? Math.max(...bounties.map(b => b.id)) + 1 : 1,
+      title,
+      type: type || 'task',
+      category: category || 'Other',
+      dappName,
+      dappLogo: logoUrl,
+      description,
+      reward,
+      currency: currency || 'USDC',
+      difficulty: difficulty || 'Intermediate',
+      timeframe: timeframe || '1 week',
+      skills: skills ? skills.split(',').map(s => s.trim()) : [],
+      postedDate: new Date().toISOString().split('T')[0],
+      applicants: 0,
+      status: 'open'
+    };
+
+    bounties.unshift(newBounty);
+    await fs.writeFile(BOUNTIES_FILE, JSON.stringify(bounties, null, 2), 'utf8');
+
+    res.json({ success: true, message: 'Bounty posted!', bounty: newBounty });
+
+  } catch (error) {
+    console.error('Error posting bounty:', error);
+    res.status(500).json({ success: false, error: 'Failed to post bounty' });
+  }
+});
+
+// DELETE /api/admin/bounties/:id
+app.delete('/api/admin/bounties/:id', async (req, res) => {
+  try {
+    const { secret } = req.query;
+    const { id } = req.params;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    let bounties = [];
+    try {
+      const data = await fs.readFile(BOUNTIES_FILE, 'utf8');
+      bounties = JSON.parse(data);
+    } catch (e) { return res.status(404).json({ success: false, error: 'No bounties found' }); }
+
+    const initialLength = bounties.length;
+    bounties = bounties.filter(b => b.id !== parseInt(id));
+
+    if (bounties.length === initialLength) {
+      return res.status(404).json({ success: false, error: 'Bounty not found' });
+    }
+
+    await fs.writeFile(BOUNTIES_FILE, JSON.stringify(bounties, null, 2), 'utf8');
+    res.json({ success: true, message: 'Bounty deleted' });
+
+  } catch (error) {
+    console.error('Error deleting bounty:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete bounty' });
+  }
+});
+
 // 404 handler for undefined routes
 app.use((req, res) => {
   res.status(404).json({

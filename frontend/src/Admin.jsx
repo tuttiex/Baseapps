@@ -37,6 +37,15 @@ function Admin() {
     })
     const [postImageFile, setPostImageFile] = useState(null)
 
+    // Bounties State
+    const [bounties, setBounties] = useState([])
+    const [newBounty, setNewBounty] = useState({
+        title: '', type: 'task', category: 'Content', dappName: '',
+        description: '', reward: '', currency: 'USDC', difficulty: 'Intermediate',
+        timeframe: '1 week', skills: '', dappLogo: ''
+    })
+    const [bountyLogoFile, setBountyLogoFile] = useState(null)
+
     // Initialization
     useEffect(() => {
         document.body.classList.add('dark-mode')
@@ -98,6 +107,12 @@ function Admin() {
             const blogRes = await axios.get(`${API_BASE_URL}/blog`)
             if (blogRes.data.success) {
                 setBlogPosts(blogRes.data.posts)
+            }
+
+            // Fetch Bounties
+            const bountyRes = await axios.get(`${API_BASE_URL}/bounties`)
+            if (bountyRes.data.success) {
+                setBounties(bountyRes.data.bounties)
             }
         } catch (error) {
             console.error("Error fetching data:", error)
@@ -226,6 +241,51 @@ function Admin() {
         }
     }
 
+    const handleAddBounty = async (e) => {
+        e.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append('secret', secret)
+            formData.append('title', newBounty.title)
+            formData.append('type', newBounty.type)
+            formData.append('category', newBounty.category)
+            formData.append('dappName', newBounty.dappName)
+            formData.append('description', newBounty.description)
+            formData.append('reward', newBounty.reward)
+            formData.append('currency', newBounty.currency)
+            formData.append('difficulty', newBounty.difficulty)
+            formData.append('timeframe', newBounty.timeframe)
+            formData.append('skills', newBounty.skills)
+
+            if (newBounty.dappLogo) formData.append('dappLogo', newBounty.dappLogo)
+            if (bountyLogoFile) formData.append('logo', bountyLogoFile)
+
+            await axios.post(`${API_BASE_URL}/admin/bounties`, formData)
+            alert("Bounty Posted!")
+
+            setNewBounty({
+                title: '', type: 'task', category: 'Content', dappName: '',
+                description: '', reward: '', currency: 'USDC', difficulty: 'Intermediate',
+                timeframe: '1 week', skills: '', dappLogo: ''
+            })
+            setBountyLogoFile(null)
+            fetchData(secret)
+        } catch (err) {
+            console.error(err)
+            alert("Failed to post bounty: " + (err.response?.data?.error || err.message))
+        }
+    }
+
+    const handleDeleteBounty = async (id) => {
+        if (!confirm("Delete this bounty?")) return
+        try {
+            await axios.delete(`${API_BASE_URL}/admin/bounties/${id}?secret=${secret}`)
+            fetchData(secret)
+        } catch (err) {
+            alert("Failed to delete bounty")
+        }
+    }
+
     // Helper to resolve logo URL
     const getLogoUrl = (dapp) => {
         if (!dapp.logo) return null;
@@ -299,6 +359,9 @@ function Admin() {
                     </button>
                     <button className={`category-btn ${activeTab === 'blog' ? 'active' : ''}`} onClick={() => setActiveTab('blog')}>
                         📝 Manage Blog
+                    </button>
+                    <button className={`category-btn ${activeTab === 'bounties' ? 'active' : ''}`} onClick={() => setActiveTab('bounties')}>
+                        💰 Manage Bounties
                     </button>
                 </div>
 
@@ -558,8 +621,98 @@ function Admin() {
                         </div>
                     </div>
                 )}
+
+                {activeTab === 'bounties' && (
+                    <div className="form-card" style={{ maxWidth: 800, margin: '0 auto' }}>
+                        <h2 style={{ color: '#764ba2' }}>Post New Bounty</h2>
+                        <form onSubmit={handleAddBounty}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label>Title</label>
+                                    <input value={newBounty.title} onChange={e => setNewBounty({ ...newBounty, title: e.target.value })} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Dapp Name</label>
+                                    <input value={newBounty.dappName} onChange={e => setNewBounty({ ...newBounty, dappName: e.target.value })} required />
+                                </div>
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label>Type</label>
+                                    <select value={newBounty.type} onChange={e => setNewBounty({ ...newBounty, type: e.target.value })}>
+                                        <option value="task">Task</option>
+                                        <option value="bounty">Bounty</option>
+                                        <option value="gig">Gig</option>
+                                        <option value="job">Job</option>
+                                    </select>
+                                </div>
+                                <div className="form-group">
+                                    <label>Category</label>
+                                    <select value={newBounty.category} onChange={e => setNewBounty({ ...newBounty, category: e.target.value })}>
+                                        <option value="Content">Content</option>
+                                        <option value="Development">Development</option>
+                                        <option value="Design">Design</option>
+                                        <option value="Marketing">Marketing</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Description</label>
+                                <textarea value={newBounty.description} onChange={e => setNewBounty({ ...newBounty, description: e.target.value })} rows="4" required />
+                            </div>
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                <div className="form-group">
+                                    <label>Reward Amount</label>
+                                    <input type="number" value={newBounty.reward} onChange={e => setNewBounty({ ...newBounty, reward: e.target.value })} required />
+                                </div>
+                                <div className="form-group">
+                                    <label>Currency</label>
+                                    <select value={newBounty.currency} onChange={e => setNewBounty({ ...newBounty, currency: e.target.value })}>
+                                        <option value="USDC">USDC</option>
+                                        <option value="ETH">ETH</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="form-group">
+                                <label>Skills (comma separated)</label>
+                                <input value={newBounty.skills} onChange={e => setNewBounty({ ...newBounty, skills: e.target.value })} placeholder="React, Video Editing, Writing" />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Dapp Logo (Upload or URL)</label>
+                                <input type="file" onChange={e => setBountyLogoFile(e.target.files[0])} style={{ marginBottom: '0.5rem' }} />
+                                <input value={newBounty.dappLogo} onChange={e => setNewBounty({ ...newBounty, dappLogo: e.target.value })} placeholder="https://..." />
+                            </div>
+
+                            <button type="submit" className="submit-btn" style={{ background: '#764ba2' }}>Post Bounty</button>
+                        </form>
+
+                        <hr style={{ margin: '2rem 0', borderColor: '#444' }} />
+
+                        <h2 style={{ color: '#764ba2' }}>Existing Bounties</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {bounties.map(b => (
+                                <div key={b.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
+                                    <div>
+                                        <strong>{b.title}</strong>
+                                        <div style={{ fontSize: '0.8rem', color: '#888' }}>{b.dappName} • {b.reward} {b.currency}</div>
+                                    </div>
+                                    <button onClick={() => handleDeleteBounty(b.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>
+                                        🗑️
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
+        )}
         </div>
+    </div >
     )
 }
 

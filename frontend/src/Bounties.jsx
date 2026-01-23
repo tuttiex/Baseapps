@@ -1,32 +1,16 @@
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 import { Header } from './components/Header'
 import './Bounties.css'
 import './App.css'
 
-// Mock data for bounties - In production, this would come from a backend API
-const MOCK_BOUNTIES = [
-    {
-        id: 1,
-        title: "Create Marketing Video",
-        type: "task",
-        category: "Content",
-        dappName: "Base Apps",
-        dappLogo: "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
-        description: "Produce a 60-second explainer video showcasing BaseApps platform features. Should be engaging and professional.",
-        reward: "500",
-        currency: "USDC",
-        difficulty: "Intermediate",
-        timeframe: "1 week",
-        skills: ["Video Editing", "Motion Graphics", "Storytelling"],
-        postedDate: "2026-01-21",
-        applicants: 34,
-        status: "open"
-    }
-]
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3001/api'
+    : 'https://baseapps-production.up.railway.app/api';
 
 function Bounties() {
-    const [bounties, setBounties] = useState(MOCK_BOUNTIES)
-    const [filteredBounties, setFilteredBounties] = useState(MOCK_BOUNTIES)
+    const [bounties, setBounties] = useState([])
+    const [filteredBounties, setFilteredBounties] = useState([])
     const [selectedType, setSelectedType] = useState('all')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [selectedDifficulty, setSelectedDifficulty] = useState('all')
@@ -35,7 +19,20 @@ function Bounties() {
     useEffect(() => {
         // Force dark mode always
         document.body.classList.add('dark-mode')
+        fetchBounties()
     }, [])
+
+    const fetchBounties = async () => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/bounties`)
+            if (response.data.success) {
+                setBounties(response.data.bounties)
+                setFilteredBounties(response.data.bounties)
+            }
+        } catch (error) {
+            console.error('Error fetching bounties:', error)
+        }
+    }
 
     useEffect(() => {
         // Filter bounties based on selected filters
