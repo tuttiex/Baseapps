@@ -5,6 +5,7 @@ import { ConnectWallet } from './components/ConnectWallet'
 import { VoteButtons } from './components/VoteButtons'
 import { UserAuth } from './components/UserAuth'
 import { Header } from './components/Header'
+import { SearchIcon } from './components/Icons'
 import { useUser } from './context/UserContext'
 import './App.css'
 
@@ -284,7 +285,7 @@ function Home() {
                 autoComplete="off"
               />
               <button type="submit" className="home-search-btn">
-                🔍 Search
+                <SearchIcon size={18} /> Search
               </button>
 
               {/* Suggestions Dropdown */}
