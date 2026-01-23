@@ -358,7 +358,7 @@ function Admin() {
                         + Add Special Dapp
                     </button>
                     <button className={`category-btn ${activeTab === 'blog' ? 'active' : ''}`} onClick={() => setActiveTab('blog')}>
-                        📝 Manage Blog
+                        Manage Blog
                     </button>
                     <button className={`category-btn ${activeTab === 'bounties' ? 'active' : ''}`} onClick={() => setActiveTab('bounties')}>
                         Manage Bounties
