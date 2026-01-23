@@ -391,5 +391,35 @@
     "url": "https://omni.exchange/",
     "logo": "https://baseapps-production.up.railway.app/logos/logo-1768993747783-938535961.jpg",
     "chain": "Base"
+  },
+  {
+    "name": "Maple Finance",
+    "description": "An onchain asset management platform providing institutional grade financial products, including overcollateralized loans and liquid yielding digital assets for individuals and organizations.",
+    "category": "Lending & CDP",
+    "url": "https://maple.finance/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769190076182-670649176.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+  },
+  {
+    "name": "Noice",
+    "description": "A tokenization platform and launchpad that enables founders to fund and distribute early stage projects through onchain mechanisms like fair launches and secondary markets.",
+    "category": "Launchpad",
+    "url": "https://noice.so/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769190310214-358147431.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+  },
+  {
+    "name": "Ponke",
+    "description": "A cultural brand and tokenized ecosystem centered around a viral digital mascot, facilitating community driven entertainment, merchandise, and cross-chain asset accessibility.",
+    "category": "Social & Entertainment",
+    "url": "https://www.ponke.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769190550236-231146192.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
   }
 ]
