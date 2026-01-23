@@ -30,6 +30,13 @@ function Admin() {
     })
     const [logoFile, setLogoFile] = useState(null)
 
+    // Blog State
+    const [blogPosts, setBlogPosts] = useState([])
+    const [newPost, setNewPost] = useState({
+        title: '', excerpt: '', content: '', author: 'BaseApps Team', category: 'General', imageUrl: ''
+    })
+    const [postImageFile, setPostImageFile] = useState(null)
+
     // Initialization
     useEffect(() => {
         document.body.classList.add('dark-mode')
@@ -85,6 +92,12 @@ function Admin() {
                 // Sort dapps by score (highest first)
                 const sortedDapps = liveRes.data.dapps.sort((a, b) => (b.score || 0) - (a.score || 0))
                 setLiveDapps(sortedDapps)
+            }
+
+            // Fetch Blog Posts
+            const blogRes = await axios.get(`${API_BASE_URL}/blog`)
+            if (blogRes.data.success) {
+                setBlogPosts(blogRes.data.posts)
             }
         } catch (error) {
             console.error("Error fetching data:", error)
@@ -175,6 +188,44 @@ function Admin() {
         }
     }
 
+    const handleAddPost = async (e) => {
+        e.preventDefault()
+        try {
+            const formData = new FormData()
+            formData.append('secret', secret)
+            formData.append('title', newPost.title)
+            formData.append('excerpt', newPost.excerpt)
+            formData.append('content', newPost.content)
+            formData.append('author', newPost.author)
+            formData.append('category', newPost.category)
+
+            if (newPost.imageUrl) formData.append('imageUrl', newPost.imageUrl)
+            if (postImageFile) formData.append('image', postImageFile)
+
+            await axios.post(`${API_BASE_URL}/admin/blog`, formData)
+            alert("Blog Post Published!")
+
+            setNewPost({
+                title: '', excerpt: '', content: '', author: 'BaseApps Team', category: 'General', imageUrl: ''
+            })
+            setPostImageFile(null)
+            fetchData(secret)
+        } catch (err) {
+            console.error(err)
+            alert("Failed to publish post: " + (err.response?.data?.error || err.message))
+        }
+    }
+
+    const handleDeletePost = async (id) => {
+        if (!confirm("Are you sure you want to delete this post?")) return
+        try {
+            await axios.delete(`${API_BASE_URL}/admin/blog/${id}?secret=${secret}`)
+            fetchData(secret)
+        } catch (err) {
+            alert("Failed to delete post")
+        }
+    }
+
     // Helper to resolve logo URL
     const getLogoUrl = (dapp) => {
         if (!dapp.logo) return null;
@@ -245,6 +296,9 @@ function Admin() {
                     </button>
                     <button className={`category-btn ${activeTab === 'add' ? 'active' : ''}`} onClick={() => setActiveTab('add')}>
                         + Add Special Dapp
+                    </button>
+                    <button className={`category-btn ${activeTab === 'blog' ? 'active' : ''}`} onClick={() => setActiveTab('blog')}>
+                        📝 Manage Blog
                     </button>
                 </div>
 
@@ -437,6 +491,71 @@ function Admin() {
                                 Add Dapp to Live
                             </button>
                         </form>
+                    </div>
+                )}
+
+                {activeTab === 'blog' && (
+                    <div className="form-card" style={{ maxWidth: 800, margin: '0 auto' }}>
+                        <h2 style={{ color: '#764ba2' }}>Publish New Blog Post</h2>
+                        <form onSubmit={handleAddPost}>
+                            <div className="form-group">
+                                <label>Title</label>
+                                <input value={newPost.title} onChange={e => setNewPost({ ...newPost, title: e.target.value })} required />
+                            </div>
+                            <div className="form-group">
+                                <label>Excerpt (Short summary)</label>
+                                <textarea value={newPost.excerpt} onChange={e => setNewPost({ ...newPost, excerpt: e.target.value })} rows="2" />
+                            </div>
+                            <div className="form-group">
+                                <label>Content (Full text)</label>
+                                <textarea
+                                    value={newPost.content}
+                                    onChange={e => setNewPost({ ...newPost, content: e.target.value })}
+                                    rows="10"
+                                    required
+                                    placeholder="Write your article here..."
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Category</label>
+                                <select value={newPost.category} onChange={e => setNewPost({ ...newPost, category: e.target.value })}>
+                                    <option value="General">General</option>
+                                    <option value="Announcement">Announcement</option>
+                                    <option value="Tutorial">Tutorial</option>
+                                    <option value="Ecosystem">Ecosystem</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Author</label>
+                                <input value={newPost.author} onChange={e => setNewPost({ ...newPost, author: e.target.value })} />
+                            </div>
+                            <div className="form-group">
+                                <label>Cover Image (Upload)</label>
+                                <input type="file" onChange={e => setPostImageFile(e.target.files[0])} />
+                            </div>
+                            <div className="form-group">
+                                <label>Or Image URL</label>
+                                <input value={newPost.imageUrl} onChange={e => setNewPost({ ...newPost, imageUrl: e.target.value })} placeholder="https://..." />
+                            </div>
+                            <button type="submit" className="submit-btn" style={{ background: '#764ba2' }}>Publish Article</button>
+                        </form>
+
+                        <hr style={{ margin: '2rem 0', borderColor: '#444' }} />
+
+                        <h2 style={{ color: '#764ba2' }}>Existing Posts</h2>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {blogPosts.map(post => (
+                                <div key={post.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px' }}>
+                                    <div>
+                                        <strong>{post.title}</strong>
+                                        <div style={{ fontSize: '0.8rem', color: '#888' }}>{post.date} • {post.author}</div>
+                                    </div>
+                                    <button onClick={() => handleDeletePost(post.id)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>
+                                        🗑️
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 )}
             </div>

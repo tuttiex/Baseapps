@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Welcome to BaseApps Blog",
+        "excerpt": "Discover the latest updates, insights, and stories from the Base ecosystem. We're here to share news, tutorials, and community highlights.",
+        "content": "Welcome to the official BaseApps Blog! We're excited to launch this platform where we'll be sharing:\n\n- Latest news from the Base ecosystem\n- Tutorials and guides for developers\n- Community highlights and success stories\n- Updates about new dapps and protocols\n- Insights into the growing Base network\n\nStay tuned for regular content that will help you navigate and make the most of the Base ecosystem.",
+        "date": "January 21, 2026",
+        "author": "BaseApps Team",
+        "category": "Announcement",
+        "slug": "welcome-to-baseapps-blog",
+        "image": "/Baseappslogo3.png",
+        "featured": true
+    },
+    {
+        "id": 2,
+        "title": "Getting Started with Base Network",
+        "excerpt": "Learn how to connect your wallet, bridge assets, and start exploring the fastest-growing Layer 2 ecosystem on Ethereum.",
+        "content": "Base is Coinbase's Layer 2 network built on Ethereum, offering fast and low-cost transactions.\n\nHere's how to get started:\n\n1. Connect your wallet (MetaMask, Coinbase Wallet, or RainbowKit)\n2. Bridge assets from Ethereum to Base\n3. Explore dapps in the ecosystem\n4. Start building or using DeFi protocols\n\nBase offers the security of Ethereum with the speed and affordability of a Layer 2.",
+        "date": "January 20, 2026",
+        "author": "Community",
+        "category": "Tutorial",
+        "slug": "getting-started-with-base-network",
+        "image": "/Baseappslogo3.png",
+        "featured": false
+    },
+    {
+        "id": 3,
+        "title": "Top DeFi Apps on Base",
+        "excerpt": "Explore the most popular decentralized finance applications building on Base, from DEXs to lending protocols.",
+        "content": "The Base ecosystem is growing rapidly with numerous DeFi applications:\n\n- Decentralized Exchanges (DEXs)\n- Lending and borrowing protocols\n- Yield farming platforms\n- NFT marketplaces\n- Gaming and metaverse projects\n\nDiscover the top dapps on BaseApps and start exploring the ecosystem today!",
+        "date": "January 18, 2026",
+        "author": "BaseApps Team",
+        "category": "Ecosystem",
+        "slug": "top-defi-apps-on-base",
+        "image": "/Baseappslogo3.png",
+        "featured": false
+    }
+]

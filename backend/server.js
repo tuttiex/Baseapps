@@ -1202,6 +1202,113 @@ app.use((err, req, res, next) => {
   });
 });
 
+// ============================================
+// BLOG - Routes
+// ============================================
+
+const BLOG_FILE = path.join(DATA_DIR, 'blog_posts.json');
+
+// GET /api/blog - Get all blog posts
+app.get('/api/blog', async (req, res) => {
+  try {
+    const data = await fs.readFile(BLOG_FILE, 'utf8');
+    const posts = JSON.parse(data);
+    res.json({ success: true, posts });
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      res.json({ success: true, posts: [] });
+    } else {
+      res.status(500).json({ success: false, error: 'Failed to fetch blog posts' });
+    }
+  }
+});
+
+// POST /api/admin/blog - Add a new blog post
+app.post('/api/admin/blog', upload.single('image'), async (req, res) => {
+  try {
+    const { secret, title, excerpt, content, author, category } = req.body;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    if (!title || !content) {
+      return res.status(400).json({ success: false, error: 'Title and content are required' });
+    }
+
+    const backendUrl = req.protocol + '://' + req.get('host');
+    let imageUrl = '';
+    if (req.file) {
+      imageUrl = `${backendUrl}/logos/${req.file.filename}`;
+    } else if (req.body.imageUrl) {
+      imageUrl = req.body.imageUrl;
+    }
+
+    // Load existing posts
+    let posts = [];
+    try {
+      const data = await fs.readFile(BLOG_FILE, 'utf8');
+      posts = JSON.parse(data);
+    } catch (e) { posts = []; }
+
+    const newPost = {
+      id: posts.length > 0 ? Math.max(...posts.map(p => p.id)) + 1 : 1,
+      title,
+      excerpt: excerpt || content.substring(0, 150) + '...',
+      content,
+      author: author || 'BaseApps Team',
+      category: category || 'General',
+      date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+      slug: title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      image: imageUrl,
+      featured: false
+    };
+
+    posts.unshift(newPost); // Add to top
+    await fs.writeFile(BLOG_FILE, JSON.stringify(posts, null, 2), 'utf8');
+
+    res.json({ success: true, message: 'Blog post published!', post: newPost });
+
+  } catch (error) {
+    console.error('Error adding blog post:', error);
+    res.status(500).json({ success: false, error: 'Failed to publish post' });
+  }
+});
+
+// DELETE /api/admin/blog/:id - Delete a blog post
+app.delete('/api/admin/blog/:id', async (req, res) => {
+  try {
+    const { secret } = req.query;
+    const { id } = req.params;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
+
+    if (secret !== ADMIN_SECRET) {
+      return res.status(401).json({ success: false, error: 'Unauthorized' });
+    }
+
+    let posts = [];
+    try {
+      const data = await fs.readFile(BLOG_FILE, 'utf8');
+      posts = JSON.parse(data);
+    } catch (e) { return res.status(404).json({ success: false, error: 'No posts found' }); }
+
+    const initialLength = posts.length;
+    posts = posts.filter(p => p.id !== parseInt(id));
+
+    if (posts.length === initialLength) {
+      return res.status(404).json({ success: false, error: 'Post not found' });
+    }
+
+    await fs.writeFile(BLOG_FILE, JSON.stringify(posts, null, 2), 'utf8');
+    res.json({ success: true, message: 'Post deleted' });
+
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.status(500).json({ success: false, error: 'Failed to delete post' });
+  }
+});
+
 // 404 handler for undefined routes
 app.use((req, res) => {
   res.status(404).json({
