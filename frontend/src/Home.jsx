@@ -199,7 +199,7 @@ function Home() {
 
   if (loading) {
     return (
-      <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
+      <div className="app dark-mode">
         <div className="loading">Welcome to the home of all things Base</div>
       </div>
     )

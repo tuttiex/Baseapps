@@ -24,15 +24,7 @@ export default function Profile() {
     // Force dark mode on profile pages
     useEffect(() => {
         document.body.classList.add('dark-mode');
-
-        // Cleanup: don't remove dark mode on unmount since Home page also defaults to dark
-        return () => {
-            // Only remove if user has explicitly chosen light mode
-            const savedDarkMode = localStorage.getItem('darkMode');
-            if (savedDarkMode === 'false') {
-                document.body.classList.remove('dark-mode');
-            }
-        };
+        // No cleanup needed - dark mode is always on
     }, []);
 
     useEffect(() => {
