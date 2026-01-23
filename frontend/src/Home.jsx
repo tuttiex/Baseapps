@@ -361,6 +361,34 @@ function Home() {
         </div>
       </section>
 
+      {/* Base News Section */}
+      <section className="base-news-section" style={{
+        padding: '4rem 0',
+        background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)'
+      }}>
+        <div className="container" style={{ textAlign: 'center' }}>
+          <h2 className="section-title" style={{
+            fontSize: '2.5rem',
+            fontWeight: '700',
+            marginBottom: '1rem',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
+            Base News
+          </h2>
+          <p style={{
+            fontSize: '1.1rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
+            Stay informed on the latest news on Base
+          </p>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="footer">
         <div className="container footer-content">
