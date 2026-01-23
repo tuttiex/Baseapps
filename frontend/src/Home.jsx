@@ -237,6 +237,18 @@ function Home() {
             <p className="hero-description">
               Explore the fastest growing ecosystem
             </p>
+            <h2 className="section-title" style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              marginBottom: '1rem',
+              marginTop: '0',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              DApps
+            </h2>
             <div className="hero-stats">
               <div className="stat-card">
                 <div className="stat-number">1200+</div>
@@ -255,20 +267,7 @@ function Home() {
         </div>
       </section>
 
-      {/* DApps Section Title */}
-      <div className="container" style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '1rem' }}>
-        <h2 className="section-title" style={{
-          fontSize: '2.5rem',
-          fontWeight: '700',
-          marginBottom: '0.5rem',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text'
-        }}>
-          DApps
-        </h2>
-      </div>
+
 
       {/* Search Section */}
       <section className="home-search-section">
