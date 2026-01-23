@@ -1,11 +1,29 @@
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import { NewsCard } from './NewsCard';
-import { getLatestPosts } from '../data/blogPosts';
 import './NewsCarousel.css';
 
+const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:3001/api'
+    : 'https://baseapps-production.up.railway.app/api';
+
 export function NewsCarousel() {
+    const [latestPosts, setLatestPosts] = useState([]);
     const carouselRef = useRef(null);
-    const latestPosts = getLatestPosts(5); // Get latest 5 posts
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/blog`);
+                if (response.data.success) {
+                    setLatestPosts(response.data.posts.slice(0, 5));
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+            }
+        };
+        fetchPosts();
+    }, []);
 
     const scroll = (direction) => {
         const scrollAmount = 340; // card width (320) + gap (20)
