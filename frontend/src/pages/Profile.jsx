@@ -143,23 +143,71 @@ export default function Profile() {
                     {/* Voting History Section */}
                     <div className="profile-section">
                         <h3 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <VoteIcon size={20} /> Recent Votes
+                            <VoteIcon size={20} /> Recent Votes ({profileUser?.votes?.length || 0})
                         </h3>
-                        <div className="votes-placeholder">
-                            <p>Voting history will appear here</p>
-                            <small>This feature will be populated with on-chain voting data</small>
-                        </div>
+                        {profileUser?.votes?.length > 0 ? (
+                            <div className="favorites-grid">
+                                {profileUser.votes.map((vote, idx) => (
+                                    <div key={idx} className="favorite-item">
+                                        {vote.dappLogo && (
+                                            <img src={vote.dappLogo} alt="" style={{ width: 24, height: 24, borderRadius: '50%', marginRight: 8, objectFit: 'cover' }} />
+                                        )}
+                                        <span className="favorite-name">{vote.dappName || 'Unknown Dapp'}</span>
+                                        <span className="vote-badge" style={{
+                                            marginLeft: 'auto',
+                                            padding: '2px 8px',
+                                            borderRadius: '12px',
+                                            backgroundColor: vote.value > 0 ? 'rgba(76, 175, 80, 0.2)' : 'rgba(244, 67, 54, 0.2)',
+                                            color: vote.value > 0 ? '#4caf50' : '#f44336',
+                                            fontSize: '0.8rem',
+                                            border: `1px solid ${vote.value > 0 ? 'rgba(76, 175, 80, 0.3)' : 'rgba(244, 67, 54, 0.3)'}`
+                                        }}>
+                                            {vote.value > 0 ? 'Upvoted' : 'Downvoted'}
+                                        </span>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="votes-placeholder">
+                                <p>No voting history yet</p>
+                            </div>
+                        )}
                     </div>
 
-                    {/* Submissions Section */}
+                    {/* Submissions Section - Show verified submissions */}
                     <div className="profile-section">
                         <h3 className="section-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <DocumentIcon size={20} /> Submitted Dapps
+                            <DocumentIcon size={20} /> Submitted Dapps ({profileUser?.submittedDapps?.length || 0})
                         </h3>
-                        <div className="submissions-placeholder">
-                            <p>Submitted dapps will appear here</p>
-                            <small>This feature will show dapps submitted by this user</small>
-                        </div>
+                        {profileUser?.submittedDapps?.length > 0 ? (
+                            <div className="favorites-grid">
+                                {profileUser.submittedDapps.map((dapp, idx) => (
+                                    <div key={idx} className="favorite-item">
+                                        {dapp.logo && (
+                                            <img src={dapp.logo} alt="" style={{ width: 24, height: 24, borderRadius: '50%', marginRight: 8, objectFit: 'cover' }} />
+                                        )}
+                                        <span className="favorite-name">{dapp.name}</span>
+                                        <a href={dapp.url} target="_blank" rel="noopener noreferrer" style={{ marginLeft: 'auto', textDecoration: 'none' }}>
+                                            <span style={{
+                                                padding: '2px 8px',
+                                                borderRadius: '12px',
+                                                backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                                                color: '#2196f3',
+                                                fontSize: '0.8rem',
+                                                border: '1px solid rgba(33, 150, 243, 0.3)'
+                                            }}>
+                                                Live
+                                            </span>
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="submissions-placeholder">
+                                <p>No submitted dapps found</p>
+                                <small>Dapps submitted by this user will appear here</small>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

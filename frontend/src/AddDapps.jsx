@@ -214,6 +214,7 @@ function AddDapps() {
             data.append('websiteUrl', formData.websiteUrl)
             data.append('logo', formData.logo)
             data.append('txHash', hash) // Attach receipt
+            if (address) data.append('submittedBy', address)
 
             // 3. Send to Backend
             console.log("Uploading to backend...")

@@ -105,15 +105,88 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
             });
         }
 
+        const userObj = {
+            walletAddress: user.wallet_address,
+            username: user.username,
+            bio: user.bio,
+            avatarUrl: user.avatar_url,
+            createdAt: user.created_at,
+            isOwnProfile: req.walletAddress === user.wallet_address
+        };
+
+        // --- Fetch User's Votes ---
+        let votes = [];
+        try {
+            const VOTES_FILE = path.join(__dirname, '../data/votes.json');
+            const votesData = await fs.readFile(VOTES_FILE, 'utf8');
+            const allVotes = JSON.parse(votesData);
+
+            // Filter votes by this user's wallet address
+            // user.wallet_address is the profile being viewed
+            votes = allVotes.filter(v => v.voter.toLowerCase() === user.wallet_address.toLowerCase());
+
+            // Enrich votes with dapp names if possible (would need dapp map or cache)
+            // For now, we return dappId and value. Frontend can resolve name if it has a list, 
+            // or we could load dapps here. Let's try to load dapps cache to enrich.
+            try {
+                const CACHE_FILE = path.join(__dirname, '../data/dapps-cache.json');
+                const APPROVED_FILE = path.join(__dirname, '../data/approved_dapps.json');
+                const [cacheData, approvedData] = await Promise.all([
+                    fs.readFile(CACHE_FILE, 'utf8').catch(() => '{"dapps":[]}'),
+                    fs.readFile(APPROVED_FILE, 'utf8').catch(() => '[]')
+                ]);
+
+                const cachedDapps = JSON.parse(cacheData).dapps || [];
+                const approvedDapps = JSON.parse(approvedData) || [];
+                const allDapps = [...approvedDapps, ...cachedDapps];
+
+                // We also need dapp-ids.json to map dappId back to name/url/logo
+                const DAPP_IDS_FILE = path.join(__dirname, '../dapp-ids.json');
+                const dappIdsData = await fs.readFile(DAPP_IDS_FILE, 'utf8').catch(() => '[]');
+                const dappIdMap = JSON.parse(dappIdsData);
+
+                votes = votes.map(vote => {
+                    const mapping = dappIdMap.find(m => m.dappId === vote.dappId);
+                    const dapp = mapping
+                        ? allDapps.find(d => d.name === mapping.name || d.url === mapping.url)
+                        : null;
+
+                    return {
+                        ...vote,
+                        dappName: mapping ? mapping.name : 'Unknown Dapp',
+                        dappLogo: dapp ? dapp.logo : null
+                    };
+                });
+            } catch (enrichErr) {
+                console.log('Error enriching votes:', enrichErr.message);
+            }
+
+        } catch (err) {
+            // If votes file doesn't exist or error
+            console.log('Error loading votes for profile:', err.message);
+        }
+
+        // --- Fetch User's Submitted Dapps ---
+        let submittedDapps = [];
+        try {
+            const APPROVED_FILE = path.join(__dirname, '../data/approved_dapps.json');
+            const approvedData = await fs.readFile(APPROVED_FILE, 'utf8');
+            const approvedDapps = JSON.parse(approvedData);
+
+            // Filter by submittedBy
+            submittedDapps = approvedDapps.filter(d =>
+                d.submittedBy && d.submittedBy.toLowerCase() === user.wallet_address.toLowerCase()
+            );
+        } catch (err) {
+            console.log('Error loading submitted dapps for profile:', err.message);
+        }
+
         res.json({
             success: true,
             user: {
-                walletAddress: user.wallet_address,
-                username: user.username,
-                bio: user.bio,
-                avatarUrl: user.avatar_url,
-                createdAt: user.created_at,
-                isOwnProfile: req.walletAddress === user.wallet_address
+                ...userObj,
+                votes: votes,
+                submittedDapps: submittedDapps
             }
         });
     } catch (error) {

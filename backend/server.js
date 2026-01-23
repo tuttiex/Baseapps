@@ -802,7 +802,7 @@ app.get('/api/trending', async (req, res) => {
 // POST /api/submit-dapp - Submit a new dapp (with logo & txHash)
 app.post('/api/submit-dapp', upload.single('logo'), async (req, res) => {
   try {
-    const { name, description, category, subcategory, customCategory, websiteUrl, txHash } = req.body;
+    const { name, description, category, subcategory, customCategory, websiteUrl, txHash, submittedBy } = req.body;
 
     // Basic Validation
     if (!name || !description || !category || !websiteUrl) {
@@ -820,6 +820,7 @@ app.post('/api/submit-dapp', upload.single('logo'), async (req, res) => {
       // Store web-accessible path: /logos/filename.ext
       logo: req.file ? `/logos/${req.file.filename}` : null,
       txHash: txHash || null, // Payment usage
+      submittedBy: submittedBy || null,
       status: 'pending', // Needs manual review
       submittedAt: new Date().toISOString(),
       clientIp: req.ip || req.connection.remoteAddress
@@ -989,7 +990,8 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
         ? `${backendUrl}${approvedDapp.logo}`
         : approvedDapp.logo,
       tvl: "New",
-      chain: "Base"
+      chain: "Base",
+      submittedBy: approvedDapp.submittedBy || null
     };
 
     approvedDapps.push(formattedDapp);
