@@ -163,6 +163,13 @@ body {
   align-items: center;
 }
 
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
@@ -1795,11 +1802,17 @@ body.dark-mode .suggestion-item.active {
     font-size: 0.7rem;
   }
 
-  /* Ensure items wrap if they absolutely cannot fit */
+  /* Ensure items stay on one line on mobile */
   .header-content {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  /* Reduce internal gaps on mobile */
+  .header-left,
+  .header-right {
+    gap: 0.5rem;
   }
 
   .wallet-connect-wrapper {
