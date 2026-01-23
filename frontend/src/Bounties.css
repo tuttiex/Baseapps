@@ -122,62 +122,61 @@ body.dark-mode .bounties-hero-title {
     font-size: 1.4rem;
 }
 
-/* Filters */
-.bounties-filters {
+/* Dropdown Filters */
+.bounties-dropdown-filters {
     display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    max-width: 1200px;
+    gap: 1.5rem;
+    max-width: 700px;
     margin: 0 auto;
+    justify-content: center;
 }
 
-.filter-group {
+.filter-dropdown {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
 }
 
-.filter-label {
-    font-size: 1rem;
+.filter-dropdown-label {
+    font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
-.filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.filter-btn {
-    padding: 0.7rem 1.5rem;
-    font-size: 0.95rem;
+.filter-select {
+    padding: 0.875rem 1.25rem;
+    font-size: 1rem;
     font-weight: 500;
     border: 2px solid rgba(102, 126, 234, 0.3);
-    border-radius: 30px;
+    border-radius: 12px;
     background: var(--bg-card);
     color: var(--text-primary);
     cursor: pointer;
     transition: all 0.3s ease;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+    outline: none;
 }
 
-.filter-btn:hover {
-    background: rgba(102, 126, 234, 0.15);
+.filter-select:hover {
     border-color: rgba(102, 126, 234, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+    background: rgba(102, 126, 234, 0.05);
 }
 
-.filter-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+.filter-select:focus {
     border-color: #667eea;
-    font-weight: 600;
-    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Dark mode select */
+body.dark-mode .filter-select {
+    background: rgba(30, 30, 50, 0.95);
+}
+
+body.dark-mode .filter-select:hover {
+    background: rgba(102, 126, 234, 0.1);
 }
 
 /* Bounties Grid Section */
@@ -494,13 +493,13 @@ body.dark-mode .bounty-skill-tag {
         gap: 1.5rem;
     }
 
-    .filter-buttons {
-        gap: 0.5rem;
+    .bounties-dropdown-filters {
+        flex-direction: column;
+        gap: 1rem;
     }
 
-    .filter-btn {
-        font-size: 0.85rem;
-        padding: 0.6rem 1.2rem;
+    .filter-dropdown {
+        min-width: 100%;
     }
 
     .bounty-meta {

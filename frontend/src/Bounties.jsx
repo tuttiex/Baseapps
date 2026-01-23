@@ -136,41 +136,39 @@ function Bounties() {
                         <span className="bounties-search-icon">🔍</span>
                     </div>
 
-                    {/* Filters */}
-                    <div className="bounties-filters">
-                        {/* Type Filter */}
-                        <div className="filter-group">
-                            <label className="filter-label">Type</label>
-                            <div className="filter-buttons">
+                    {/* Dropdown Filters */}
+                    <div className="bounties-dropdown-filters">
+                        {/* Type Dropdown */}
+                        <div className="filter-dropdown">
+                            <label className="filter-dropdown-label">Type</label>
+                            <select
+                                value={selectedType}
+                                onChange={(e) => setSelectedType(e.target.value)}
+                                className="filter-select"
+                            >
                                 {types.map(type => (
-                                    <button
-                                        key={type}
-                                        className={`filter-btn ${selectedType === type ? 'active' : ''}`}
-                                        onClick={() => setSelectedType(type)}
-                                    >
-                                        {type === 'all' ? 'All' : type.charAt(0).toUpperCase() + type.slice(1)}
-                                    </button>
+                                    <option key={type} value={type}>
+                                        {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
+                                    </option>
                                 ))}
-                            </div>
+                            </select>
                         </div>
 
-                        {/* Category Filter */}
-                        <div className="filter-group">
-                            <label className="filter-label">Category</label>
-                            <div className="filter-buttons">
+                        {/* Category Dropdown */}
+                        <div className="filter-dropdown">
+                            <label className="filter-dropdown-label">Category</label>
+                            <select
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                                className="filter-select"
+                            >
                                 {categories.map(category => (
-                                    <button
-                                        key={category}
-                                        className={`filter-btn ${selectedCategory === category ? 'active' : ''}`}
-                                        onClick={() => setSelectedCategory(category)}
-                                    >
-                                        {category}
-                                    </button>
+                                    <option key={category} value={category}>
+                                        {category === 'all' ? 'All Categories' : category}
+                                    </option>
                                 ))}
-                            </div>
+                            </select>
                         </div>
-
-
                     </div>
                 </div>
             </section>
