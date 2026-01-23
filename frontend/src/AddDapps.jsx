@@ -16,21 +16,9 @@ const API_BASE_URL = window.location.hostname === 'localhost'
     : 'https://baseapps-production.up.railway.app/api'
 
 function AddDapps() {
-    // Start with Dark Mode by default
-    const [darkMode, setDarkMode] = useState(true)
-
-    const toggleDarkMode = () => {
-        setDarkMode(!darkMode)
-        document.body.classList.toggle('dark-mode')
-    }
-
     // Effect to enforce dark mode on mount
     useEffect(() => {
         document.body.classList.add('dark-mode')
-        return () => {
-            // Optional: cleanup if we wanted to revert state content
-            // document.body.classList.remove('dark-mode')
-        }
     }, [])
 
     const [formData, setFormData] = useState({
@@ -253,12 +241,7 @@ function AddDapps() {
     }
 
     return (
-        <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
-            {/* Dark Mode Toggle */}
-            <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-                {darkMode ? '☀️' : '🌙'}
-            </button>
-
+        <div className="app dark-mode">
             <Header />
 
             <main className="container add-dapp-container">

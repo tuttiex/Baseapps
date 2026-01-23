@@ -18,7 +18,6 @@ function AllDapps() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [expandedCategory, setExpandedCategory] = useState(null)
-  const [darkMode, setDarkMode] = useState(true)
   const [showFloatingBtn, setShowFloatingBtn] = useState(false)
   const [isTrendingMode, setIsTrendingMode] = useState(false)
 
@@ -27,15 +26,10 @@ function AllDapps() {
   const [itemsPerPage, setItemsPerPage] = useState(30)
 
   useEffect(() => {
-    fetchCategories()
+    // Force dark mode always
+    document.body.classList.add('dark-mode')
 
-    // Check for saved dark mode preference, default to dark mode if none saved
-    const savedDarkMode = localStorage.getItem('darkMode')
-    const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true'
-    setDarkMode(shouldBeDark)
-    if (shouldBeDark) {
-      document.body.classList.add('dark-mode')
-    }
+    fetchCategories()
 
     // Scroll Listener for Floating Button
     const handleScroll = () => {
@@ -131,18 +125,6 @@ function AllDapps() {
     setExpandedCategory(null)
   }
 
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode
-    setDarkMode(newDarkMode)
-    localStorage.setItem('darkMode', newDarkMode)
-
-    if (newDarkMode) {
-      document.body.classList.add('dark-mode')
-    } else {
-      document.body.classList.remove('dark-mode')
-    }
-  }
-
   // Pagination functions
   const handleItemsPerPageChange = (newItemsPerPage) => {
     setItemsPerPage(newItemsPerPage)
@@ -179,12 +161,7 @@ function AllDapps() {
   const showHero = selectedMajorCategory === 'all' && !searchTerm
 
   return (
-    <div className="app">
-      {/* Dark Mode Toggle */}
-      <button className="dark-mode-toggle" onClick={toggleDarkMode} aria-label="Toggle dark mode">
-        {darkMode ? '☀️' : '🌙'}
-      </button>
-
+    <div className="app dark-mode">
       <Header />
 
       {/* Page Title */}

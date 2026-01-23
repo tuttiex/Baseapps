@@ -5,30 +5,13 @@ import './App.css';
 import './Blog.css';
 
 function Blog() {
-    const [darkMode, setDarkMode] = useState(true);
-
     useEffect(() => {
-        // Force dark mode
+        // Force dark mode always
         document.body.classList.add('dark-mode');
-        const savedDarkMode = localStorage.getItem('darkMode');
-        const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true';
-        setDarkMode(shouldBeDark);
     }, []);
 
-    const toggleDarkMode = () => {
-        const newDarkMode = !darkMode;
-        setDarkMode(newDarkMode);
-        localStorage.setItem('darkMode', newDarkMode);
-        document.body.classList.toggle('dark-mode', newDarkMode);
-    };
-
     return (
-        <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
-            {/* Dark Mode Toggle */}
-            <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-                {darkMode ? '☀️' : '🌙'}
-            </button>
-
+        <div className="app dark-mode">
             <Header />
 
             {/* Blog Hero */}

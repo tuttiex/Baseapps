@@ -27,18 +27,14 @@ const MOCK_BOUNTIES = [
 function Bounties() {
     const [bounties, setBounties] = useState(MOCK_BOUNTIES)
     const [filteredBounties, setFilteredBounties] = useState(MOCK_BOUNTIES)
-    const [darkMode, setDarkMode] = useState(true)
     const [selectedType, setSelectedType] = useState('all')
     const [selectedCategory, setSelectedCategory] = useState('all')
     const [selectedDifficulty, setSelectedDifficulty] = useState('all')
     const [searchTerm, setSearchTerm] = useState('')
 
     useEffect(() => {
-        // Load dark mode preference
-        const savedDarkMode = localStorage.getItem('darkMode')
-        const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true'
-        setDarkMode(shouldBeDark)
-        document.body.classList.toggle('dark-mode', shouldBeDark)
+        // Force dark mode always
+        document.body.classList.add('dark-mode')
     }, [])
 
     useEffect(() => {
@@ -69,24 +65,12 @@ function Bounties() {
         setFilteredBounties(filtered)
     }, [selectedType, selectedCategory, selectedDifficulty, searchTerm, bounties])
 
-    const toggleDarkMode = () => {
-        const newDarkMode = !darkMode
-        setDarkMode(newDarkMode)
-        localStorage.setItem('darkMode', newDarkMode)
-        document.body.classList.toggle('dark-mode', newDarkMode)
-    }
-
     const types = ['all', 'bounty', 'gig', 'task', 'job']
     const categories = ['all', 'Development', 'Security', 'Design', 'Content', 'Marketing']
     const difficulties = ['all', 'Beginner', 'Intermediate', 'Advanced', 'Expert']
 
     return (
-        <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
-            {/* Dark Mode Toggle */}
-            <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-                {darkMode ? '☀️' : '🌙'}
-            </button>
-
+        <div className="app dark-mode">
             <Header />
 
             {/* Hero Section */}

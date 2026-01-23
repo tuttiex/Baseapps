@@ -98,7 +98,6 @@ const TRENDING_DAPPS = [
 function Home() {
   const [allDapps, setAllDapps] = useState([])
   const [loading, setLoading] = useState(true)
-  const [darkMode, setDarkMode] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [suggestions, setSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -107,13 +106,10 @@ function Home() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetchDappsCount()
+    // Force dark mode always
+    document.body.classList.add('dark-mode')
 
-    // Load dark mode preference
-    const savedDarkMode = localStorage.getItem('darkMode')
-    const shouldBeDark = savedDarkMode === null ? true : savedDarkMode === 'true'
-    setDarkMode(shouldBeDark)
-    document.body.classList.toggle('dark-mode', shouldBeDark)
+    fetchDappsCount()
   }, [])
 
   // Debounced search for suggestions
@@ -168,13 +164,6 @@ function Home() {
   }
 
 
-
-  const toggleDarkMode = () => {
-    const newDarkMode = !darkMode
-    setDarkMode(newDarkMode)
-    localStorage.setItem('darkMode', newDarkMode)
-    document.body.classList.toggle('dark-mode', newDarkMode)
-  }
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -237,12 +226,7 @@ function Home() {
   const hydratedTrending = hydrateDapps(TRENDING_DAPPS)
 
   return (
-    <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
-      {/* Dark Mode Toggle */}
-      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-        {darkMode ? '☀️' : '🌙'}
-      </button>
-
+    <div className="app dark-mode">
       <Header />
 
       {/* Hero Section */}
