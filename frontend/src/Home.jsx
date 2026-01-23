@@ -6,6 +6,7 @@ import { VoteButtons } from './components/VoteButtons'
 import { UserAuth } from './components/UserAuth'
 import { Header } from './components/Header'
 import { SearchIcon } from './components/Icons'
+import { NewsCarousel } from './components/NewsCarousel'
 import { useUser } from './context/UserContext'
 import './App.css'
 
@@ -384,9 +385,12 @@ function Home() {
             maxWidth: '600px',
             margin: '0 auto'
           }}>
-            Stay informed on the latest news on Base
+            Latest Base news and updates
           </p>
         </div>
+
+        {/* News Carousel */}
+        <NewsCarousel />
       </section>
 
       {/* Footer */}

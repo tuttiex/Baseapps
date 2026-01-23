@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
+import { blogPosts } from './data/blogPosts';
 import './App.css';
 import './Blog.css';
 
@@ -20,38 +21,6 @@ function Blog() {
         localStorage.setItem('darkMode', newDarkMode);
         document.body.classList.toggle('dark-mode', newDarkMode);
     };
-
-    // Sample blog posts
-    const blogPosts = [
-        {
-            id: 1,
-            title: "Welcome to BaseApps Blog",
-            excerpt: "Discover the latest updates, insights, and stories from the Base ecosystem. We're here to share news, tutorials, and community highlights.",
-            date: "January 21, 2026",
-            author: "BaseApps Team",
-            category: "Announcement",
-            image: "/Baseappslogo3.png",
-            featured: true
-        },
-        {
-            id: 2,
-            title: "Getting Started with Base Network",
-            excerpt: "Learn how to connect your wallet, bridge assets, and start exploring the fastest-growing Layer 2 ecosystem on Ethereum.",
-            date: "January 20, 2026",
-            author: "Community",
-            category: "Tutorial",
-            featured: false
-        },
-        {
-            id: 3,
-            title: "Top DeFi Apps on Base",
-            excerpt: "Explore the most popular decentralized finance applications building on Base, from DEXs to lending protocols.",
-            date: "January 18, 2026",
-            author: "BaseApps Team",
-            category: "Ecosystem",
-            featured: false
-        }
-    ];
 
     return (
         <div className={`app ${darkMode ? 'dark-mode' : ''}`}>
