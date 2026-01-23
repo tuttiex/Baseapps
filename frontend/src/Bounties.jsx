@@ -136,40 +136,53 @@ function Bounties() {
                         <span className="bounties-search-icon">🔍</span>
                     </div>
 
-                    {/* Dropdown Filters */}
-                    <div className="bounties-dropdown-filters">
-                        {/* Type Dropdown */}
-                        <div className="filter-dropdown">
-                            <label className="filter-dropdown-label">Type</label>
-                            <select
-                                value={selectedType}
-                                onChange={(e) => setSelectedType(e.target.value)}
-                                className="filter-select"
-                            >
-                                {types.map(type => (
-                                    <option key={type} value={type}>
-                                        {type === 'all' ? 'All Types' : type.charAt(0).toUpperCase() + type.slice(1)}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                    {/* Horizontal Pill Button Filters */}
+                    <div className="category-filters">
+                        {/* All button */}
+                        <button
+                            className={`category-btn major ${selectedType === 'all' && selectedCategory === 'all' ? 'active' : ''}`}
+                            onClick={() => {
+                                setSelectedType('all');
+                                setSelectedCategory('all');
+                            }}
+                        >
+                            All
+                        </button>
 
-                        {/* Category Dropdown */}
-                        <div className="filter-dropdown">
-                            <label className="filter-dropdown-label">Category</label>
-                            <select
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                className="filter-select"
+                        {/* Type filters */}
+                        {types.filter(t => t !== 'all').map((type) => (
+                            <button
+                                key={type}
+                                className={`category-btn major ${selectedType === type ? 'active' : ''}`}
+                                onClick={() => {
+                                    setSelectedType(type);
+                                    setSelectedCategory('all');
+                                }}
                             >
-                                {categories.map(category => (
-                                    <option key={category} value={category}>
-                                        {category === 'all' ? 'All Categories' : category}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
+                                {type.charAt(0).toUpperCase() + type.slice(1)}
+                            </button>
+                        ))}
                     </div>
+
+                    {/* Active Filter Indicator */}
+                    {(selectedType !== 'all' || selectedCategory !== 'all') && (
+                        <div className="active-filter-indicator">
+                            <span>Active filter: </span>
+                            <span className="active-filter-value">
+                                {selectedType !== 'all' ? selectedType.charAt(0).toUpperCase() + selectedType.slice(1) : ''}
+                                {selectedCategory !== 'all' ? selectedCategory : ''}
+                            </span>
+                            <button
+                                className="clear-filter-btn"
+                                onClick={() => {
+                                    setSelectedType('all');
+                                    setSelectedCategory('all');
+                                }}
+                            >
+                                ✕ Clear
+                            </button>
+                        </div>
+                    )}
                 </div>
             </section>
 
