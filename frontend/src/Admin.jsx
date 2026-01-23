@@ -224,7 +224,7 @@ function Admin() {
             <Header />
             <div className="container" style={{ paddingTop: '2rem', paddingBottom: '4rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                    <h1>👮 Admin Dashboard</h1>
+                    <h1 className="section-title" style={{ margin: 0 }}>Admin Dashboard</h1>
                     <button
                         onClick={() => {
                             setIsAuthenticated(false);
@@ -327,7 +327,7 @@ function Admin() {
                 {activeTab === 'live' && (
                     <div className="form-card">
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                            <h2>Live Dapps Directory</h2>
+                            <h2 style={{ color: '#764ba2' }}>Live Dapps Directory</h2>
                             <span>Total: {liveDapps.length}</span>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -369,7 +369,7 @@ function Admin() {
 
                 {activeTab === 'add' && (
                     <div className="form-card" style={{ maxWidth: 600, margin: '0 auto' }}>
-                        <h2>Add Dapp Directly (Bypass Voting)</h2>
+                        <h2 style={{ color: '#764ba2' }}>Add Dapp Directly (Bypass Voting)</h2>
                         <form onSubmit={handleAddDirect}>
                             <div className="form-group">
                                 <label>Name</label>

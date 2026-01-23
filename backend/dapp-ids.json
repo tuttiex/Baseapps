@@ -235,6 +235,31 @@
     "dappId": "0x0ff0a3d4b44ab96d2708abddb13a88c6908ff0a8d9b41c7a1ed05ca69b7d6e71"
   },
   {
+    "name": "Moonwell",
+    "url": "https://moonwell.fi/",
+    "dappId": "0x15eb2b50ff7af5b16edc04cff57c08d47711924a33579f2dc7d17d4491872caa"
+  },
+  {
+    "name": "Omni Exchange",
+    "url": "https://omni.exchange/",
+    "dappId": "0x772dccf82e09797b3fec76bc2026c783967a21fd946a55cf7c3d6c3ebc0f41d2"
+  },
+  {
+    "name": "Maple Finance",
+    "url": "https://maple.finance/",
+    "dappId": "0xa19c605eaa3f0e8716a43371f24981b6e091e26c9c12ad0d38a4a63708a61026"
+  },
+  {
+    "name": "Noice",
+    "url": "https://noice.so/",
+    "dappId": "0x59c64a35d29b72e607315c4d641dea9b3408bdec1574c5dd3f98605c6258515d"
+  },
+  {
+    "name": "Ponke",
+    "url": "https://www.ponke.xyz/",
+    "dappId": "0x2ffd6a81c4832a05cc47a40972b1a01f5f3e7937e68b26361917a85b5c5a18f3"
+  },
+  {
     "name": "Binance CEX",
     "url": "https://www.binance.com",
     "dappId": "0x3b3248606d66da05d3dfb803ff5848899390332c7f2909159e199fd668135632"
@@ -290,11 +315,6 @@
     "dappId": "0x140ae2824e81a2a2257747bcd5c6c82319ee8b8796b5c63be71a2d127ed2f7a3"
   },
   {
-    "name": "Uniswap V4",
-    "url": "https://app.uniswap.org/",
-    "dappId": "0x4d140032ad2c3e4c0012f0d221632e13dd1212d63d150683b246b56be908f285"
-  },
-  {
     "name": "Spark Savings",
     "url": "https://data.spark.fi/savings/",
     "dappId": "0x7a1ca8126a138b3af922d673a5788a5fd8d85d47a5c52d22931dc5e7b4a56bca"
@@ -308,11 +328,6 @@
     "name": "Spark Liquidity Layer",
     "url": "https://app.spark.fi/points/KNQ5HD",
     "dappId": "0x4c3f54e1908ec0072db479f93a397feee3ed41cf89e973381ee9908bbea75ea0"
-  },
-  {
-    "name": "PancakeSwap Infinity",
-    "url": "https://pancakeswap.finance/",
-    "dappId": "0x676fc7d8afecd2cfb53015837d9c0fdafbb41c808ae69f6d756ea6c3bf590efd"
   },
   {
     "name": "Veda",
@@ -398,11 +413,6 @@
     "name": "CIAN Yield Layer",
     "url": "https://cian.app",
     "dappId": "0x90aa7d75108331d62193478271c39aec981ba41a2c3373e86efd88ae4dd18d8d"
-  },
-  {
-    "name": "PancakeSwap AMM V3",
-    "url": "https://pancakeswap.finance/swap",
-    "dappId": "0x0be149a2b8ebed55b5bf0eb8ddfa4934b88b71b927b1884ab3a056b2d1d3bfab"
   },
   {
     "name": "Upshift",
@@ -495,9 +505,9 @@
     "dappId": "0xbe4f409dd6b3d09b8c722e820cddc8f50be24f1ea7664606ebad66fdc83f9725"
   },
   {
-    "name": "UNCX Network V2",
+    "name": "UNCX Network",
     "url": "https://uncx.network/",
-    "dappId": "0xc0f23f7c92e88ad2b330199218790407f7f41a86fa6fc9f36a309f923353834e"
+    "dappId": "0x72acbe2ee9c019c02b1c357cbfe06da12ffc47436cc9fedb719b84b98af6ab60"
   },
   {
     "name": "UltraYield by Edge",
@@ -508,11 +518,6 @@
     "name": "Axelar",
     "url": "https://axelar.network",
     "dappId": "0xefc92fda9d3e16162ce909776b199eff14c4dcf28ea48f4d9b0c75dff4a80c3d"
-  },
-  {
-    "name": "Stargate V1",
-    "url": "https://stargate.finance/",
-    "dappId": "0xf01204b701ad5814a9e24ec273e8d384efc3925c13f86e3796a9f29b7c0c3068"
   },
   {
     "name": "Reserve Protocol",
@@ -565,9 +570,9 @@
     "dappId": "0xd8a8a6e8f14eef46cc16e3f90ad6a066baffc88dc4222613b806c4745ea46b7d"
   },
   {
-    "name": "SushiSwap V3",
+    "name": "SushiSwap",
     "url": "https://sushi.com/",
-    "dappId": "0xf58bfe8092524e39472973d310d39a4301caf6f2e766ac5b0b93f0a9586f4230"
+    "dappId": "0x0f2bf3ea742af741638634696fdf0178d0fa425026d783317b66dda1db2b072d"
   },
   {
     "name": "Avantis",
@@ -600,11 +605,6 @@
     "dappId": "0x3e62a42b67950efee6640c463bf50dd0d652b1e76dd91f0f7e666f353794e7e8"
   },
   {
-    "name": "Moonwell",
-    "url": "https://moonwell.fi",
-    "dappId": "0xaa739a65b4693013ee8493db31e289e8810108aaa371c1c8bb4c36452f8dd189"
-  },
-  {
     "name": "Arrakis Modular",
     "url": "https://app.arrakis.fi/modular",
     "dappId": "0x5dc2e6933ffbe15751d3b95315fbcf4c7faf86a5158728b5be3e50b68fe9283a"
@@ -618,11 +618,6 @@
     "name": "Origin Ether",
     "url": "https://www.originprotocol.com/oeth",
     "dappId": "0x600e350f762c4dbdd8570ba34fab68072d8c3dadf088f99ed827a818296b8d20"
-  },
-  {
-    "name": "Seamless V1",
-    "url": "https://www.seamlessprotocol.com",
-    "dappId": "0x2856e0fcf2517a1699149286757dda658368e1d2f9d001905a64b9d626962267"
   },
   {
     "name": "Reservoir Protocol",
@@ -675,11 +670,6 @@
     "dappId": "0x8607d0191799e1bfddf337195c73df5aa7d016e724258459868e79e85eebcbc5"
   },
   {
-    "name": "Moonwell Vaults",
-    "url": "https://moonwell.fi/vaults",
-    "dappId": "0x31c2dac377dc83b4500c3b5b90cd13484663ae9f3cfb285af47f04e9ff771186"
-  },
-  {
     "name": "Summer.fi Pro",
     "url": "https://pro.summer.fi/",
     "dappId": "0x6e7159cea84564433b148273e4f8e7ad6ba7bec437ec91692c75178b6314d03b"
@@ -700,9 +690,9 @@
     "dappId": "0x2f1327b30182df44e3b051ce3dd18436954048bb535fd11ce49bd85b9baab116"
   },
   {
-    "name": "Synthetix V3",
+    "name": "Synthetix",
     "url": "https://synthetix.io",
-    "dappId": "0x99ac00973bf35606400b1a26817731c97a2d18515d6463e49ba023ef79e0d6c0"
+    "dappId": "0xbd4afb2ae2237827f17dbb80936d798dda35791549a9200197852ae2dad7088c"
   },
   {
     "name": "SatLayer",
@@ -793,11 +783,6 @@
     "name": "Steer Protocol",
     "url": "https://steer.finance",
     "dappId": "0x3be90f2b8b3eb0cb64c442a1de8d06676e8c3a664c4f2912f0653811afeb1e6e"
-  },
-  {
-    "name": "UNCX Network V3",
-    "url": "https://uncx network v3.com",
-    "dappId": "0xcf5ba4c9a73f35510faad4d61e826335a824194cdd8ecd64d1c0938328be8685"
   },
   {
     "name": "Wan Bridge",
@@ -923,11 +908,6 @@
     "name": "DODO AMM",
     "url": "https://dodoex.io/",
     "dappId": "0x20ea790f9134af035ee50edf21102b3c92bafb04e17156bc7d2bb8acb97c3236"
-  },
-  {
-    "name": "TermFinance Vaults",
-    "url": "https://www.term.finance",
-    "dappId": "0xe605b4aa9c4ffc9ee39e04d55413bc0fc752abdc67eb26d2fb127f287d3b671d"
   },
   {
     "name": "FlokiFi Locker",
@@ -1070,9 +1050,9 @@
     "dappId": "0x680bbcf56b908deadf0099f6e814b316ebb0762695dcf5ec9ec6ed3f5a86c0b7"
   },
   {
-    "name": "TermFinance Lend",
+    "name": "TermFinance",
     "url": "https://term.finance",
-    "dappId": "0x9fe5b28d17648c8935c0b9c6560e82a1fa61d19ac5e09b070cb2f5208d2ba2c3"
+    "dappId": "0xc180389ba70f62973bed0e77528f48daa0d3b94591b20f5044426949910d3747"
   },
   {
     "name": "ELFi Protocol",
@@ -1135,9 +1115,9 @@
     "dappId": "0x6208028078268c7c88106046d84487853786c46952e12a06cb1db1ab911cf8e1"
   },
   {
-    "name": "Theo Straddle Vaults",
+    "name": "Theo",
     "url": "https://theo.xyz/",
-    "dappId": "0x3665afc26148e5437eb60e2253dfc7a18baddeea2393acdc428acf1b857efda9"
+    "dappId": "0x9f040281b5862daaf40208bbbe9209327635cf0865f3846085005b5501f96b10"
   },
   {
     "name": "Extra Finance Xlend",
@@ -1170,11 +1150,6 @@
     "dappId": "0xac98832a205c61c1ce88f080293f964410501b380c032e6e2f95193f754ee3fc"
   },
   {
-    "name": "Sablier Lockup",
-    "url": "https://sablier.com/",
-    "dappId": "0x5d0bc58acd6b522631dcc51ae78f313f58030f64fb838b0aa648427a56c01dbb"
-  },
-  {
     "name": "MaxShot",
     "url": "https://maxshot.ai/",
     "dappId": "0xcf208523e952058cb2ec51433bdac6051b4f5609ae9f0825ee2e5b3317d58c8f"
@@ -1198,11 +1173,6 @@
     "name": "QiDao",
     "url": "https://app.mai.finance",
     "dappId": "0xfd53d2d457c9ff1b9290fdad5c987ab6d2ffdc96074705470a2126469892fcc3"
-  },
-  {
-    "name": "SynFutures V3",
-    "url": "https://trade.synfutures.com/#/trade",
-    "dappId": "0x6bc0b36a9e49171f675193261ec7603af5cdbe9afa39b761d5cfb2474a3a9ffa"
   },
   {
     "name": "Wombat Exchange",
@@ -1258,11 +1228,6 @@
     "name": "SoSoValue Basis",
     "url": "https://ssi.sosovalue.com",
     "dappId": "0xa121e0df44f1dc286b199e1a92c93f849632ac9042e72448895c355773d73def"
-  },
-  {
-    "name": "Maverick V1",
-    "url": "https://www.mav.xyz",
-    "dappId": "0xa33f97ce6f46964b7272a0070804275de0c622568d5bd940625f7f50e094011f"
   },
   {
     "name": "Reya Bridge",
@@ -1425,9 +1390,9 @@
     "dappId": "0x1feb72dd9672b10c33c67ac9397c9cc702dd870598de5d0913e40da4f1d0cea8"
   },
   {
-    "name": "Impermax V2",
+    "name": "impermax",
     "url": "https://impermax.finance/",
-    "dappId": "0x03efda0858ea9efc90bada41b89af8d54591c55a8e350c3e01e05780f6696c25"
+    "dappId": "0x9e5a1527d1c4bc6452368abaf41a49b4cbb138ca7797b3e5594f6b0d9ad05a7c"
   },
   {
     "name": "Shift Protocol",
@@ -1530,19 +1495,14 @@
     "dappId": "0x7d170e8a57e40355bacc2460022ca8b015603cf90b26ae458f8ffbfd7f807893"
   },
   {
-    "name": "SMARDEX P2P Lending",
+    "name": "SMARDEX",
     "url": "https://smardex.io",
-    "dappId": "0xe26ed5dcc3fc0be69940be3e73ebbbfedd163bf1119667f26445d2924f2a2261"
+    "dappId": "0x0d9126f2616999fbc5cc4b78e86de82620cf7ee7893d0a53b7debbc950c9a4a0"
   },
   {
     "name": "Azuro",
     "url": "https://azuro.org",
     "dappId": "0xd48fe99d276dc55e9319968a321fdd1c21eb2ab1ab56ee4e43a7985c25602aff"
-  },
-  {
-    "name": "Sablier Flow",
-    "url": "https://app.sablier.com/payments/",
-    "dappId": "0x4040607e3cbe3c3b9ba9325e240f1aedf515300348d36e5d118302c924ab393c"
   },
   {
     "name": "Whales Market",
@@ -1650,11 +1610,6 @@
     "dappId": "0xfd23d357399cfa3b6a1301f126eac4863bde8c44244f1a42a1b57f5a08597588"
   },
   {
-    "name": "Impermax V3",
-    "url": "https://impermax.finance",
-    "dappId": "0xe1c09e8bc76037379a7cab1d0278498629de001f7f83e2b59d258cd0ce8e492a"
-  },
-  {
     "name": "Pell Network",
     "url": "https://pell.network/",
     "dappId": "0x531edf70f2e16fb4b510a2d1d25d902e77583fe8cba2d66930f9ed59e5c1cdf7"
@@ -1750,9 +1705,9 @@
     "dappId": "0xf9fcb5dcdfd16b4dd69e6c0c41303ec57b584620230941e9ea80b29e1278bb85"
   },
   {
-    "name": "Kinetix AMM V2",
+    "name": "Kinetix",
     "url": "https://kinetix.finance/",
-    "dappId": "0xedaa5d6f339b526f241e3f33f0e50da444e6a9d89bc1efcf663e258416e8006d"
+    "dappId": "0x3514c753b72ecb9dc707ed6361c0b4e2a2607a2d3d056645af651b86278f6b2c"
   },
   {
     "name": "Superfund",
@@ -1920,19 +1875,14 @@
     "dappId": "0xd2c2bdeab00d3664c01732f331b3036f8353c1d83d146e14bb02480e965c1a1d"
   },
   {
-    "name": "KIM Exchange V2",
+    "name": "kim exchange",
     "url": "https://kim.exchange",
-    "dappId": "0x7f317404ba3f70487ffdb598e59de803c7466697c26fc47cd5fb63a73e97c727"
+    "dappId": "0x49a2dbc8722062e1703c7cd0f30ea80d089c8cca8c5d597bb125b409b8cd759b"
   },
   {
     "name": "Ape.Store",
     "url": "https://ape.store/",
     "dappId": "0x27bb1d28b354728e5a987f694a907eb011cc8f9d93497a72befac714b9402472"
-  },
-  {
-    "name": "Omni Exchange",
-    "url": "https://omni.exchange",
-    "dappId": "0x8158f48b13c9dde4cc54c7d1f2f483fc61e348f1b74c8fe496037cd6a553fdd0"
   },
   {
     "name": "ZKP2P",
@@ -1973,11 +1923,6 @@
     "name": "InfinityPools",
     "url": "https://infinitypools.finance/",
     "dappId": "0xa7a2d674f4a2e4b976a0e3a1a1f0b61e551d3e51e6a84a18258c692b63526953"
-  },
-  {
-    "name": "SwapBased",
-    "url": "https://swapbased.finance",
-    "dappId": "0x2997d382aad96f0045c43746c1c38df9e858b9ee025139d5c70f37b1598625c3"
   },
   {
     "name": "BMX Freestyle",
@@ -2053,11 +1998,6 @@
     "name": "Lucidly Finance",
     "url": "https://app.lucidly.finance",
     "dappId": "0x0068fc1e2b5fc01ac01887a4229e5782bc5102b760639ef38226bb3dcddcb054"
-  },
-  {
-    "name": "SwapBased Concentrated Liquidity",
-    "url": "https://swapbased.finance/#/swap",
-    "dappId": "0x30f377a1e3d6f522ba565d1b549647edc454baa00635ed0f98ed44e3f28d0a1a"
   },
   {
     "name": "Sobal",
@@ -2395,11 +2335,6 @@
     "dappId": "0x9099ed087564285ec0f50f2978bf2962eb014f59672700701ebf73cb4ccedb2a"
   },
   {
-    "name": "Synthswap",
-    "url": "https://synthswap.io",
-    "dappId": "0xe4f0ca958f0c081932bb668b89b146d374969329ff999c2dd23fb92f0f94ec80"
-  },
-  {
     "name": "Stabil Finance",
     "url": "https://stabil.finance",
     "dappId": "0xc9864d974df69d95d772333dd802ae98fc8eb4d93babc3bf0be4c8d96705deb8"
@@ -2408,11 +2343,6 @@
     "name": "Words.art",
     "url": "https://words.art.com",
     "dappId": "0xb97fa43ba18de52f6a6c4957f007033e4710934b432e11befd6af352258f9116"
-  },
-  {
-    "name": "SwapBased Perp",
-    "url": "https://perps.swapbased.finance",
-    "dappId": "0x632e4c21fdbc475a7d9e24f041d2b75ef4b4080e185f35278089fa461782f9dd"
   },
   {
     "name": "Blend Finance",
@@ -2565,19 +2495,14 @@
     "dappId": "0xfb810b3f9bb8e3a32b705edf1c65496a2a99b31c5a95fda0caa89f85365792a4"
   },
   {
-    "name": "Nether.Fi",
-    "url": "https://nether.fi/",
-    "dappId": "0xe03f48c6c0447a4cafe76439e0d715d9bec0b59150958e6d78b6435f7b2ec221"
-  },
-  {
     "name": "defi.money",
     "url": "https://defi.money/",
     "dappId": "0xaad6d847923bac9a8120e4b8f47b77a09340fc5116d6b9081a849d48e8ae60f3"
   },
   {
-    "name": "Panoptic V1.1",
+    "name": "Panoptic",
     "url": "https://panoptic.xyz",
-    "dappId": "0xf76d3889c8e52d92898db74eab0fa21829ec6f353441caa41d69d3232b48616a"
+    "dappId": "0xde63e4e20d778f72b77ef160696b860886fe145611aea3f63bfb873c4d7d4140"
   },
   {
     "name": "Baklava Space",
@@ -2675,14 +2600,14 @@
     "dappId": "0x2129cd64e86397de0f87cc5ed9fa983fad2d781594b1950dd41b0e1c053e51b0"
   },
   {
-    "name": "Swapline V1",
-    "url": "https://swapline.com",
-    "dappId": "0x10b29fc39ce4bde0f54300d31381c9974c5ea2e4cbd23c182e27fa8b8cae6fa9"
-  },
-  {
     "name": "Zero-G Finance",
     "url": "https://zero-g finance.com",
     "dappId": "0x99bd483a876560e80636b968cd5f623a812474c8e5f2d223cfd2eb22d92d2894"
+  },
+  {
+    "name": "Swapline",
+    "url": "https://swapline.com",
+    "dappId": "0xac4e37a9638bc79d0f0688bcb1e115cfd75014af5303c1f528a2853621f545d6"
   },
   {
     "name": "Akronswap",
@@ -2870,9 +2795,9 @@
     "dappId": "0xb6bfa8c932969231303861dfd250413d7f02b7544aa56fa8f435cd26a0235875"
   },
   {
-    "name": "Synthswap Perps",
+    "name": "Synthswap",
     "url": "https://perps.synthswap.io/#/trade",
-    "dappId": "0xa339a6ffd99c3214ed6147462e62a5ad8c9abdf3bcd49787862a16da0fce90b9"
+    "dappId": "0xf257eb4d2f7582bdd806c498a0c2c51e1d280de5c8427d83de9aa511b9e76405"
   },
   {
     "name": "YieldLend",
@@ -3068,11 +2993,6 @@
     "name": "Belief Market",
     "url": "https://www.belief.market/",
     "dappId": "0x75d9e02466fc252ec821d4f7702ca81035b37933d014827fc82a115751bb92a2"
-  },
-  {
-    "name": "LogX V2",
-    "url": "https://logx.network/",
-    "dappId": "0x678f9eb7a65cf2824c442cac5d8d88a61b724bd1d23ea110e3b3599e18aa726c"
   },
   {
     "name": "Wild Base",
@@ -3530,11 +3450,6 @@
     "dappId": "0xc274fb47169a6cf81c9c72584cb92f831680f253e86489dc401374d8e05629e1"
   },
   {
-    "name": "Add3",
-    "url": "https://add3.io",
-    "dappId": "0xff034950209afecb77b2edf1703d53f3746b450ac7f6076bd35ef43c5d7fc6e7"
-  },
-  {
     "name": "Aerodrome Finance",
     "url": "https://aerodrome.finance",
     "dappId": "0x37d78d62953dd58245c591646c800eb418c332dfc697f27d82b2c03e405b82dd"
@@ -3543,11 +3458,6 @@
     "name": "AgentiPy",
     "url": "https://agentipy.fun",
     "dappId": "0xe1367408e19bfe22ed1eb43c7099cebbefcabb21e402d867f36f88558fd1cb48"
-  },
-  {
-    "name": "AI Agent Arena",
-    "url": "https://play.agent-arena.xyz",
-    "dappId": "0x4c53425f8d4fc5935daf16e235736d5c970cae832ca0baee986196a8e00ff777"
   },
   {
     "name": "AIBased",
@@ -3713,11 +3623,6 @@
     "name": "Base Token Creator",
     "url": "https://tools.smithii.io",
     "dappId": "0x0ea00c540560e926bb1688b4bdd9908d1f097ffae65a6493804ec64148b22f40"
-  },
-  {
-    "name": "Based Associates DAO",
-    "url": "https://based.associates",
-    "dappId": "0xd9e819cf867fcf1fbcc9a7405d640ee1a519ec2ff97ad84838a94b9ed85a0f4e"
   },
   {
     "name": "Based Nebula",
@@ -3940,11 +3845,6 @@
     "dappId": "0xb0a53de8092fd052808da743c286af598934e7b2b768834577f8a7561b808bce"
   },
   {
-    "name": "CBomber",
-    "url": "https://cbomber.io",
-    "dappId": "0x007a299841181ba4726772e5d31abc124dcd9bedd35dd9a661c2633111028ee9"
-  },
-  {
     "name": "Cede.Store",
     "url": "https://send.cede.store",
     "dappId": "0x5b486ca4464e42ee37fa7bd7df3adf0c263afb35f763244dafda0baf3eaea3d5"
@@ -4085,9 +3985,9 @@
     "dappId": "0x61b541bca020fabbc9124c01fb9f0320017d495019063fd4977b4a691696f3b8"
   },
   {
-    "name": "Cornucopias",
-    "url": "https://cornucopias.io",
-    "dappId": "0x2dcd734d73aa27c53039df28657cd7a87bbcb6bec5d7142ffb01943b72d1f80b"
+    "name": "infinity rising",
+    "url": "https://infinityrising.com/",
+    "dappId": "0xb60eaba89a40582252b1b6c04529f4c14046af9b63e32cb4d32e721a64e427e2"
   },
   {
     "name": "Covalent",
@@ -4098,11 +3998,6 @@
     "name": "CoW Swap",
     "url": "https://swap.cow.fi",
     "dappId": "0x31a08b59d18d55bf3e9355f91b7925cb8cb6dff3d07f7f4f87fbdf4851b100df"
-  },
-  {
-    "name": "Cradles",
-    "url": "https://cradles.io",
-    "dappId": "0xc5489618f8e6cd0075e04fd7464fa6db44bd283cac3518a910de2f4af25788c0"
   },
   {
     "name": "Crate",
@@ -4138,11 +4033,6 @@
     "name": "Cyberscope",
     "url": "https://cyberscope.io",
     "dappId": "0x07c8c92f0c606bebab6d7644a9329f9234aa02308a1149d641c10373481d9d30"
-  },
-  {
-    "name": "Cymbal",
-    "url": "https://cymbal.xyz",
-    "dappId": "0x5f0f1088939726250c59823813c94e714d2426e14fdfc054771f3da9287f99ae"
   },
   {
     "name": "Daylight",
@@ -4185,11 +4075,6 @@
     "dappId": "0x466f416610c6ce421a56763b5b7f69e6ae7e147d74992f08aaad03e219bf0d62"
   },
   {
-    "name": "DeGenerous DAO",
-    "url": "https://degenerousdao.com",
-    "dappId": "0x53146b0497ca7074bacce9655d9191d29f602b3a9fae4a7d1ee746ec33aae747"
-  },
-  {
     "name": "DeGov.AI",
     "url": "https://degov.ai",
     "dappId": "0x6449989d9147cb8842cb873af6e3aa2e5a5521e5c5650bdd32c912a673bc97f9"
@@ -4230,11 +4115,6 @@
     "dappId": "0x3fb3b41275a0e876a194c884e5f4378260d8eeb2aa0bb2caec5072e06df5979b"
   },
   {
-    "name": "DLN",
-    "url": "https://dln.trade",
-    "dappId": "0x018c404e8ccb424a8c0ade29a913596fef17a155a09fa4c68b8cb5ed613f75c6"
-  },
-  {
     "name": "Dmail Network",
     "url": "https://mail.dmail.ai",
     "dappId": "0xa62c89f6e362aeb85697c232684286ac7472c162e825d9f1585eb16a95da8650"
@@ -4260,11 +4140,6 @@
     "dappId": "0xe349791388aba89c5f77c72cefda36b68f34a76167f56d624e5e154d9d6db87f"
   },
   {
-    "name": "Drakula",
-    "url": "https://drakula.app",
-    "dappId": "0x1517ac898097eb0c868f30eae7a517fe4570c90e4cddfeb2691bb94e359b0972"
-  },
-  {
     "name": "Drop Dimes to Support Creators",
     "url": "https://dropdimes.app",
     "dappId": "0x780e6b316fcbd583b2875905f267c916cbf1c3bde698bd9c2e7b6fb1be7bf810"
@@ -4278,11 +4153,6 @@
     "name": "dRPC NodeCloud",
     "url": "https://drpc.org",
     "dappId": "0xa08e3b39de24a898e7e2596c497ecf40476f38bd793b454486b94919aeb1ef37"
-  },
-  {
-    "name": "Ducky City",
-    "url": "https://duckycity.io",
-    "dappId": "0x92d1b8dc3300e13a77d5140755d52816c4ff231cfb64b6572ecd960965c7c0eb"
   },
   {
     "name": "Dynamic",
@@ -4345,9 +4215,9 @@
     "dappId": "0xbf4d147214ccfcfa9c7be875925c9bb8e3885385148535b28f0a24671dc85876"
   },
   {
-    "name": "USDC",
+    "name": "EURC",
     "url": "https://circle.com",
-    "dappId": "0x1b8ade32b44830da7d1181cbd074cf221ea4cc3af127dc7e23a30ce88bc72467"
+    "dappId": "0x32c3825db5a7ab68d76b3900655c793a3a7f3a548800e662ab682aefaf1be006"
   },
   {
     "name": "Everdex",
@@ -4370,11 +4240,6 @@
     "dappId": "0xa5bded0c04f0a7115c26b0820a6ad0de2c768e4fab8c20e0f4dd4f72afd37c37"
   },
   {
-    "name": "F1337",
-    "url": "https://f1337.vercel.app",
-    "dappId": "0x9befb190c27033da5a976095632294103738af94dcfe7bfe50b9bdb562ef1977"
-  },
-  {
     "name": "Factor.fi",
     "url": "https://factor.fi",
     "dappId": "0xaea44b40cbbf7c0db3a60a9742818b8ebe5f87db38b990e2da53da1e1e6f7888"
@@ -4383,11 +4248,6 @@
     "name": "Farworld",
     "url": "https://farworld.gg",
     "dappId": "0x355c2afdadbcf2853202657d52558d5e38ec0d481adca933e19a8c38db52a421"
-  },
-  {
-    "name": "Fashion.Fun",
-    "url": "https://fashion.fun",
-    "dappId": "0x27c0884d5fe94a1c5d73f7e234f577eef750de445bf836558ef5f00fab1d9454"
   },
   {
     "name": "Fibrous",
@@ -4460,11 +4320,6 @@
     "dappId": "0x1fd09f3f438be05db992223a3b542db94940923aea242360e421b9121ed1c887"
   },
   {
-    "name": "FWB",
-    "url": "https://fwb.help",
-    "dappId": "0x7376317419f3415c33e4a19fd9a4af0f4f08cf3b48905deacc729ab51f27f495"
-  },
-  {
     "name": "Galaxy Exchange",
     "url": "https://galaxy.exchange",
     "dappId": "0x84d293f739d6cf06a0b0f14a38460e8747ffbb3942f8785066c5ad80b4a4019e"
@@ -4478,11 +4333,6 @@
     "name": "Game7",
     "url": "https://game7.io",
     "dappId": "0x424a83a2765c33188f057d36ce8a452b027fe2b33e5ae516ce84a03ee957d014"
-  },
-  {
-    "name": "GangstaVerse",
-    "url": "https://war-base.gangstaverse.co",
-    "dappId": "0x4e2dd9ab3a21866f5b9e4e962abb003c1b72264561c9c69ce66d4cdff8e45ab2"
   },
   {
     "name": "Garden",
@@ -4550,11 +4400,6 @@
     "dappId": "0x2820bb683aebe9e74cdb9333fe422000c0d094f0578d078cb262c9478170ba2a"
   },
   {
-    "name": "Gun Game",
-    "url": "https://gungame.tech",
-    "dappId": "0x4fd5d90771f8d3f2fded7a060bea5cdc9afc7604a96140d58c779e414ebf23c4"
-  },
-  {
     "name": "Halliday",
     "url": "https://halliday.xyz",
     "dappId": "0xd70dedc61cca4cb8b067d53033ca9ca10566b56ac68fd80aa0b02f57ef8f2676"
@@ -4595,16 +4440,6 @@
     "dappId": "0x103002da60029cedbe035f5a74669880ab06190af4685e004b2aee3cced4cdf1"
   },
   {
-    "name": "Humanode Biomapper",
-    "url": "https://mainnet.biomapper.hmnd.app",
-    "dappId": "0x6d701c6b1b9bc96f5d4e1fdda7c49314772054b339e971b754afda15c06e31a8"
-  },
-  {
-    "name": "Hypersub",
-    "url": "https://hypersub.xyz",
-    "dappId": "0x93414f2461e0022fc9dbaf18ab1e1c3d88d41d5f7d4aa1040973952fab3004b2"
-  },
-  {
     "name": "IceCream Swap",
     "url": "https://icecreamswap.com",
     "dappId": "0x8365dc8ad85767a32d5038392a24e806a81e7a80e94d1ca1410c491a2aa568f8"
@@ -4643,11 +4478,6 @@
     "name": "Infinity Wallet",
     "url": "https://infinitywallet.io",
     "dappId": "0xc9ad30757d561ad5c1691436b64a4575f7f0d279c61ca9f756954da2c26a8ea3"
-  },
-  {
-    "name": "Innovaz",
-    "url": "https://innovaz.io",
-    "dappId": "0x5d81a73f593f0e26ef72da9e751011da110e2eafe07077f6a3bd800bde91e90e"
   },
   {
     "name": "INT",
@@ -4698,11 +4528,6 @@
     "name": "Karum",
     "url": "https://karum.ai",
     "dappId": "0x8f189fa6700bd6fe2ca5a2d466db949ec2081c62759bcdf7abe6447a01aa13d3"
-  },
-  {
-    "name": "King of the Degens",
-    "url": "https://degen.game",
-    "dappId": "0x001551f3ba556dac00e325fc6adfcec112f664917058a6c66a80e5b9b1b9c10f"
   },
   {
     "name": "KOLZ",
@@ -4770,11 +4595,6 @@
     "dappId": "0x535b9177b4fa53c21deee0c070ee215525492bd843046cd7d3c7d01a8748b4f7"
   },
   {
-    "name": "Lobster Fishing League",
-    "url": "https://lobsterfishingleague.com",
-    "dappId": "0x8f08ad6faaa0ad9469aa744fdab57b354dea2c2564cf6a8ef3456b1c05bb1cf7"
-  },
-  {
     "name": "LogX",
     "url": "https://pro.logx.trade",
     "dappId": "0x4b91c01e5534e2d6f3d802dfc99c820c8494224527e9ddf9ebf1353075475d13"
@@ -4798,11 +4618,6 @@
     "name": "Lyvely",
     "url": "https://get.lyvely.com",
     "dappId": "0x4127d1f58d7cc61ab8c33fbba03e5dd21aa35c7335f305b8453fef9e45554ca0"
-  },
-  {
-    "name": "MADNFT",
-    "url": "https://madnft.io",
-    "dappId": "0x6441ebad488acc0a9aef38094d2bd085f7ac65fd54d93807ee5bb25bbef85bc4"
   },
   {
     "name": "Manifold",
@@ -4833,11 +4648,6 @@
     "name": "Maverick Protocol",
     "url": "https://app.mav.xyz",
     "dappId": "0xeb601909545d8ac735d99583f2a5debdbea749c673bd2515a099a74f894e8967"
-  },
-  {
-    "name": "Memstagram",
-    "url": "https://memstagram.com",
-    "dappId": "0x025379c8850925f035c49a6d6f0e2adb862fbc16b560f03aa0ce14d1715d9ffc"
   },
   {
     "name": "Mercuryo",
@@ -4880,11 +4690,6 @@
     "dappId": "0x453f4336b84b22163ebc54916b919cbad5a87b3f20492a9cdbce7e9276409d71"
   },
   {
-    "name": "Mint.fun",
-    "url": "https://mint.fun",
-    "dappId": "0x53e7df827ff0aeb5dc7c63c8b1b418c0820a30b7e45e84cd3cf414568bc3fec7"
-  },
-  {
     "name": "Mintpad",
     "url": "https://mintpad.co",
     "dappId": "0xfd1b8cf49e364bb04c7525c057cceecc75ab73fc277cd808b471db3d417d83ed"
@@ -4895,19 +4700,9 @@
     "dappId": "0xc54852702756c08e8f29aa3db771b113d02d63a49826a7e89b7b2d01a3ef37f5"
   },
   {
-    "name": "Mnemonic",
-    "url": "https://mnemonichq.com",
-    "dappId": "0x98142cb4291e98e6fa349f94ba70d55052ff4d5b1aca10c128fcdf847ff37d00"
-  },
-  {
     "name": "Mobula",
     "url": "https://mobula.io",
     "dappId": "0x6ab94021b30a75e494722183ca52b086459b6ccca1810333cef7bdc0a97f1ae1"
-  },
-  {
-    "name": "Momentify",
-    "url": "https://app.momentify.xyz",
-    "dappId": "0xb9f33e1b68b32ce9a2ce4d57864de61a251594e66bfcdfdf42f1cb6ba579569a"
   },
   {
     "name": "MoonLightPixels.com",
@@ -4965,11 +4760,6 @@
     "dappId": "0x842043e756153d85367e7e71592d8509b08d3caa40319a5ce8daf8723454eaf4"
   },
   {
-    "name": "NetherFi",
-    "url": "https://nether.fi",
-    "dappId": "0xd339c9f303ec0f16f9f0c945a340640df824d14f8cbb100b43681b2ef11050c3"
-  },
-  {
     "name": "Neurobro",
     "url": "https://neurobro.ai",
     "dappId": "0xc21f0c658bdbcbdf573dd0e7d137f58c41fab3b652446b8d6882627c82f7be97"
@@ -4988,11 +4778,6 @@
     "name": "NFT Gallery App",
     "url": "https://apps.apple.com",
     "dappId": "0x2fb1759754f29eb74b0d0e65c30b465383f38c65af6cecbbfd02c2d14338c1bc"
-  },
-  {
-    "name": "NFTarot",
-    "url": "https://nftarot.com",
-    "dappId": "0xa5ff8bfde65daf850acc7bcf895c84e237d7a9b86374f842542c90c18f88fc85"
   },
   {
     "name": "NFTPriceFloor",
@@ -5040,11 +4825,6 @@
     "dappId": "0xe2e83ed9b902c37ede9fb92d2c1f3285469bbfe43948b8e604c7aed08082c297"
   },
   {
-    "name": "Obvious",
-    "url": "https://obvious.technology",
-    "dappId": "0xc4c5197e856032518f95c3ef60593c2f16467a1cddc464eee4094e19b40cdcce"
-  },
-  {
     "name": "Odos",
     "url": "https://app.odos.xyz",
     "dappId": "0x7f92a0d9b14c01bf65cad572670c8026726d9ae8761111895e99116d973cb000"
@@ -5065,11 +4845,6 @@
     "dappId": "0xa9b1219fa91a45e919b4d1f38da6c6efda62386404f6f2cc77c70fa705964090"
   },
   {
-    "name": "OKX Wallet",
-    "url": "https://okx.com",
-    "dappId": "0x8f9363379546e92e9db33fd8b76b7e67e1d6fbc48155dded9976060a175ec160"
-  },
-  {
     "name": "Omni Network",
     "url": "https://omni.network",
     "dappId": "0xd11d97a1c97d754896c6e93281adbac974176a296a66690081e222adeef681db"
@@ -5078,11 +4853,6 @@
     "name": "OmniHub",
     "url": "https://omnihub.xyz",
     "dappId": "0x3ee3ae40897e80c749040dfa88b0a27e09b115ba9313d84c7344570eba37adf8"
-  },
-  {
-    "name": "OmniKingdoms",
-    "url": "https://omnikingdoms.io",
-    "dappId": "0xc41b6dc4ad14a814ee3b2b339567af624ec41e5944e0ba527ac91637443fbcc2"
   },
   {
     "name": "Omniscia",
@@ -5130,11 +4900,6 @@
     "dappId": "0x2939e0a55120ca620ed4aa4ed836963fa7a13201395b26d7f59f5f3487c71977"
   },
   {
-    "name": "OpenFriend",
-    "url": "https://openfriend.tech",
-    "dappId": "0x330b47a1657cb87ab89b5121b0bd5388934e76561527ca3b386c8f7ca8b74c1f"
-  },
-  {
     "name": "OpenName",
     "url": "https://open.name",
     "dappId": "0x276f65b1eeeffc3a093c8738ed110c91e1937784d02822527ac99681ae182f92"
@@ -5148,11 +4913,6 @@
     "name": "OpenSea",
     "url": "https://opensea.io",
     "dappId": "0x6ad72df25bb82258e197c766cd5664f23f29093f1b702b7a368e2e25ea28b703"
-  },
-  {
-    "name": "OpenVotes",
-    "url": "https://openvotes.io",
-    "dappId": "0x7dc39d5bfd6d22fb46a883f3452e71ad9a65f78be42b751b519f2975f4af05ea"
   },
   {
     "name": "OpenZeppelin",
@@ -5218,11 +4978,6 @@
     "name": "Pentacle Tarot",
     "url": "https://pentacletarot.com",
     "dappId": "0x3331c33a775c4c9e2e60708c213faa78f3ab99c3d73307ccd910990425b76b46"
-  },
-  {
-    "name": "Phantom",
-    "url": "https://phantom.app",
-    "dappId": "0x05b29352d0ad6c77d76d81073f52e8b49c98021472c6ce6ea25555860fcbc1db"
   },
   {
     "name": "Pheasant Network",
@@ -5355,11 +5110,6 @@
     "dappId": "0xbea7df8482975d280c59294ae0af69494f01be76195b0c9a0903f114f4acd14f"
   },
   {
-    "name": "Redlion Printer",
-    "url": "https://app.prints.red",
-    "dappId": "0xbd332e798ed159ce53cb35410c3cf1e1d71b3c72e09cfcdb8f448c3071ab9f4b"
-  },
-  {
     "name": "RedStone",
     "url": "https://redstone.finance",
     "dappId": "0x8d84dbc0cf7f60be52336bcf89a6c5e42423ecc1ea2ec464d2ada8967b230227"
@@ -5415,11 +5165,6 @@
     "dappId": "0x808c965baba29c9673cfcc31110f852e884bd477c2410a19602c84b7907b51e2"
   },
   {
-    "name": "Rivo",
-    "url": "https://app.rivo.xyz",
-    "dappId": "0x59b012d4c771fb92fdeab25d03422d9ac737d20a38e845be0dc06482b2fccbf6"
-  },
-  {
     "name": "RockX",
     "url": "https://access.rockx.com",
     "dappId": "0x01bc81f8ce6baa5a52e184f1b05bdf0346807e4fe7c7e30ffd5999dc95d62d61"
@@ -5465,19 +5210,14 @@
     "dappId": "0x01e9ea7c967933c88e39b63c82786b9ef5b357746e230adb7ab4e5be555f87ac"
   },
   {
-    "name": "Satsuma",
-    "url": "https://satsuma.xyz",
-    "dappId": "0x7c1fb9f0d7f32688280550b0a394fe3c87487f4b0c7c3d1ace329cfcf7c5ced9"
-  },
-  {
     "name": "Seamless Protocol",
     "url": "https://seamlessprotocol.com",
     "dappId": "0xdfab21d4f812414f4431e5791eb268213222a9b7200d93bfff04085af1fbeff1"
   },
   {
-    "name": "Securedapp SecureWatch",
+    "name": "Securedapp",
     "url": "https://securewatch.securedapp.io",
-    "dappId": "0x75997885b78c00612d26371af464819278a88f2963b80ceaca26ded7f74a53fc"
+    "dappId": "0x81e8f7d138a23942c378e94c5b37da4b174fe6dbd3d763e344e2f110e60c0955"
   },
   {
     "name": "SEDA",
@@ -5610,11 +5350,6 @@
     "dappId": "0x8bf34f935f2d761a55982f693f9aece5c454cdd88cfe2fa4326fcee42a227d78"
   },
   {
-    "name": "Streamm.tv",
-    "url": "https://streamm.tv",
-    "dappId": "0x9b1292d8e08c2e30c7064c38c173eff14bc257be45e7c32d33aeee0ef812a06b"
-  },
-  {
     "name": "stVol",
     "url": "https://stvol.io",
     "dappId": "0xee364ee5411bf95227fdd6d89c71a783f35e65ddbfd1825236463f4cce7345b1"
@@ -5655,14 +5390,14 @@
     "dappId": "0x0fac25fc6e178e4555e0b164605c3b3c46054eefc553afc2d5c619c59be63915"
   },
   {
-    "name": "Surreal",
-    "url": "https://surr.app",
-    "dappId": "0xe2efe08f6c27523a1a073403fc6cc172e3a7cee484b49c8eaee63457e99ae2ed"
-  },
-  {
     "name": "Swan",
     "url": "https://swan.my",
     "dappId": "0x181ece1d20d02469d4c69d17211bd3330f0b0d56845d871604c10675bcaf74e4"
+  },
+  {
+    "name": "SwapBased",
+    "url": "https://swapbased.finance",
+    "dappId": "0x2997d382aad96f0045c43746c1c38df9e858b9ee025139d5c70f37b1598625c3"
   },
   {
     "name": "Sweep Haus",
@@ -5688,6 +5423,11 @@
     "name": "SynFutures",
     "url": "https://synfutures.com",
     "dappId": "0x04fd04f975631dc261f6ff64b695097b66d410f35a6216bf961623800c93daf1"
+  },
+  {
+    "name": "Synthswap",
+    "url": "https://synthswap.io",
+    "dappId": "0xe4f0ca958f0c081932bb668b89b146d374969329ff999c2dd23fb92f0f94ec80"
   },
   {
     "name": "Talent Protocol",
@@ -5755,11 +5495,6 @@
     "dappId": "0xb2d3e7dd78820b8ff4cf352118e149e148bc64e1841207dac2afed29db48186e"
   },
   {
-    "name": "Threebalance",
-    "url": "https://threebalance.co",
-    "dappId": "0xf3552484b5a894daf2db9aa4a0e0ac088d1d398a5d4dc16c20a5a495e5b434d2"
-  },
-  {
     "name": "Tide Protocol",
     "url": "https://landing.tideprotocol.xyz",
     "dappId": "0xba6d4aab97c6491db4a5e689116c4ef9e715d431ba0dc8cb4533cdaf8a83e884"
@@ -5788,11 +5523,6 @@
     "name": "TokenPocket",
     "url": "https://tokenpocket.pro",
     "dappId": "0x71361565b3c57e6eaeae8e6e1cf294af03fc41042a27a822619e240788c78dca"
-  },
-  {
-    "name": "TokenTerminal",
-    "url": "https://app.xtokenterminal.io",
-    "dappId": "0xcc02cd8385cdab229ea7afbc17b3306876b74f135f2e457af83d1953a985a28b"
   },
   {
     "name": "Tokiemon",
@@ -5910,11 +5640,6 @@
     "dappId": "0xf920fb173e4ac17b679ecc8c98efd287bbadb6a381a168d2c7a46d634d7e5df4"
   },
   {
-    "name": "VaultX",
-    "url": "https://vault-x.io",
-    "dappId": "0x8a119a8555061fc9fb37d30a6ff0e450d1737e7d5e71445cc05c6eb304115236"
-  },
-  {
     "name": "Velora",
     "url": "https://app.velora.xyz",
     "dappId": "0x39381c721413b81dc2d6ddfe38b0d827adac53131731d4e890b2cc38910fd1e6"
@@ -5983,11 +5708,6 @@
     "name": "Wert",
     "url": "https://wert.io",
     "dappId": "0xa8ab181b47b895ac4ff27e8e578f79e5bf36f6e03c4b17946016b57067c61985"
-  },
-  {
-    "name": "Wildcard",
-    "url": "https://app.wildcard.lol",
-    "dappId": "0x8c37d098e7fa5ad732aa2c1c29c531bddae6bfb0a71ae3b3ee245026a97e3de1"
   },
   {
     "name": "WLTH",
