@@ -7,138 +7,19 @@ import './App.css'
 const MOCK_BOUNTIES = [
     {
         id: 1,
-        title: "Build a DEX Integration Plugin",
-        type: "bounty",
-        category: "Development",
-        dappName: "Aerodrome Finance",
-        dappLogo: "https://github.com/aerodrome-finance.png",
-        description: "Create a browser extension that integrates with our DEX for one-click swaps. Must support Base network and include slippage protection.",
-        reward: "5000",
-        currency: "USDC",
-        difficulty: "Advanced",
-        timeframe: "4-6 weeks",
-        skills: ["JavaScript", "Web3.js", "React", "Smart Contracts"],
-        postedDate: "2026-01-20",
-        applicants: 12,
-        status: "open"
-    },
-    {
-        id: 2,
-        title: "Smart Contract Security Audit",
-        type: "gig",
-        category: "Security",
-        dappName: "Aave V3",
-        dappLogo: "https://cryptologos.cc/logos/aave-aave-logo.png",
-        description: "Comprehensive security audit needed for our new lending pool implementation. Looking for experienced auditors familiar with DeFi protocols.",
-        reward: "8000",
-        currency: "ETH",
-        difficulty: "Expert",
-        timeframe: "2-3 weeks",
-        skills: ["Solidity", "Security Auditing", "DeFi", "Testing"],
-        postedDate: "2026-01-18",
-        applicants: 8,
-        status: "open"
-    },
-    {
-        id: 3,
-        title: "UI/UX Designer - NFT Marketplace",
-        type: "job",
-        category: "Design",
-        dappName: "Zora",
-        dappLogo: "https://github.com/ourzora.png",
-        description: "Full-time UI/UX designer to reimagine our NFT marketplace experience. Remote position with competitive salary and token options.",
-        reward: "100000",
-        currency: "USD/year",
-        difficulty: "Intermediate",
-        timeframe: "Full-time",
-        skills: ["Figma", "Web Design", "Prototyping", "User Research"],
-        postedDate: "2026-01-15",
-        applicants: 45,
-        status: "open"
-    },
-    {
-        id: 4,
-        title: "Write Technical Documentation",
-        type: "task",
-        category: "Content",
-        dappName: "Virtuals Protocol",
-        dappLogo: "https://icons.llama.fi/virtuals-protocol.jpg",
-        description: "Create comprehensive developer documentation for our AI agent SDK. Must include tutorials, API references, and code examples.",
-        reward: "2500",
-        currency: "USDC",
-        difficulty: "Beginner",
-        timeframe: "1-2 weeks",
-        skills: ["Technical Writing", "Documentation", "AI/ML"],
-        postedDate: "2026-01-22",
-        applicants: 23,
-        status: "open"
-    },
-    {
-        id: 5,
-        title: "Community Manager",
-        type: "job",
-        category: "Marketing",
-        dappName: "Farcaster",
-        dappLogo: "https://github.com/farcasterxyz.png",
-        description: "Lead our community initiatives across Discord, Twitter, and Farcaster. Build engagement and grow our user base.",
-        reward: "75000",
-        currency: "USD/year",
-        difficulty: "Intermediate",
-        timeframe: "Full-time",
-        skills: ["Community Management", "Social Media", "Web3"],
-        postedDate: "2026-01-19",
-        applicants: 67,
-        status: "open"
-    },
-    {
-        id: 6,
-        title: "Bug Bounty: Critical Vulnerabilities",
-        type: "bounty",
-        category: "Security",
-        dappName: "Uniswap",
-        dappLogo: "https://cryptologos.cc/logos/uniswap-uni-logo.png",
-        description: "Ongoing bug bounty program for critical vulnerabilities in our protocol. Rewards vary based on severity and impact.",
-        reward: "50000",
-        currency: "USDC",
-        difficulty: "Expert",
-        timeframe: "Ongoing",
-        skills: ["Security Research", "Smart Contracts", "Penetration Testing"],
-        postedDate: "2026-01-10",
-        applicants: 156,
-        status: "open"
-    },
-    {
-        id: 7,
         title: "Create Marketing Video",
         type: "task",
         category: "Content",
         dappName: "Base Apps",
         dappLogo: "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
         description: "Produce a 60-second explainer video showcasing BaseApps platform features. Should be engaging and professional.",
-        reward: "1500",
+        reward: "500",
         currency: "USDC",
         difficulty: "Intermediate",
         timeframe: "1 week",
         skills: ["Video Editing", "Motion Graphics", "Storytelling"],
         postedDate: "2026-01-21",
         applicants: 34,
-        status: "open"
-    },
-    {
-        id: 8,
-        title: "Full Stack Developer - DeFi",
-        type: "job",
-        category: "Development",
-        dappName: "Aerodrome Finance",
-        dappLogo: "https://github.com/aerodrome-finance.png",
-        description: "Join our core team to build next-generation DeFi primitives on Base. Experience with Solidity and React required.",
-        reward: "120000",
-        currency: "USD/year",
-        difficulty: "Advanced",
-        timeframe: "Full-time",
-        skills: ["Solidity", "React", "Node.js", "DeFi", "Web3"],
-        postedDate: "2026-01-16",
-        applicants: 89,
         status: "open"
     }
 ]
@@ -289,21 +170,7 @@ function Bounties() {
                             </div>
                         </div>
 
-                        {/* Difficulty Filter */}
-                        <div className="filter-group">
-                            <label className="filter-label">Difficulty</label>
-                            <div className="filter-buttons">
-                                {difficulties.map(difficulty => (
-                                    <button
-                                        key={difficulty}
-                                        className={`filter-btn ${selectedDifficulty === difficulty ? 'active' : ''}`}
-                                        onClick={() => setSelectedDifficulty(difficulty)}
-                                    >
-                                        {difficulty}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </section>
