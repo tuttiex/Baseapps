@@ -361,7 +361,7 @@ function Admin() {
                         📝 Manage Blog
                     </button>
                     <button className={`category-btn ${activeTab === 'bounties' ? 'active' : ''}`} onClick={() => setActiveTab('bounties')}>
-                        💰 Manage Bounties
+                        Manage Bounties
                     </button>
                 </div>
 
