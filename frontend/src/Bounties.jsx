@@ -81,7 +81,7 @@ function Bounties() {
                             Discover <strong>Opportunities</strong> on Base
                         </h1>
                         <p className="bounties-hero-description">
-                            Find bounties, gigs, tasks, and job openings from top dApps in the Base ecosystem
+                            Find bounties, gigs, tasks, and job openings from top Dapps in the Base ecosystem
                         </p>
                         <div className="bounties-stats">
                             <div className="bounty-stat-card">
@@ -98,7 +98,7 @@ function Bounties() {
                                 <div className="bounty-stat-number">
                                     {new Set(bounties.map(b => b.dappName)).size}
                                 </div>
-                                <div className="bounty-stat-label">Active dApps</div>
+                                <div className="bounty-stat-label">Active Dapps</div>
                             </div>
                         </div>
                     </div>
