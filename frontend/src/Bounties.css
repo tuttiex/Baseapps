@@ -44,8 +44,8 @@ body.dark-mode .bounties-hero-title {
 
 .bounties-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
     margin-top: 3rem;
 }
 
@@ -53,8 +53,8 @@ body.dark-mode .bounties-hero-title {
     background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
     backdrop-filter: blur(10px);
     border: 1px solid rgba(102, 126, 234, 0.2);
-    border-radius: 20px;
-    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    padding: 1.1rem 0.5rem;
     transition: all 0.3s ease;
     animation: fadeInUp 1s ease;
 }
@@ -66,20 +66,20 @@ body.dark-mode .bounties-hero-title {
 }
 
 .bounty-stat-number {
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .bounty-stat-label {
-    font-size: 1rem;
+    font-size: 0.75rem;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     font-weight: 500;
 }
 
