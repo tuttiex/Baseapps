@@ -8,7 +8,7 @@ const API_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
     : 'https://baseapps-production.up.railway.app/api';
 
-export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
+export const WalletManager = forwardRef(({ user, onUpdate, onConnectingChange }, ref) => {
     const { address: currentAddress } = useAccount();
     const { disconnectAsync } = useDisconnect();
     const { connectAsync, connectors } = useConnect();
@@ -23,6 +23,13 @@ export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
     useEffect(() => {
         fetchWallets();
     }, []);
+
+    // Sync connecting state with parent
+    useEffect(() => {
+        if (onConnectingChange) {
+            onConnectingChange(connecting);
+        }
+    }, [connecting, onConnectingChange]);
 
     const fetchWallets = async () => {
         const token = getToken();
@@ -51,7 +58,8 @@ export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
                 return;
             }
             handleLinkWallet();
-        }
+        },
+        isConnecting: connecting
     }));
 
     const handleLinkWallet = async () => {
@@ -64,14 +72,7 @@ export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
         try {
             await disconnectAsync();
 
-            // Naive connector selection
             const connector = connectors[0];
-            // In reality, user enters a flow. A proper modal would be better.
-            // But confirming the "Link" action via this button works.
-
-            // NOTE: If using RainbowKit or similar, we might need to trigger its modal.
-            // Since we are using Wagmi hooks directly here, we do it manually.
-
             if (!connector) throw new Error("No wallet connector found");
 
             alert("Please select the NEW wallet you want to link in the next popup.");
@@ -191,23 +192,6 @@ export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
                         </div>
                     </div>
                 ))}
-
-                {/* Internal button kept for visibility context, but disabled if loading */}
-                {allWallets.length < 5 && (
-                    <button
-                        type="button"
-                        onClick={handleLinkWallet}
-                        disabled={connecting}
-                        className="btn-add-wallet"
-                        style={{ display: 'none' }} /* Hidden as requested to use external button */
-                    >
-                        {connecting ? (
-                            <span className="flex-center"><LoadingIcon size={16} /> Connecting...</span>
-                        ) : (
-                            '+ Link New Wallet'
-                        )}
-                    </button>
-                )}
             </div>
 
             <style>{`

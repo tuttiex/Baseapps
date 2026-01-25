@@ -12,6 +12,7 @@ export function EditProfile({ isOpen, onClose }) {
     });
     const [uploading, setUploading] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [connectingWallet, setConnectingWallet] = useState(false);
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
     const walletManagerRef = useRef(null);
@@ -159,6 +160,7 @@ export function EditProfile({ isOpen, onClose }) {
                         onUpdate={() => {
                             // Refetch user is handled mostly by context but can trigger re-renders
                         }}
+                        onConnectingChange={setConnectingWallet}
                     />
 
                     {error && (
@@ -172,7 +174,7 @@ export function EditProfile({ isOpen, onClose }) {
                             type="button"
                             className="btn btn-secondary"
                             onClick={() => walletManagerRef.current?.openLinkWallet()}
-                            disabled={uploading || saving}
+                            disabled={uploading || saving || connectingWallet}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -180,7 +182,14 @@ export function EditProfile({ isOpen, onClose }) {
                                 border: '1px dashed var(--border-color)'
                             }}
                         >
-                            <span>+ Add More Wallets</span>
+                            {connectingWallet ? (
+                                <>
+                                    <LoadingIcon size={16} />
+                                    <span>Connecting...</span>
+                                </>
+                            ) : (
+                                <span>+ Add More Wallets</span>
+                            )}
                         </button>
 
                         <div style={{ display: 'flex', gap: '1rem' }}>
