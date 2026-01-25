@@ -77,6 +77,11 @@ function Blog() {
                             <div className="blog-posts-grid">
                                 {posts.filter(post => !post.featured).map(post => (
                                     <article key={post.id} className="blog-post-card">
+                                        {post.image && (
+                                            <div className="blog-post-image">
+                                                <img src={post.image} alt={post.title} />
+                                            </div>
+                                        )}
                                         <span className="post-category">{post.category}</span>
                                         <h3 className="post-title">{post.title}</h3>
                                         <p className="post-excerpt">{post.excerpt}</p>
