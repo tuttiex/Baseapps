@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
 import { useUser } from '../context/UserContext';
-import { WalletManager } from './WalletManager';
 import { UserAvatar } from './UserAvatar';
 import { LoadingIcon, CameraIcon, AlertIcon } from './Icons';
 
@@ -12,10 +11,8 @@ export function EditProfile({ isOpen, onClose }) {
     });
     const [uploading, setUploading] = useState(false);
     const [saving, setSaving] = useState(false);
-    const [connectingWallet, setConnectingWallet] = useState(false);
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
-    const walletManagerRef = useRef(null);
 
     if (!isOpen) return null;
 
@@ -154,61 +151,28 @@ export function EditProfile({ isOpen, onClose }) {
                         <p className="form-hint">{formData.bio.length}/500 characters</p>
                     </div>
 
-                    <WalletManager
-                        ref={walletManagerRef}
-                        user={user}
-                        onUpdate={() => {
-                            // Refetch user is handled mostly by context but can trigger re-renders
-                        }}
-                        onConnectingChange={setConnectingWallet}
-                    />
-
                     {error && (
                         <div className="form-error" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                             <AlertIcon size={16} /> {error}
                         </div>
                     )}
 
-                    <div className="modal-actions" style={{ justifyContent: 'space-between', marginTop: '2rem' }}>
+                    <div className="modal-actions">
                         <button
                             type="button"
                             className="btn btn-secondary"
-                            onClick={() => walletManagerRef.current?.openLinkWallet()}
-                            disabled={uploading || saving || connectingWallet}
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '0.5rem',
-                                border: '1px dashed var(--border-color)'
-                            }}
+                            onClick={onClose}
+                            disabled={saving}
                         >
-                            {connectingWallet ? (
-                                <>
-                                    <LoadingIcon size={16} />
-                                    <span>Connecting...</span>
-                                </>
-                            ) : (
-                                <span>+ Add More Wallets</span>
-                            )}
+                            Cancel
                         </button>
-
-                        <div style={{ display: 'flex', gap: '1rem' }}>
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                onClick={onClose}
-                                disabled={saving}
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="submit"
-                                className="btn btn-primary"
-                                disabled={saving || uploading}
-                            >
-                                {saving ? 'Saving...' : 'Save Changes'}
-                            </button>
-                        </div>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            disabled={saving || uploading}
+                        >
+                            {saving ? 'Saving...' : 'Save Changes'}
+                        </button>
                     </div>
                 </form>
             </div>
