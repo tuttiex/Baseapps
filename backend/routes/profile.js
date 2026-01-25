@@ -9,8 +9,15 @@ const {
     updateUser,
     getUserFavorites,
     addFavorite,
-    removeFavorite
+    removeFavorite,
+    linkWallet,
+    unlinkWallet,
+    getUserWallets,
+    setDisplayWallet,
+    getNonce,
+    deleteNonce
 } = require('../db/queries');
+const { verifySignature } = require('../utils/signature');
 
 const router = express.Router();
 
@@ -114,6 +121,18 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
             isOwnProfile: req.walletAddress === user.wallet_address
         };
 
+        // Create list of all addresses for this user (primary + linked)
+        let allAddresses = [user.wallet_address.toLowerCase()];
+
+        // Fetch linked wallets for this user
+        // We can reuse getUserWallets, but that gets logic for "Own" profile mostly.
+        // We can just query the DB directly or use the helper.
+        // getUserWallets returns { linked: [...] }
+        const userWallets = await getUserWallets(user.wallet_address);
+        if (userWallets && userWallets.linked) {
+            allAddresses = allAddresses.concat(userWallets.linked.map(w => w.address.toLowerCase()));
+        }
+
         // --- Fetch User's Votes ---
         let votes = [];
         try {
@@ -121,9 +140,8 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
             const votesData = await fs.readFile(VOTES_FILE, 'utf8');
             const allVotes = JSON.parse(votesData);
 
-            // Filter votes by this user's wallet address
-            // user.wallet_address is the profile being viewed
-            votes = allVotes.filter(v => v.voter.toLowerCase() === user.wallet_address.toLowerCase());
+            // Filter votes by ANY of the user's addresses
+            votes = allVotes.filter(v => allAddresses.includes(v.voter.toLowerCase()));
 
             // Enrich votes with dapp names if possible (would need dapp map or cache)
             // For now, we return dappId and value. Frontend can resolve name if it has a list, 
@@ -175,7 +193,7 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
 
             // Filter by submittedBy
             submittedDapps = approvedDapps.filter(d =>
-                d.submittedBy && d.submittedBy.toLowerCase() === user.wallet_address.toLowerCase()
+                d.submittedBy && allAddresses.includes(d.submittedBy.toLowerCase())
             );
         } catch (err) {
             console.log('Error loading submitted dapps for profile:', err.message);
@@ -186,7 +204,9 @@ router.get('/:addressOrUsername', optionalAuth, async (req, res) => {
             user: {
                 ...userObj,
                 votes: votes,
-                submittedDapps: submittedDapps
+                submittedDapps: submittedDapps,
+                // Optionally expose linked wallets count or public linked wallets?
+                // For now, keep it simple.
             }
         });
     } catch (error) {
@@ -374,6 +394,95 @@ router.delete('/me/favorites/:dappName', authenticateToken, async (req, res) => 
             success: false,
             error: 'Failed to remove favorite'
         });
+    }
+});
+
+/**
+ * GET /api/profile/me/wallets
+ * Get connected wallets
+ */
+router.get('/me/wallets', authenticateToken, async (req, res) => {
+    try {
+        const wallets = await getUserWallets(req.walletAddress);
+        res.json({ success: true, ...wallets });
+    } catch (error) {
+        console.error('Error fetching wallets:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch wallets' });
+    }
+});
+
+/**
+ * POST /api/profile/me/wallets
+ * Link a new wallet (requires signature from new wallet)
+ */
+router.post('/me/wallets', authenticateToken, async (req, res) => {
+    try {
+        const { address, signature, message } = req.body;
+
+        if (!address || !signature || !message) {
+            return res.status(400).json({ success: false, error: 'Missing parameters' });
+        }
+
+        // Verify signature of the NEW wallet
+        const nonceData = await getNonce(address);
+        if (!nonceData || !message.includes(nonceData.nonce)) {
+            return res.status(401).json({ success: false, error: 'Invalid or expired nonce' });
+        }
+
+        const isValid = verifySignature(address, message, signature);
+        if (!isValid) {
+            return res.status(401).json({ success: false, error: 'Invalid signature' });
+        }
+
+        await deleteNonce(address);
+
+        // Limit to 5 wallets (1 primary + 4 linked)
+        const currentWallets = await getUserWallets(req.walletAddress);
+        if (currentWallets.linked.length >= 4) {
+            return res.status(400).json({ success: false, error: 'Maximum of 5 wallets allowed' });
+        }
+
+        // Link it
+        try {
+            await linkWallet(req.walletAddress, address);
+            res.json({ success: true, message: 'Wallet linked successfully' });
+        } catch (linkErr) {
+            return res.status(400).json({ success: false, error: linkErr.message });
+        }
+
+    } catch (error) {
+        console.error('Error linking wallet:', error);
+        res.status(500).json({ success: false, error: 'Failed to link wallet' });
+    }
+});
+
+/**
+ * DELETE /api/profile/me/wallets/:address
+ * Unlink a wallet
+ */
+router.delete('/me/wallets/:address', authenticateToken, async (req, res) => {
+    try {
+        const { address } = req.params;
+        await unlinkWallet(req.walletAddress, address);
+        res.json({ success: true, message: 'Wallet unlinked' });
+    } catch (error) {
+        res.status(500).json({ success: false, error: 'Failed to unlink wallet' });
+    }
+});
+
+/**
+ * PUT /api/profile/me/primary
+ * Set display/main wallet
+ */
+router.put('/me/primary', authenticateToken, async (req, res) => {
+    try {
+        const { address } = req.body;
+        if (!address) return res.status(400).json({ error: 'Address required' });
+
+        const result = await setDisplayWallet(req.walletAddress, address);
+        res.json({ success: true, displayAddress: result.display_address });
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message || 'Failed to set primary wallet' });
     }
 });
 

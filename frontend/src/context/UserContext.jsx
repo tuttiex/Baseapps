@@ -14,9 +14,11 @@ export function UserProvider({ children }) {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isLinking, setIsLinking] = useState(false); // Mode to prevent auto-logout/login
 
     // Auto-load user on mount if token exists
     useEffect(() => {
+        // ... (existing code, skipped for replacement brevity if not changing)
         const loadUser = async () => {
             const token = getToken();
 
@@ -73,13 +75,15 @@ export function UserProvider({ children }) {
 
     // Clear user when wallet disconnects
     useEffect(() => {
-        if (!isConnected && user) {
+        if (!isConnected && user && !isLinking) {
             handleSignOut();
         }
-    }, [isConnected]);
+    }, [isConnected, isLinking]);
 
     // Auto sign-in when wallet connects (if not already authenticated)
     useEffect(() => {
+        if (isLinking) return; // Skip auto stuff while linking
+
         let timeoutId;
         let isSubscribed = true;
 
@@ -103,7 +107,11 @@ export function UserProvider({ children }) {
                     try {
                         const payload = JSON.parse(atob(token.split('.')[1]));
                         const isExpired = payload.exp * 1000 < Date.now();
-                        const isWrongAddress = payload.address?.toLowerCase() !== address?.toLowerCase();
+                        // If token is for a DIFFERENT address than connected...
+                        // AND we are not handling linked wallets (which we now partially support via auth verify)
+                        // Actually, auth verify handles it. But here we decide whether to trigger login.
+                        // If token address != connected address, we might assume mismatch and login again.
+                        const isWrongAddress = payload.walletAddress?.toLowerCase() !== address?.toLowerCase();
 
                         if (isExpired || isWrongAddress) {
                             shouldSignIn = true;
@@ -134,7 +142,7 @@ export function UserProvider({ children }) {
             isSubscribed = false;
             if (timeoutId) clearTimeout(timeoutId);
         };
-    }, [isConnected, address, user, loading]);
+    }, [isConnected, address, user, loading, isLinking]);
 
     /**
      * Sign in with wallet
@@ -289,7 +297,8 @@ export function UserProvider({ children }) {
         addFavorite,
         removeFavorite,
         address,
-        isConnected
+        isConnected,
+        setIsLinking
     };
 
     return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

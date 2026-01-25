@@ -1,10 +1,11 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { generateNonce, verifySignature, createSignMessage } = require('../utils/signature');
-const { setNonce, getNonce, deleteNonce, getUserByAddress, createUser } = require('../db/queries');
+const { setNonce, getNonce, deleteNonce, resolveUserByWallet, createUser } = require('../db/queries');
 
 const router = express.Router();
 
+// ... (nonce generation stays same)
 /**
  * GET /api/auth/nonce?address=0x...
  * Get a nonce for wallet authentication
@@ -85,15 +86,16 @@ router.post('/verify', async (req, res) => {
         // Delete used nonce (prevent replay attacks)
         await deleteNonce(address);
 
-        // Check if user exists, create if not
-        let user = await getUserByAddress(address);
+        // Check if user exists (primary or linked), create if not
+        let user = await resolveUserByWallet(address);
         if (!user) {
+            // New user - this wallet becomes the primary for a new account
             user = await createUser(address);
         }
 
-        // Generate JWT token
+        // Generate JWT token (ALWAYS use the Primary Wallet Address as identity)
         const token = jwt.sign(
-            { walletAddress: address.toLowerCase() },
+            { walletAddress: user.wallet_address.toLowerCase() },
             process.env.JWT_SECRET,
             { expiresIn: '7d' } // Token valid for 7 days
         );

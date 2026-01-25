@@ -1,5 +1,36 @@
 const pool = require('./pool');
 
+// Initialize Database Schema Updates
+async function initDatabase() {
+    try {
+        // Create linked_wallets table
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS linked_wallets (
+                linked_address VARCHAR(42) PRIMARY KEY,
+                user_address VARCHAR(42) REFERENCES users(wallet_address) ON DELETE CASCADE,
+                added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Add display_address column to users if not exists
+        await pool.query(`
+            DO $$ 
+            BEGIN 
+                IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name='users' AND column_name='display_address') THEN 
+                    ALTER TABLE users ADD COLUMN display_address VARCHAR(42);
+                END IF;
+            END $$;
+        `);
+
+        console.log('✅ Database schema initialized for Linked Wallets');
+    } catch (err) {
+        console.error('❌ Failed to init database schema:', err);
+    }
+}
+
+// Run init
+initDatabase();
+
 // ============================================
 // USER QUERIES
 // ============================================
@@ -173,6 +204,120 @@ async function isFavorited(walletAddress, dappName) {
     return result.rows.length > 0;
 }
 
+// ============================================
+// WALLET MANAGEMENT QUERIES
+// ============================================
+
+/**
+ * Link a secondary wallet to a user
+ */
+async function linkWallet(userAddress, linkedAddress) {
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+
+        // Check if linked wallet is already a user
+        const existingUser = await client.query('SELECT wallet_address FROM users WHERE wallet_address = $1', [linkedAddress.toLowerCase()]);
+        if (existingUser.rows.length > 0) {
+            throw new Error('Wallet is already registered as a primary user');
+        }
+
+        // Insert into linked_wallets
+        await client.query(
+            'INSERT INTO linked_wallets (user_address, linked_address) VALUES ($1, $2)',
+            [userAddress.toLowerCase(), linkedAddress.toLowerCase()]
+        );
+
+        await client.query('COMMIT');
+        return true;
+    } catch (e) {
+        await client.query('ROLLBACK');
+        throw e;
+    } finally {
+        client.release();
+    }
+}
+
+/**
+ * Unlink a wallet
+ */
+async function unlinkWallet(userAddress, linkedAddress) {
+    const result = await pool.query(
+        'DELETE FROM linked_wallets WHERE user_address = $1 AND linked_address = $2',
+        [userAddress.toLowerCase(), linkedAddress.toLowerCase()]
+    );
+    return result.rowCount > 0;
+}
+
+/**
+ * Get all wallets for a user (primary + linked)
+ */
+async function getUserWallets(userAddress) {
+    const linked = await pool.query(
+        'SELECT linked_address, added_at FROM linked_wallets WHERE user_address = $1',
+        [userAddress.toLowerCase()]
+    );
+
+    // Get primary info to see display setting
+    const user = await getUserByAddress(userAddress);
+
+    return {
+        primary: userAddress.toLowerCase(),
+        display: user?.display_address || userAddress.toLowerCase(), // Default to primary if not set
+        linked: linked.rows.map(r => ({
+            address: r.linked_address,
+            addedAt: r.added_at
+        }))
+    };
+}
+
+/**
+ * Set the display/main wallet
+ */
+async function setDisplayWallet(userAddress, displayAddress) {
+    // Verify the address is either the primary OR one of the linked wallets
+    if (displayAddress.toLowerCase() !== userAddress.toLowerCase()) {
+        const isLinked = await pool.query(
+            'SELECT 1 FROM linked_wallets WHERE user_address = $1 AND linked_address = $2',
+            [userAddress.toLowerCase(), displayAddress.toLowerCase()]
+        );
+        if (isLinked.rows.length === 0) {
+            throw new Error('Address is not linked to this account');
+        }
+    }
+
+    const result = await pool.query(
+        'UPDATE users SET display_address = $1 WHERE wallet_address = $2 RETURNING display_address',
+        [displayAddress.toLowerCase(), userAddress.toLowerCase()]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Resolve any wallet address to the primary user account
+ * Returns the User object of the owner (whether it's the primary or linked wallet)
+ */
+async function resolveUserByWallet(address) {
+    const normalized = address.toLowerCase();
+
+    // 1. Check if it is a primary user
+    let user = await getUserByAddress(normalized);
+    if (user) return user;
+
+    // 2. Check if it is a linked wallet
+    const link = await pool.query(
+        'SELECT user_address FROM linked_wallets WHERE linked_address = $1',
+        [normalized]
+    );
+
+    if (link.rows.length > 0) {
+        // Fetch the parent user
+        return getUserByAddress(link.rows[0].user_address);
+    }
+
+    return null;
+}
+
 module.exports = {
     // User queries
     getUserByAddress,
@@ -191,4 +336,11 @@ module.exports = {
     addFavorite,
     removeFavorite,
     isFavorited,
+
+    // Wallet mgmt
+    linkWallet,
+    unlinkWallet,
+    getUserWallets,
+    setDisplayWallet,
+    resolveUserByWallet
 };

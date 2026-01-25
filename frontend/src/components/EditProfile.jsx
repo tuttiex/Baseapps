@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { useUser } from '../context/UserContext';
+import { WalletManager } from './WalletManager';
 import { UserAvatar } from './UserAvatar';
 import { LoadingIcon, CameraIcon, AlertIcon } from './Icons';
 
@@ -150,6 +151,11 @@ export function EditProfile({ isOpen, onClose }) {
                         />
                         <p className="form-hint">{formData.bio.length}/500 characters</p>
                     </div>
+
+                    <WalletManager user={user} onUpdate={() => {
+                        // Refetch user if needed, but context handles some updates. 
+                        // We might want to trigger a full profile refresh if the primary account changes.
+                    }} />
 
                     {error && (
                         <div className="form-error" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
