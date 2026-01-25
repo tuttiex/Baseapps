@@ -14,6 +14,7 @@ export function EditProfile({ isOpen, onClose }) {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState(null);
     const fileInputRef = useRef(null);
+    const walletManagerRef = useRef(null);
 
     if (!isOpen) return null;
 
@@ -152,10 +153,13 @@ export function EditProfile({ isOpen, onClose }) {
                         <p className="form-hint">{formData.bio.length}/500 characters</p>
                     </div>
 
-                    <WalletManager user={user} onUpdate={() => {
-                        // Refetch user if needed, but context handles some updates. 
-                        // We might want to trigger a full profile refresh if the primary account changes.
-                    }} />
+                    <WalletManager
+                        ref={walletManagerRef}
+                        user={user}
+                        onUpdate={() => {
+                            // Refetch user is handled mostly by context but can trigger re-renders
+                        }}
+                    />
 
                     {error && (
                         <div className="form-error" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -163,22 +167,39 @@ export function EditProfile({ isOpen, onClose }) {
                         </div>
                     )}
 
-                    <div className="modal-actions">
+                    <div className="modal-actions" style={{ justifyContent: 'space-between', marginTop: '2rem' }}>
                         <button
                             type="button"
                             className="btn btn-secondary"
-                            onClick={onClose}
-                            disabled={saving}
+                            onClick={() => walletManagerRef.current?.openLinkWallet()}
+                            disabled={uploading || saving}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                border: '1px dashed var(--border-color)'
+                            }}
                         >
-                            Cancel
+                            <span>+ Add More Wallets</span>
                         </button>
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            disabled={saving || uploading}
-                        >
-                            {saving ? 'Saving...' : 'Save Changes'}
-                        </button>
+
+                        <div style={{ display: 'flex', gap: '1rem' }}>
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={onClose}
+                                disabled={saving}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="submit"
+                                className="btn btn-primary"
+                                disabled={saving || uploading}
+                            >
+                                {saving ? 'Saving...' : 'Save Changes'}
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>

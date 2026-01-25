@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { useAccount, useDisconnect, useConnect } from 'wagmi';
 import { useUser } from '../context/UserContext';
 import axios from 'axios';
@@ -8,7 +8,7 @@ const API_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
     : 'https://baseapps-production.up.railway.app/api';
 
-export function WalletManager({ user, onUpdate }) {
+export const WalletManager = forwardRef(({ user, onUpdate }, ref) => {
     const { address: currentAddress } = useAccount();
     const { disconnectAsync } = useDisconnect();
     const { connectAsync, connectors } = useConnect();
@@ -43,6 +43,17 @@ export function WalletManager({ user, onUpdate }) {
         }
     };
 
+    useImperativeHandle(ref, () => ({
+        openLinkWallet: () => {
+            // Only allow if limit not reached
+            if (walletData.linked && walletData.linked.length >= 4) {
+                setError("Maximum of 5 wallets allowed.");
+                return;
+            }
+            handleLinkWallet();
+        }
+    }));
+
     const handleLinkWallet = async () => {
         setError(null);
         setConnecting(true);
@@ -55,6 +66,12 @@ export function WalletManager({ user, onUpdate }) {
 
             // Naive connector selection
             const connector = connectors[0];
+            // In reality, user enters a flow. A proper modal would be better.
+            // But confirming the "Link" action via this button works.
+
+            // NOTE: If using RainbowKit or similar, we might need to trigger its modal.
+            // Since we are using Wagmi hooks directly here, we do it manually.
+
             if (!connector) throw new Error("No wallet connector found");
 
             alert("Please select the NEW wallet you want to link in the next popup.");
@@ -175,8 +192,15 @@ export function WalletManager({ user, onUpdate }) {
                     </div>
                 ))}
 
+                {/* Internal button kept for visibility context, but disabled if loading */}
                 {allWallets.length < 5 && (
-                    <button onClick={handleLinkWallet} disabled={connecting} className="btn-add-wallet">
+                    <button
+                        type="button"
+                        onClick={handleLinkWallet}
+                        disabled={connecting}
+                        className="btn-add-wallet"
+                        style={{ display: 'none' }} /* Hidden as requested to use external button */
+                    >
                         {connecting ? (
                             <span className="flex-center"><LoadingIcon size={16} /> Connecting...</span>
                         ) : (
@@ -279,4 +303,6 @@ export function WalletManager({ user, onUpdate }) {
             `}</style>
         </div>
     );
-}
+});
+
+WalletManager.displayName = 'WalletManager';
