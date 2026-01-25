@@ -70,13 +70,35 @@ export const WalletManager = forwardRef(({ user, onUpdate, onConnectingChange },
         const currentToken = getToken();
 
         try {
+            // 1. Disconnect current session
             await disconnectAsync();
 
+            // 2. Identify connector
             const connector = connectors[0];
             if (!connector) throw new Error("No wallet connector found");
 
-            alert("Please select the NEW wallet you want to link in the next popup.");
+            alert("Please select the NEW wallet you want to link in the next popup. \n\nIMPORTANT: You must switch accounts in your wallet extension to the one you want to link.");
 
+            // 3. Force account picker for Injected wallets (MetaMask, etc)
+            try {
+                const provider = await connector.getProvider();
+                if (provider && provider.request) {
+                    await provider.request({
+                        method: 'wallet_requestPermissions',
+                        params: [{ eth_accounts: {} }]
+                    });
+                }
+            } catch (permErr) {
+                // If user rejects the permission request (4001), stop.
+                if (permErr.code === 4001) {
+                    setConnecting(false);
+                    setIsLinking(false);
+                    return;
+                }
+                console.warn("Could not force account picker:", permErr);
+            }
+
+            // 4. Connect
             const result = await connectAsync({ connector });
             const newAddress = result.accounts[0];
 
@@ -84,11 +106,11 @@ export const WalletManager = forwardRef(({ user, onUpdate, onConnectingChange },
                 throw new Error("You selected the same wallet! Please select a different one.");
             }
 
-            // Generate Nonce
+            // 5. Generate Nonce
             const nonceRes = await axios.get(`${API_URL}/auth/nonce?address=${newAddress}`);
             const { nonce, message } = nonceRes.data;
 
-            // Sign Message
+            // 6. Sign Message
             let signature;
             if (window.ethereum) {
                 signature = await window.ethereum.request({
@@ -99,7 +121,7 @@ export const WalletManager = forwardRef(({ user, onUpdate, onConnectingChange },
                 throw new Error("No wallet provider found for signing");
             }
 
-            // Send to Backend
+            // 7. Send to Backend
             await axios.post(`${API_URL}/profile/me/wallets`, {
                 address: newAddress,
                 signature,
@@ -117,6 +139,9 @@ export const WalletManager = forwardRef(({ user, onUpdate, onConnectingChange },
         } finally {
             setConnecting(false);
             setIsLinking(false);
+
+            // Ideally should reconnect the primary user, but we leave the new wallet connected for now.
+            // When they refresh or next action happens, user state might need to be refreshed.
         }
     };
 
