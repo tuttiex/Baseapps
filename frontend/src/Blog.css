@@ -112,6 +112,8 @@
 
 /* Read More Button */
 .read-more-btn {
+    display: inline-block;
+    text-decoration: none;
     padding: 0.75rem 1.5rem;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -235,5 +237,112 @@
 
     .blog-posts-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* --- Single Blog Post View --- */
+
+.blog-post-view {
+    padding-top: 80px;
+    /* Offset for fixed header */
+    min-height: 80vh;
+}
+
+.post-header-section {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    padding: 4rem 1rem;
+    text-align: center;
+    color: white;
+}
+
+.back-link {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+.post-category-tag {
+    background: rgba(102, 126, 234, 0.2);
+    color: #667eea;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.post-main-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    background: linear-gradient(to right, #fff, #a5a5a5);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.post-meta-detailed {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+}
+
+.post-meta-detailed .separator {
+    margin: 0 10px;
+}
+
+.post-container {
+    max-width: 800px;
+    margin: -3rem auto 4rem;
+    /* Overlap header slightly or push down */
+    position: relative;
+    padding: 0 1.5rem;
+}
+
+.post-main-image {
+    width: 100%;
+    margin-bottom: 3rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.post-main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.post-content-body {
+    background: #1a1a1a;
+    padding: 3rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.post-content-body p {
+    margin-bottom: 1.5rem;
+}
+
+/* Response for mobile */
+@media (max-width: 768px) {
+    .post-main-title {
+        font-size: 2rem;
+    }
+
+    .post-content-body {
+        padding: 1.5rem;
     }
 }

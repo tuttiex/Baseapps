@@ -6,6 +6,7 @@ import AddDapps from './AddDapps'
 import Admin from './Admin'
 import Profile from './pages/Profile'
 import Blog from './Blog'
+import BlogPost from './BlogPost'
 import Bounties from './Bounties'
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/admin" element={<Admin />} />
       <Route path="/profile/:address" element={<Profile />} />
       <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
       <Route path="/bounties" element={<Bounties />} />
     </Routes>
   )

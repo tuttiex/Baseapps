@@ -1309,6 +1309,31 @@ app.delete('/api/admin/blog/:id', async (req, res) => {
   }
 });
 
+// GET /api/blog/:slug - Get single blog post
+app.get('/api/blog/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    let posts = [];
+    try {
+      const data = await fs.readFile(BLOG_FILE, 'utf8');
+      posts = JSON.parse(data);
+    } catch (e) {
+      return res.status(404).json({ success: false, error: 'No posts found' });
+    }
+
+    const post = posts.find(p => p.slug === slug);
+
+    if (!post) {
+      return res.status(404).json({ success: false, error: 'Post not found' });
+    }
+
+    res.json({ success: true, post });
+  } catch (err) {
+    console.error('Error fetching blog post:', err);
+    res.status(500).json({ success: false, error: 'Failed to fetch post' });
+  }
+});
+
 // ============================================
 // BOUNTIES - Routes
 // ============================================

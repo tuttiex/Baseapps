@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Header } from './components/Header';
 import './App.css';
 import './Blog.css';
@@ -63,7 +64,7 @@ function Blog() {
                                             <span className="post-author">{post.author}</span>
                                             <span className="post-date">{post.date}</span>
                                         </div>
-                                        <button className="read-more-btn">Read More →</button>
+                                        <Link to={`/blog/${post.slug}`} className="read-more-btn">Read More →</Link>
                                     </div>
                                     {post.image && (
                                         <div className="featured-post-image">
@@ -89,7 +90,7 @@ function Blog() {
                                             <span className="post-author">{post.author}</span>
                                             <span className="post-date">{post.date}</span>
                                         </div>
-                                        <button className="read-more-btn">Read More →</button>
+                                        <Link to={`/blog/${post.slug}`} className="read-more-btn">Read More →</Link>
                                     </article>
                                 ))}
                             </div>
