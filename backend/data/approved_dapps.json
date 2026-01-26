@@ -421,5 +421,35 @@
     "tvl": "New",
     "chain": "Base",
     "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+  },
+  {
+    "name": "Mentorable",
+    "description": "A marketplace that allows users to connect with expert mentors by tokenizing and trading time as digital assets, enabling fractional access to professional guidance and advisory services.",
+    "category": "Consumer",
+    "url": "https://www.mentorable.xyz/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769437796355-432213819.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+  },
+  {
+    "name": "Sequel",
+    "description": "An onchain movie studio designed to finance independent films through community driven funding.",
+    "category": "Consumer",
+    "url": "https://www.sequel.movie/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769439094322-377713237.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
+  },
+  {
+    "name": "MetaLeX",
+    "description": "An onchain operating system for corporate governance and finance that automates entity formation, tokenized cap table management, and fundraising through digital securities.",
+    "category": "Infrastructure",
+    "url": "https://www.metalex.tech/",
+    "logo": "https://baseapps-production.up.railway.app/logos/logo-1769439747020-782120201.jpg",
+    "tvl": "New",
+    "chain": "Base",
+    "submittedBy": "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
   }
 ]
