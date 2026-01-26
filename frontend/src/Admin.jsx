@@ -70,7 +70,9 @@ function Admin() {
 
     const verifySecret = async (key) => {
         try {
-            await axios.get(`${API_BASE_URL}/admin/submissions?secret=${key}`)
+            await axios.get(`${API_BASE_URL}/admin/submissions`, {
+                headers: { 'Authorization': key }
+            })
             setIsAuthenticated(true)
             fetchData(key)
         } catch (err) {
@@ -92,7 +94,9 @@ function Admin() {
         setLoading(true)
         try {
             // Fetch Submissions
-            const subRes = await axios.get(`${API_BASE_URL}/admin/submissions?secret=${key}`)
+            const subRes = await axios.get(`${API_BASE_URL}/admin/submissions`, {
+                headers: { 'Authorization': key }
+            })
             if (subRes.data.success) setSubmissions(subRes.data.submissions)
 
             // Fetch Live Dapps
@@ -127,7 +131,10 @@ function Admin() {
         if (!confirm("Approve this dapp? It will go live immediately.")) return
         setLoadingAction(`approve-${id}`)
         try {
-            await axios.post(`${API_BASE_URL}/admin/submissions/approve`, { secret, id })
+            await axios.post(`${API_BASE_URL}/admin/submissions/approve`,
+                { id },
+                { headers: { 'Authorization': secret } }
+            )
             alert("Approved! Dapp is now live.")
             fetchData(secret)
         } catch (err) {
@@ -141,7 +148,9 @@ function Admin() {
         if (!confirm("Reject and permanently DELETE this submission?")) return
         setLoadingAction(`reject-${id}`)
         try {
-            await axios.delete(`${API_BASE_URL}/admin/submissions/${id}?secret=${secret}`)
+            await axios.delete(`${API_BASE_URL}/admin/submissions/${id}`, {
+                headers: { 'Authorization': secret }
+            })
             fetchData(secret)
         } catch (err) {
             alert("Error rejecting")
@@ -154,7 +163,9 @@ function Admin() {
         if (!confirm(`Are you SURE you want to delete "${name}" from the LIVE site? This cannot be undone.`)) return
         setLoadingAction(`delete-${name}`)
         try {
-            await axios.delete(`${API_BASE_URL}/admin/dapps/${encodeURIComponent(name)}?secret=${secret}`)
+            await axios.delete(`${API_BASE_URL}/admin/dapps/${encodeURIComponent(name)}`, {
+                headers: { 'Authorization': secret }
+            })
             alert("Deleted.")
             fetchData(secret)
         } catch (err) {
@@ -173,7 +184,9 @@ function Admin() {
 
         try {
             const formData = new FormData()
-            formData.append('secret', secret)
+            // Secret not needed in body, sends in header by axios config below? 
+            // FormData requires special handling. Let's add header manually.
+
             formData.append('name', newDapp.name)
             formData.append('description', newDapp.description)
             // Use subcategory as category if present, or custom
@@ -185,7 +198,9 @@ function Admin() {
             if (newDapp.logoUrl) formData.append('logoUrl', newDapp.logoUrl)
             if (logoFile) formData.append('logo', logoFile)
 
-            await axios.post(`${API_BASE_URL}/admin/dapps`, formData)
+            await axios.post(`${API_BASE_URL}/admin/dapps`, formData, {
+                headers: { 'Authorization': secret }
+            })
             alert("Dapp Added to Live Site!")
 
             // Reset form
@@ -207,7 +222,6 @@ function Admin() {
         e.preventDefault()
         try {
             const formData = new FormData()
-            formData.append('secret', secret)
             formData.append('title', newPost.title)
             formData.append('excerpt', newPost.excerpt)
             formData.append('content', newPost.content)
@@ -217,7 +231,9 @@ function Admin() {
             if (newPost.imageUrl) formData.append('imageUrl', newPost.imageUrl)
             if (postImageFile) formData.append('image', postImageFile)
 
-            await axios.post(`${API_BASE_URL}/admin/blog`, formData)
+            await axios.post(`${API_BASE_URL}/admin/blog`, formData, {
+                headers: { 'Authorization': secret }
+            })
             alert("Blog Post Published!")
 
             setNewPost({
@@ -234,7 +250,9 @@ function Admin() {
     const handleDeletePost = async (id) => {
         if (!confirm("Are you sure you want to delete this post?")) return
         try {
-            await axios.delete(`${API_BASE_URL}/admin/blog/${id}?secret=${secret}`)
+            await axios.delete(`${API_BASE_URL}/admin/blog/${id}`, {
+                headers: { 'Authorization': secret }
+            })
             fetchData(secret)
         } catch (err) {
             alert("Failed to delete post")
@@ -245,7 +263,6 @@ function Admin() {
         e.preventDefault()
         try {
             const formData = new FormData()
-            formData.append('secret', secret)
             formData.append('title', newBounty.title)
             formData.append('type', newBounty.type)
             formData.append('category', newBounty.category)
@@ -260,7 +277,9 @@ function Admin() {
             if (newBounty.dappLogo) formData.append('dappLogo', newBounty.dappLogo)
             if (bountyLogoFile) formData.append('logo', bountyLogoFile)
 
-            await axios.post(`${API_BASE_URL}/admin/bounties`, formData)
+            await axios.post(`${API_BASE_URL}/admin/bounties`, formData, {
+                headers: { 'Authorization': secret }
+            })
             alert("Bounty Posted!")
 
             setNewBounty({
@@ -279,7 +298,9 @@ function Admin() {
     const handleDeleteBounty = async (id) => {
         if (!confirm("Delete this bounty?")) return
         try {
-            await axios.delete(`${API_BASE_URL}/admin/bounties/${id}?secret=${secret}`)
+            await axios.delete(`${API_BASE_URL}/admin/bounties/${id}`, {
+                headers: { 'Authorization': secret }
+            })
             fetchData(secret)
         } catch (err) {
             alert("Failed to delete bounty")

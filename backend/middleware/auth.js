@@ -50,4 +50,34 @@ function optionalAuth(req, res, next) {
 module.exports = {
     authenticateToken,
     optionalAuth,
+    requireAdminSecret
 };
+
+/**
+ * Middleware to require Admin Secret in Authorization header
+ */
+function requireAdminSecret(req, res, next) {
+    const authHeader = req.headers['authorization'];
+
+    // Support "Bearer <SECRET>" or just "<SECRET>"
+    const token = authHeader ? (authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : authHeader) : null;
+    const ADMIN_SECRET = process.env.ADMIN_SECRET;
+
+    // Fail securely if secret is not configured
+    if (!ADMIN_SECRET) {
+        console.error('SECURITY ERROR: ADMIN_SECRET environment variable is not set. Admin access disabled.');
+        return res.status(500).json({
+            success: false,
+            error: 'Server security configuration error'
+        });
+    }
+
+    if (!token || token !== ADMIN_SECRET) {
+        return res.status(401).json({
+            success: false,
+            error: 'Unauthorized: Invalid Admin Secret'
+        });
+    }
+
+    next();
+}

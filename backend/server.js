@@ -151,6 +151,7 @@ const upload = multer({
 // ============================================
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
+const { requireAdminSecret } = require('./middleware/auth');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
@@ -920,14 +921,9 @@ app.get('/api/dapps/categories', async (req, res) => {
 });
 
 // GET /api/admin/submissions - Secret endpoint to view pending submissions
-app.get('/api/admin/submissions', async (req, res) => {
+app.get('/api/admin/submissions', requireAdminSecret, async (req, res) => {
   try {
-    const { secret } = req.query;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized: Invalid secret' });
-    }
+    // Auth handled by middleware
 
     const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
 
@@ -954,14 +950,9 @@ app.get('/api/admin/submissions', async (req, res) => {
 });
 
 // POST /api/admin/submissions/approve - Approve a submission (Move to cache)
-app.post('/api/admin/submissions/approve', async (req, res) => {
+app.post('/api/admin/submissions/approve', requireAdminSecret, async (req, res) => {
   try {
-    const { secret, id } = req.body;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
+    const { id } = req.body;
 
     const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
 
@@ -1012,15 +1003,9 @@ app.post('/api/admin/submissions/approve', async (req, res) => {
 });
 
 // DELETE /api/admin/dapps/:name - Remove a dapp from the live CACHE (Permanent delete)
-app.delete('/api/admin/dapps/:name', async (req, res) => {
+app.delete('/api/admin/dapps/:name', requireAdminSecret, async (req, res) => {
   try {
-    const { secret } = req.query;
     const { name } = req.params;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
 
     // 1. Remove from approved dapps file if it exists there
     let approvedDapps = await loadApprovedDapps();
@@ -1069,14 +1054,9 @@ app.delete('/api/admin/dapps/:name', async (req, res) => {
 });
 
 // POST /api/admin/dapps - Add a dapp directly (Admin only)
-app.post('/api/admin/dapps', upload.single('logo'), async (req, res) => {
+app.post('/api/admin/dapps', requireAdminSecret, upload.single('logo'), async (req, res) => {
   try {
-    const { secret, name, description, category, websiteUrl, chain } = req.body;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
+    const { name, description, category, websiteUrl, chain } = req.body;
 
     if (!name || !description || !category || !websiteUrl) {
       return res.status(400).json({ success: false, error: 'Missing required fields' });
@@ -1114,15 +1094,9 @@ app.post('/api/admin/dapps', upload.single('logo'), async (req, res) => {
   }
 });
 // DELETE /api/admin/submissions/:id - Reject/Delete a pending submission
-app.delete('/api/admin/submissions/:id', async (req, res) => {
+app.delete('/api/admin/submissions/:id', requireAdminSecret, async (req, res) => {
   try {
-    const { secret } = req.query;
     const { id } = req.params;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'base-admin-2026';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
 
     const SUBMISSIONS_FILE = path.join(DATA_DIR, 'submitted_dapps.json');
     const subData = await fs.readFile(SUBMISSIONS_FILE, 'utf8');
@@ -1224,14 +1198,9 @@ app.get('/api/blog', async (req, res) => {
 });
 
 // POST /api/admin/blog - Add a new blog post
-app.post('/api/admin/blog', upload.single('image'), async (req, res) => {
+app.post('/api/admin/blog', requireAdminSecret, upload.single('image'), async (req, res) => {
   try {
-    const { secret, title, excerpt, content, author, category } = req.body;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
+    const { title, excerpt, content, author, category } = req.body;
 
     if (!title || !content) {
       return res.status(400).json({ success: false, error: 'Title and content are required' });
@@ -1277,15 +1246,9 @@ app.post('/api/admin/blog', upload.single('image'), async (req, res) => {
 });
 
 // DELETE /api/admin/blog/:id - Delete a blog post
-app.delete('/api/admin/blog/:id', async (req, res) => {
+app.delete('/api/admin/blog/:id', requireAdminSecret, async (req, res) => {
   try {
-    const { secret } = req.query;
     const { id } = req.params;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
 
     let posts = [];
     try {
@@ -1358,14 +1321,9 @@ app.get('/api/bounties', async (req, res) => {
 });
 
 // POST /api/admin/bounties - Add a new bounty
-app.post('/api/admin/bounties', upload.single('logo'), async (req, res) => {
+app.post('/api/admin/bounties', requireAdminSecret, upload.single('logo'), async (req, res) => {
   try {
-    const { secret, title, type, category, dappName, description, reward, currency, difficulty, timeframe, skills } = req.body;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
+    const { title, type, category, dappName, description, reward, currency, difficulty, timeframe, skills } = req.body;
 
     if (!title || !description || !reward || !dappName) {
       return res.status(400).json({ success: false, error: 'Missing required fields' });
@@ -1420,15 +1378,9 @@ app.post('/api/admin/bounties', upload.single('logo'), async (req, res) => {
 });
 
 // DELETE /api/admin/bounties/:id
-app.delete('/api/admin/bounties/:id', async (req, res) => {
+app.delete('/api/admin/bounties/:id', requireAdminSecret, async (req, res) => {
   try {
-    const { secret } = req.query;
     const { id } = req.params;
-    const ADMIN_SECRET = process.env.ADMIN_SECRET || 'baseboss';
-
-    if (secret !== ADMIN_SECRET) {
-      return res.status(401).json({ success: false, error: 'Unauthorized' });
-    }
 
     let bounties = [];
     try {
