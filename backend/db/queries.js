@@ -172,6 +172,122 @@ async function isFavorited(walletAddress, dappName) {
     );
     return result.rows.length > 0;
 }
+// DAPP QUERIES
+// ============================================
+
+/**
+ * Create a new dapp
+ */
+async function createDapp(data) {
+    const { name, description, category, subcategory, websiteUrl, logoUrl, chain, status, submittedBy } = data;
+
+    // Check if exists first (since name must be unique)
+    const existing = await pool.query('SELECT id FROM dapps WHERE name = $1', [name]);
+    if (existing.rows.length > 0) {
+        throw new Error('Dapp with this name already exists');
+    }
+
+    const result = await pool.query(
+        `INSERT INTO dapps (name, description, category, subcategory, website_url, logo_url, chain, status, submitted_by)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         RETURNING *`,
+        [name, description, category, subcategory, websiteUrl, logoUrl, chain, status || 'pending', submittedBy]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Get all dapps by status (or all)
+ */
+async function getDapps(status = null) {
+    let query = 'SELECT *, (SELECT COALESCE(SUM(vote_value), 0) FROM votes WHERE dapp_id = dapps.id) as score FROM dapps';
+    const params = [];
+
+    if (status) {
+        query += ' WHERE status = $1';
+        params.push(status);
+    }
+
+    // Default sort by score desc, then name asc
+    query += ' ORDER BY score DESC, name ASC';
+
+    const result = await pool.query(query, params);
+    return result.rows;
+}
+
+/**
+ * Get single dapp by ID
+ */
+async function getDappById(id) {
+    const result = await pool.query(
+        'SELECT *, (SELECT COALESCE(SUM(vote_value), 0) FROM votes WHERE dapp_id = dapps.id) as score FROM dapps WHERE id = $1',
+        [id]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Get single dapp by Name
+ */
+async function getDappByName(name) {
+    const result = await pool.query(
+        'SELECT *, (SELECT COALESCE(SUM(vote_value), 0) FROM votes WHERE dapp_id = dapps.id) as score FROM dapps WHERE LOWER(name) = LOWER($1)',
+        [name]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Approve dapp
+ */
+async function approveDapp(id) {
+    const result = await pool.query(
+        `UPDATE dapps SET status = 'approved' WHERE id = $1 RETURNING *`,
+        [id]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Delete dapp
+ */
+async function deleteDapp(id) {
+    const result = await pool.query(
+        'DELETE FROM dapps WHERE id = $1',
+        [id]
+    );
+    return result.rowCount > 0;
+}
+
+// ============================================
+// VOTE QUERIES
+// ============================================
+
+/**
+ * Cast a vote (Upsert: Insert or Update)
+ */
+async function castVote(dappId, voterAddress, value) {
+    const result = await pool.query(
+        `INSERT INTO votes (dapp_id, voter_address, vote_value)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (dapp_id, voter_address)
+         DO UPDATE SET vote_value = $3, timestamp = CURRENT_TIMESTAMP
+         RETURNING *`,
+        [dappId, voterAddress.toLowerCase(), value]
+    );
+    return result.rows[0];
+}
+
+/**
+ * Get user's vote for a specific dapp
+ */
+async function getUserVote(dappId, voterAddress) {
+    const result = await pool.query(
+        'SELECT vote_value FROM votes WHERE dapp_id = $1 AND voter_address = $2',
+        [dappId, voterAddress.toLowerCase()]
+    );
+    return result.rows[0]?.vote_value || 0;
+}
 
 module.exports = {
     // User queries
@@ -191,4 +307,16 @@ module.exports = {
     addFavorite,
     removeFavorite,
     isFavorited,
+
+    // Dapp queries
+    createDapp,
+    getDapps,
+    getDappById,
+    getDappByName,
+    approveDapp,
+    deleteDapp,
+
+    // Vote queries
+    castVote,
+    getUserVote
 };
