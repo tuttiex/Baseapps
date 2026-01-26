@@ -31,18 +31,20 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "data:", "blob:", "https:"],
-      connectSrc: ["'self'", "https:", "wss:", "http:"],
-      fontSrc: ["'self'"],
+      // SECURITY: Removed 'unsafe-inline' and 'unsafe-eval'
+      // If your frontend needs inline scripts, you must use a nonce or hash.
+      scriptSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"], // unsafe-inline often needed for CSS-in-JS libs
+      imgSrc: ["'self'", "data:", "blob:", "https:"], // Allow images from anywhere (HTTPS)
+      connectSrc: ["'self'", "https:", "wss:", "http://localhost:*"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
       frameSrc: ["'none'"],
     },
   },
-  crossOriginEmbedderPolicy: false, // Allow images from external sources
-  crossOriginResourcePolicy: { policy: "cross-origin" }, // Allow CORS
+  crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: "cross-origin" },
 }));
 
 // Request Logging - Morgan
@@ -145,10 +147,15 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
+    // SECURITY: Strictly block SVG files as they can contain XSS scripts
+    const allowedTypes = /jpeg|jpg|png|webp/;
+    const extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimeType = allowedTypes.test(file.mimetype);
+
+    if (extName && mimeType) {
       cb(null, true);
     } else {
-      cb(new Error('Only image files are allowed!'), false);
+      cb(new Error('Only safe image formats (JPEG, PNG, WEBP) are allowed. SVGs are blocked for security.'), false);
     }
   }
 });
