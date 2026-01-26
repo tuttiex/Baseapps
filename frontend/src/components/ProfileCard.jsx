@@ -38,20 +38,7 @@ export function ProfileCard({ user, showActions = false, onEdit }) {
                 </div>
             )}
 
-            <div className="profile-card-stats">
-                <div className="profile-stat">
-                    <span className="profile-stat-value">0</span>
-                    <span className="profile-stat-label">Votes</span>
-                </div>
-                <div className="profile-stat">
-                    <span className="profile-stat-value">0</span>
-                    <span className="profile-stat-label">Submissions</span>
-                </div>
-                <div className="profile-stat">
-                    <span className="profile-stat-value">0</span>
-                    <span className="profile-stat-label">Favorites</span>
-                </div>
-            </div>
+
         </div>
     );
 }
