@@ -288,13 +288,17 @@ app.get('/api/dapps', async (req, res) => {
       );
     }
 
+    const backendUrl = req.protocol + '://' + req.get('host');
+
     res.json({
       success: true,
       count: dapps.length,
       dapps: dapps.map(d => ({
         ...d,
         url: d.website_url, // map db column back to frontend expected key
-        logo: d.logo_url
+        logo: d.logo_url && d.logo_url.startsWith('/')
+          ? `${backendUrl}${d.logo_url}`
+          : d.logo_url
       }))
     });
   } catch (error) {
@@ -312,10 +316,14 @@ app.get('/api/trending', async (req, res) => {
     const dapps = await getDapps('approved');
     // dapps are already sorted by score DESC in getDapps query (see db/queries.js)
 
+    const backendUrl = req.protocol + '://' + req.get('host');
+
     const trending = dapps.slice(0, 5).map(d => ({
       ...d,
       url: d.website_url,
-      logo: d.logo_url
+      logo: d.logo_url && d.logo_url.startsWith('/')
+        ? `${backendUrl}${d.logo_url}`
+        : d.logo_url
     }));
 
     res.json({
@@ -425,12 +433,16 @@ app.get('/api/dapps/categories', async (req, res) => {
 app.get('/api/admin/submissions', requireAdminSecret, async (req, res) => {
   try {
     const submissions = await getDapps('pending');
+    const backendUrl = req.protocol + '://' + req.get('host');
+
     res.json({
       success: true,
       count: submissions.length,
       submissions: submissions.map(s => ({
         ...s,
-        logo: s.logo_url,
+        logo: s.logo_url && s.logo_url.startsWith('/')
+          ? `${backendUrl}${s.logo_url}`
+          : s.logo_url,
         websiteUrl: s.website_url,
         submittedAt: s.created_at
       }))
