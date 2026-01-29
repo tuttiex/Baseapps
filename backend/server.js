@@ -306,31 +306,17 @@ app.get('/api/dapps', async (req, res) => {
   }
 });
 
-// GET /api/trending - Get top dapps by weekly score
+// GET /api/trending - Get top dapps by score
 app.get('/api/trending', async (req, res) => {
   try {
-    const [cachedDapps, approvedDapps] = await Promise.all([
-      loadDappsFromCache(),
-      loadApprovedDapps()
-    ]);
-    const allDapps = [...approvedDapps, ...cachedDapps];
+    const dapps = await getDapps('approved');
+    // dapps are already sorted by score DESC in getDapps query (see db/queries.js)
 
-    // Map scores and sort
-    const trending = allDapps
-      .map(dapp => {
-        const mapping = dappIdMap.find(m => m.url === dapp.url || m.name.toLowerCase() === dapp.name.toLowerCase());
-        const dappId = mapping ? mapping.dappId : null;
-        return {
-          ...dapp,
-          dappId: dappId,
-          isRegistered: !!(dappId && registrationCache[dappId]),
-          score: (dappId && voteCache[dappId]) ? voteCache[dappId].totalScore : 0,
-          weeklyScore: (dappId && voteCache[dappId]) ? voteCache[dappId].weeklyScore : 0
-        };
-      })
-      // .filter(d => d.weeklyScore > 0)
-      .sort((a, b) => b.weeklyScore - a.weeklyScore)
-      .slice(0, 5); // Top 5
+    const trending = dapps.slice(0, 5).map(d => ({
+      ...d,
+      url: d.website_url,
+      logo: d.logo_url
+    }));
 
     res.json({
       success: true,
@@ -338,6 +324,7 @@ app.get('/api/trending', async (req, res) => {
       dapps: trending
     });
   } catch (error) {
+    console.error('Error fetching trending dapps:', error);
     res.status(500).json({ success: false, error: 'Failed to fetch trending dapps' });
   }
 });
@@ -381,8 +368,8 @@ app.post('/api/submit-dapp', upload.single('logo'), async (req, res) => {
 // GET /api/dapps/categories - Get all categories (organized hierarchically)
 app.get('/api/dapps/categories', async (req, res) => {
   try {
-    // Load all dapps from cache
-    const allDapps = await loadDappsFromCache();
+    // Fetch all approved dapps from DB
+    const allDapps = await getDapps('approved');
 
     // Extract unique minor categories
     const minorCategories = [...new Set(allDapps.map(dapp => dapp.category))];
@@ -391,14 +378,14 @@ app.get('/api/dapps/categories', async (req, res) => {
     const categoryHierarchy = {
       "DeFi": ["Dexs", "Lending & CDP", "Derivatives & Options", "Yield & Yield Strategies",
         "RWA", "Stablecoins", "Prediction Market", "Portfolio",
-        "Liquid Staking", "Insurance"],
+        "Liquid Staking", "Insurance", "DeFi"],
       "Infrastructure": ["Bridges", "Developer Tools", "Data & Analytics",
         "Capital Allocators", "Liquidity Manager", "Launchpad",
-        "Security", "Identity", "Services", "Oracles"],
+        "Security", "Identity", "Services", "Oracles", "Infrastructure"],
       "Consumer": ["Gaming", "NFTs", "Social & Entertainment", "Wallets", "Payments",
-        "Onramps", "Creator", "DAO", "Real World", "SoFi", "Privacy"],
+        "Onramps", "Creator", "DAO", "Real World", "SoFi", "Privacy", "Consumer"],
       "AI": ["AI", "AI Agents"],
-      "Trading": ["CEX", "Basis Trading", "Algo-Stables", "Risk Curators"]
+      "Trading": ["CEX", "Basis Trading", "Algo-Stables", "Risk Curators", "Trading"]
     };
 
     // Organize categories into hierarchy
@@ -432,6 +419,7 @@ app.get('/api/dapps/categories', async (req, res) => {
       categories: organized
     });
   } catch (error) {
+    console.error('Error fetching categories:', error);
     // Fallback if DB fetch fails
     res.json({
       success: true,
