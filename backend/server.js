@@ -389,22 +389,15 @@ app.get('/api/dapps/categories', async (req, res) => {
     };
 
     // Organize categories into hierarchy
-    const organized = {};
+    // Initialize with full static hierarchy to ensure all categories/subcategories are visible
+    const organized = JSON.parse(JSON.stringify(categoryHierarchy));
     const uncategorized = [];
+    const flattenedCategories = new Set(Object.values(categoryHierarchy).flat());
 
     minorCategories.forEach(minor => {
-      let found = false;
-      for (const [major, subs] of Object.entries(categoryHierarchy)) {
-        if (subs.includes(minor)) {
-          if (!organized[major]) {
-            organized[major] = [];
-          }
-          organized[major].push(minor);
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
+      // If the category is already in our hierarchy, it's good.
+      // If NOT, we need to track it for "Other"
+      if (!flattenedCategories.has(minor)) {
         uncategorized.push(minor);
       }
     });
