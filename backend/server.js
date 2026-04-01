@@ -538,6 +538,74 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// TEMPORARY: Database export endpoint for Render migration
+// REMOVE THIS AFTER MIGRATION
+app.get('/api/admin/export-database', async (req, res) => {
+  try {
+    console.log('📦 Exporting database for Render migration...');
+    
+    const tables = ['users', 'dapps', 'votes', 'user_favorites'];
+    const exportData = {};
+    
+    for (const table of tables) {
+      const result = await pool.query(`SELECT * FROM ${table}`);
+      exportData[table] = result.rows;
+      console.log(`  ✅ ${table}: ${result.rows.length} rows`);
+    }
+    
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename="railway-export.json"');
+    res.json(exportData);
+    
+  } catch (error) {
+    console.error('❌ Export failed:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// TEMPORARY: Database import endpoint for Render migration
+// REMOVE THIS AFTER MIGRATION
+app.post('/api/admin/import-database', async (req, res) => {
+  try {
+    const data = req.body;
+    const results = {};
+    
+    for (const [table, rows] of Object.entries(data)) {
+      if (!Array.isArray(rows) || rows.length === 0) {
+        results[table] = { skipped: 0, inserted: 0, total: 0 };
+        continue;
+      }
+      
+      const columns = Object.keys(rows[0]);
+      const placeholders = columns.map((_, i) => `$${i + 1}`).join(', ');
+      
+      let inserted = 0;
+      let skipped = 0;
+      
+      for (const row of rows) {
+        const values = columns.map(col => row[col]);
+        try {
+          await pool.query(
+            `INSERT INTO ${table} (${columns.join(', ')}) VALUES (${placeholders}) ON CONFLICT DO NOTHING`,
+            values
+          );
+          inserted++;
+        } catch (err) {
+          skipped++;
+        }
+      }
+      
+      results[table] = { inserted, skipped, total: rows.length };
+    }
+    
+    res.json({ success: true, results });
+    
+  } catch (error) {
+    console.error('❌ Import failed:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // GET /api/debug-file - DEBUG ENDPOINT TO CHECK FILESYSTEM
 app.get('/api/debug-file', async (req, res) => {
   try {
