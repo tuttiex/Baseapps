@@ -1,12 +1,15 @@
 const { Pool } = require('pg');
 
 // Create PostgreSQL connection pool
+// Works with Railway (current) and Render (target)
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }, // Railway requires SSL
-    max: 20, // Maximum number of clients in the pool
-    idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
-    connectionTimeoutMillis: 5000, // Return error after 5 seconds if connection cannot be established
+    ssl: process.env.DATABASE_URL?.includes('render.com')
+        ? { rejectUnauthorized: false }  // Render requires SSL
+        : { rejectUnauthorized: false }, // Railway also requires SSL
+    max: 20,
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 5000,
 });
 
 // Test connection on startup

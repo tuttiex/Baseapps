@@ -1,0 +1,27 @@
+services:
+  - type: postgres
+    name: baseapps-db
+    plan: free
+    region: ohio
+    ipAllowList: []
+
+  - type: web
+    name: baseapps-backend
+    plan: free
+    region: ohio
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: baseapps-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
