@@ -615,7 +615,86 @@ app.post('/api/admin/import-database', async (req, res) => {
   }
 });
 
-// TEMPORARY: Seed dapps from dapps-seed.json
+// TEMPORARY: Run schema to create tables
+// REMOVE THIS AFTER SETUP
+app.get('/api/admin/run-schema', async (req, res) => {
+  try {
+    const schemaSQL = `
+      CREATE TABLE IF NOT EXISTS users (
+        wallet_address VARCHAR(42) PRIMARY KEY,
+        username VARCHAR(50) UNIQUE,
+        bio TEXT,
+        avatar_url VARCHAR(500),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS auth_nonces (
+        wallet_address VARCHAR(42) PRIMARY KEY,
+        nonce VARCHAR(64) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        expires_at TIMESTAMP NOT NULL
+      );
+      CREATE TABLE IF NOT EXISTS user_favorites (
+        id SERIAL PRIMARY KEY,
+        wallet_address VARCHAR(42) REFERENCES users(wallet_address) ON DELETE CASCADE,
+        dapp_name VARCHAR(100) NOT NULL,
+        added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(wallet_address, dapp_name)
+      );
+      CREATE TABLE IF NOT EXISTS dapps (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) UNIQUE NOT NULL,
+        description TEXT NOT NULL,
+        category VARCHAR(50) NOT NULL,
+        subcategory VARCHAR(50),
+        website_url VARCHAR(500),
+        logo_url VARCHAR(500),
+        chain VARCHAR(50) DEFAULT 'Base',
+        status VARCHAR(20) DEFAULT 'pending',
+        submitted_by VARCHAR(42),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+      CREATE TABLE IF NOT EXISTS votes (
+        id SERIAL PRIMARY KEY,
+        dapp_id INTEGER REFERENCES dapps(id) ON DELETE CASCADE,
+        voter_address VARCHAR(42) NOT NULL,
+        vote_value INTEGER NOT NULL,
+        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(dapp_id, voter_address)
+      );
+      CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
+      CREATE INDEX IF NOT EXISTS idx_user_favorites_wallet ON user_favorites(wallet_address);
+      CREATE INDEX IF NOT EXISTS idx_auth_nonces_expires ON auth_nonces(expires_at);
+      CREATE OR REPLACE FUNCTION update_updated_at_column()
+      RETURNS TRIGGER AS $$
+      BEGIN
+          NEW.updated_at = CURRENT_TIMESTAMP;
+          RETURN NEW;
+      END;
+      $$ language 'plpgsql';
+      DROP TRIGGER IF EXISTS update_users_updated_at ON users;
+      CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users
+      FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+    `;
+    
+    await pool.query(schemaSQL);
+    
+    // Verify tables
+    const tablesResult = await pool.query(`
+      SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'
+    `);
+    
+    res.json({ 
+      success: true, 
+      message: 'Schema created successfully',
+      tables: tablesResult.rows.map(r => r.table_name)
+    });
+    
+  } catch (error) {
+    console.error('❌ Schema failed:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 // REMOVE THIS AFTER SEEDING
 app.get('/api/admin/seed-dapps', async (req, res) => {
   try {
