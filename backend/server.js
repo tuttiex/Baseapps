@@ -538,6 +538,15 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// GET /health - Root health check for Render
+app.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'OK',
+    timestamp: new Date().toISOString()
+  });
+});
+
 // TEMPORARY: Database export endpoint for Render migration
 // REMOVE THIS AFTER MIGRATION
 app.get('/api/admin/export-database', async (req, res) => {
