@@ -705,9 +705,8 @@ app.get('/api/admin/seed-dapps', async (req, res) => {
     console.log(`🌱 Seeding ${data.dapps.length} dapps...`);
     let success = 0;
     let failed = 0;
-    const errors = [];
     
-    for (const dapp of data.dapps.slice(0, 10)) {  // Test first 10 only
+    for (const dapp of data.dapps) {
       try {
         await pool.query(
           `INSERT INTO dapps(name, description, category, website_url, logo_url, chain, status, submitted_by) 
@@ -717,16 +716,13 @@ app.get('/api/admin/seed-dapps', async (req, res) => {
         success++;
       } catch (e) {
         failed++;
-        errors.push({ name: dapp.name, error: e.message });
       }
     }
     
     res.json({ 
       success: true, 
-      message: `Test seeded ${success}/10 dapps`, 
-      failed: failed,
-      errors: errors.slice(0, 3),
-      database_url: process.env.DATABASE_URL ? process.env.DATABASE_URL.split('@')[1]?.split('/')[0] : 'not set'
+      message: `Seeded ${success}/${data.dapps.length} dapps`, 
+      failed: failed
     });
     
   } catch (error) {
