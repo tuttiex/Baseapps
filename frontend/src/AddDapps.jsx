@@ -11,9 +11,9 @@ import registryAbi from './contracts/registry-abi.json'
 const ADMIN_WALLET = "0x94Da11A4a55C67aFe39B5C2250a503c059b27ce2"
 const REGISTRY_CONTRACT_ADDRESS = "0x138cDd6C3007AE1E4F3818CAdeD3E1fF813b1961"
 
-const API_BASE_URL = window.location.hostname === 'localhost'
+const API_BASE_URL = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
-    : 'https://baseapps-backend.onrender.com/api'
+    : 'https://baseapps-backend.onrender.com/api')
 
 function AddDapps() {
     // Effect to enforce dark mode on mount

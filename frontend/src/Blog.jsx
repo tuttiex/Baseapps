@@ -5,9 +5,9 @@ import { Header } from './components/Header';
 import './App.css';
 import './Blog.css';
 
-const API_BASE_URL = window.location.hostname === 'localhost'
+const API_BASE_URL = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
-    : 'https://baseapps-backend.onrender.com/api';
+    : 'https://baseapps-backend.onrender.com/api');
 
 function Blog() {
     const [posts, setPosts] = useState([]);

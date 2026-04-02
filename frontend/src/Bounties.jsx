@@ -4,9 +4,9 @@ import { Header } from './components/Header'
 import './Bounties.css'
 import './App.css'
 
-const API_BASE_URL = window.location.hostname === 'localhost'
+const API_BASE_URL = import.meta.env.VITE_API_URL || (window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
-    : 'https://baseapps-backend.onrender.com/api';
+    : 'https://baseapps-backend.onrender.com/api');
 
 function Bounties() {
     const [bounties, setBounties] = useState([])
