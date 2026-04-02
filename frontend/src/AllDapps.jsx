@@ -5,7 +5,7 @@ import { VoteButtons } from './components/VoteButtons'
 import { Header } from './components/Header'
 import './App.css'
 
-const API_URL = 'https://baseapps-production.up.railway.app/api'
+const API_URL = 'https://baseapps-backend.onrender.com/api'
 
 function AllDapps() {
   const [searchParams] = useSearchParams()

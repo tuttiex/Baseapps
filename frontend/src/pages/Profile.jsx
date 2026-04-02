@@ -8,7 +8,7 @@ import { LoadingIcon, ErrorIcon, StarIcon, VoteIcon, DocumentIcon } from '../com
 import { Header } from '../components/Header';
 import '../Profile.css';
 
-const API_URL = 'https://baseapps-production.up.railway.app/api';
+const API_URL = 'https://baseapps-backend.onrender.com/api';
 
 export default function Profile() {
     const { address } = useParams();

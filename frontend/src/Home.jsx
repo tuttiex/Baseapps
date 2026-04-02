@@ -10,7 +10,7 @@ import { NewsCarousel } from './components/NewsCarousel'
 import { useUser } from './context/UserContext'
 import './App.css'
 
-const API_URL = 'https://baseapps-production.up.railway.app/api'
+const API_URL = 'https://baseapps-backend.onrender.com/api'
 
 // ============================================
 // FAVORITE DAPPS - Hard-coded data

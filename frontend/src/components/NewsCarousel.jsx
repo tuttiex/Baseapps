@@ -5,7 +5,7 @@ import './NewsCarousel.css';
 
 const API_BASE_URL = window.location.hostname === 'localhost'
     ? 'http://localhost:3001/api'
-    : 'https://baseapps-production.up.railway.app/api';
+    : 'https://baseapps-backend.onrender.com/api';
 
 export function NewsCarousel() {
     const [latestPosts, setLatestPosts] = useState([]);
