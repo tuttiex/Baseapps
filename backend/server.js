@@ -615,7 +615,43 @@ app.post('/api/admin/import-database', async (req, res) => {
   }
 });
 
-// GET /api/debug-file - DEBUG ENDPOINT TO CHECK FILESYSTEM
+// TEMPORARY: Seed dapps from dapps-seed.json
+// REMOVE THIS AFTER SEEDING
+app.get('/api/admin/seed-dapps', async (req, res) => {
+  try {
+    const seedFilePath = path.join(__dirname, 'dapps-seed.json');
+    const fileContent = await fs.readFile(seedFilePath, 'utf8');
+    const data = JSON.parse(fileContent);
+    
+    console.log(`🌱 Seeding ${data.dapps.length} dapps...`);
+    let success = 0;
+    let failed = 0;
+    
+    for (const dapp of data.dapps) {
+      try {
+        await pool.query(
+          `INSERT INTO dapps(name, description, category, website_url, logo_url, chain, status, submitted_by) 
+           VALUES($1, $2, $3, $4, $5, $6, $7, $8) ON CONFLICT DO NOTHING`,
+          [dapp.name, dapp.description || 'No description', dapp.category, dapp.url || dapp.websiteUrl, dapp.logo || dapp.logoUrl, dapp.chain || 'Base', 'approved', 'system']
+        );
+        success++;
+      } catch (e) {
+        failed++;
+      }
+    }
+    
+    res.json({ 
+      success: true, 
+      message: `Seeded ${success} dapps`, 
+      failed: failed,
+      total: data.dapps.length 
+    });
+    
+  } catch (error) {
+    console.error('❌ Seeding failed:', error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 app.get('/api/debug-file', async (req, res) => {
   try {
     const rootFiles = await fs.readdir(__dirname);
