@@ -24,11 +24,11 @@ const FAVORITE_DAPPS = [
     category: "AI"
   },
   {
-    name: "Base Apps",
-    description: "A home for all Dapps on base.",
-    url: "https://www.baseapps.org/",
-    logo: "https://baseapps-production.up.railway.app/logos/logo-1768595750102-562798533.png",
-    category: "Real World"
+    name: "Layer3",
+    description: "Interactive quest platform that makes learning and exploring Web3 engaging and rewarding.",
+    url: "https://layer3.xyz",
+    logo: "https://www.google.com/s2/favicons?domain=layer3.xyz&sz=256",
+    category: "Social & Entertainment"
   },
   {
     name: "Aave V3",
@@ -80,11 +80,11 @@ const TRENDING_DAPPS = [
     category: "CEX"
   },
   {
-    name: "Friend.tech",
-    description: "Buy and sell shares of your friends on Base. The socialfi app that started it all.",
-    url: "https://friend.tech",
-    logo: "https://icons.llama.fi/friend.tech.png",
-    category: "Social"
+    name: "HAPI",
+    description: "Security layer providing trust scores and human verification for onchain interactions.",
+    url: "https://hapi.one",
+    logo: "https://www.google.com/s2/favicons?domain=hapi.one&sz=256",
+    category: "Security"
   },
   {
     name: "OpenSea",
