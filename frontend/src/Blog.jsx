@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Header } from './components/Header';
+import { Calendar, Clock, User, ArrowRight, Sparkles, Search } from 'lucide-react';
 import './App.css';
 import './Blog.css';
 
@@ -12,9 +13,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || (window.location.hostname =
 function Blog() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState('all');
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        // Force dark mode always
         document.body.classList.add('dark-mode');
         fetchPosts();
     }, []);
@@ -32,78 +34,227 @@ function Blog() {
         }
     };
 
+    const categories = ['all', ...new Set(posts.map(post => post.category))];
+    
+    const filteredPosts = posts.filter(post => {
+        const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
+        const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                            post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+    });
+
+    const featuredPost = posts.find(post => post.featured);
+    const regularPosts = filteredPosts.filter(post => post.id !== featuredPost?.id);
+
+    if (loading) {
+        return (
+            <div className="app dark-mode">
+                <Header />
+                <div className="blog-loading">
+                    <div className="loading-spinner-modern">
+                        <div className="spinner-ring"></div>
+                        <div className="spinner-ring"></div>
+                        <div className="spinner-ring"></div>
+                    </div>
+                    <p>Loading stories...</p>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="app dark-mode">
             <Header />
 
-            {/* Blog Hero */}
-            <section className="blog-hero">
+            {/* Hero Section */}
+            <section className="blog-hero-modern">
+                <div className="hero-gradient-bg"></div>
+                <div className="floating-shapes">
+                    <div className="shape shape-1"></div>
+                    <div className="shape shape-2"></div>
+                    <div className="shape shape-3"></div>
+                </div>
                 <div className="container">
-                    <h1 className="blog-title">BaseApps Blog</h1>
-                    <p className="blog-subtitle">
-                        News, updates, and insights from the Base ecosystem
-                    </p>
+                    <div className="blog-hero-content">
+                        <div className="hero-badge-modern">
+                            <Sparkles size={16} className="badge-icon" />
+                            <span>BaseApps Blog</span>
+                        </div>
+                        <h1 className="blog-hero-title-modern">
+                            Stories from the
+                            <span className="gradient-text-modern"> Base Ecosystem</span>
+                        </h1>
+                        <p className="blog-hero-subtitle-modern">
+                            Discover news, tutorials, and insights from the fastest-growing 
+                            Layer 2 network on Ethereum
+                        </p>
+                        
+                        {/* Search Bar */}
+                        <div className="blog-search-wrapper">
+                            <Search size={20} className="search-icon" />
+                            <input 
+                                type="text" 
+                                placeholder="Search articles..."
+                                className="blog-search-input"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            {/* Blog Content */}
-            <main className="blog-main">
+            {/* Category Filter */}
+            <section className="category-filter-section">
                 <div className="container">
-                    {loading ? (
-                        <div style={{ textAlign: 'center', padding: '4rem' }}>Loading posts...</div>
-                    ) : (
-                        <>
-                            {/* Featured Post */}
-                            {posts.filter(post => post.featured).map(post => (
-                                <article key={post.id} className="featured-post">
-                                    <div className="featured-post-content">
-                                        <span className="post-category">{post.category}</span>
-                                        <h2 className="featured-post-title">{post.title}</h2>
-                                        <p className="featured-post-excerpt">{post.excerpt}</p>
-                                        <div className="post-meta">
-                                            <span className="post-author">{post.author}</span>
-                                            <span className="post-date">{post.date}</span>
-                                        </div>
-                                        <Link to={`/blog/${post.slug}`} className="read-more-btn">Read More →</Link>
+                    <div className="category-scroll">
+                        {categories.map(category => (
+                            <button
+                                key={category}
+                                className={`category-chip ${selectedCategory === category ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category)}
+                            >
+                                {category === 'all' ? 'All Stories' : category}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Featured Post */}
+            {featuredPost && selectedCategory === 'all' && !searchQuery && (
+                <section className="featured-section-modern">
+                    <div className="container">
+                        <Link to={`/blog/${featuredPost.slug}`} className="featured-card-modern">
+                            <div className="featured-image-wrapper-modern">
+                                <img 
+                                    src={featuredPost.image || '/Baseappslogo3.png'} 
+                                    alt={featuredPost.title}
+                                    className="featured-image-modern"
+                                />
+                                <div className="featured-overlay-modern"></div>
+                                <div className="featured-shine"></div>
+                                <span className="featured-badge-modern">
+                                    <Sparkles size={14} />
+                                    Featured
+                                </span>
+                            </div>
+                            <div className="featured-content-modern">
+                                <div className="featured-meta-modern">
+                                    <span className="category-tag-modern">{featuredPost.category}</span>
+                                    <span className="meta-dot"></span>
+                                    <span className="meta-item-modern">
+                                        <Calendar size={14} />
+                                        {featuredPost.date}
+                                    </span>
+                                </div>
+                                <h2 className="featured-title-modern">{featuredPost.title}</h2>
+                                <p className="featured-excerpt-modern">{featuredPost.excerpt}</p>
+                                <div className="featured-author-modern">
+                                    <div className="author-avatar-modern">
+                                        {featuredPost.author.charAt(0)}
                                     </div>
-                                    {post.image && (
-                                        <div className="featured-post-image">
-                                            <img src={post.image} alt={post.title} />
-                                        </div>
-                                    )}
-                                </article>
-                            ))}
+                                    <div className="author-info-modern">
+                                        <span className="author-name-modern">{featuredPost.author}</span>
+                                        <span className="read-time-modern">
+                                            <Clock size={12} />
+                                            {Math.ceil(featuredPost.content.length / 1000)} min read
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="read-more-link-modern">
+                                    <span>Read Article</span>
+                                    <ArrowRight size={18} className="arrow-icon" />
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+                </section>
+            )}
 
-                            {/* All Posts Grid */}
-                            <div className="blog-posts-grid">
-                                {posts.filter(post => !post.featured).map(post => (
-                                    <article key={post.id} className="blog-post-card">
-                                        {post.image && (
-                                            <div className="blog-post-image">
-                                                <img src={post.image} alt={post.title} />
+            {/* Blog Grid */}
+            <main className="blog-grid-modern">
+                <div className="container">
+                    <div className="section-header-modern">
+                        <h2 className="section-title-modern">
+                            {searchQuery ? `Search Results` : 
+                             selectedCategory === 'all' ? 'Latest Stories' : 
+                             `${selectedCategory} Stories`}
+                        </h2>
+                        <span className="post-count-modern">{regularPosts.length} {regularPosts.length === 1 ? 'article' : 'articles'}</span>
+                    </div>
+
+                    {regularPosts.length === 0 ? (
+                        <div className="empty-state-modern">
+                            <div className="empty-icon-modern">📚</div>
+                            <h3>No stories found</h3>
+                            <p>{searchQuery ? 'Try a different search term' : 'Check back soon for new content!'}</p>
+                        </div>
+                    ) : (
+                        <div className="posts-grid-modern">
+                            {regularPosts.map((post, index) => (
+                                <Link 
+                                    key={post.id} 
+                                    to={`/blog/${post.slug}`}
+                                    className="post-card-modern"
+                                    style={{ '--delay': `${index * 0.1}s` }}
+                                >
+                                    <div className="post-card-image-modern">
+                                        <img 
+                                            src={post.image || '/Baseappslogo3.png'} 
+                                            alt={post.title}
+                                            loading="lazy"
+                                        />
+                                        <div className="post-card-overlay-modern"></div>
+                                        <div className="post-card-glow"></div>
+                                    </div>
+                                    <div className="post-card-content-modern">
+                                        <div className="post-card-meta-modern">
+                                            <span className="post-category-modern">{post.category}</span>
+                                            <span className="post-date-modern">{post.date}</span>
+                                        </div>
+                                        <h3 className="post-card-title-modern">{post.title}</h3>
+                                        <p className="post-card-excerpt-modern">{post.excerpt}</p>
+                                        <div className="post-card-footer-modern">
+                                            <div className="post-author-small-modern">
+                                                <div className="author-dot"></div>
+                                                <span>{post.author}</span>
                                             </div>
-                                        )}
-                                        <span className="post-category">{post.category}</span>
-                                        <h3 className="post-title">{post.title}</h3>
-                                        <p className="post-excerpt">{post.excerpt}</p>
-                                        <div className="post-meta">
-                                            <span className="post-author">{post.author}</span>
-                                            <span className="post-date">{post.date}</span>
+                                            <span className="read-more-arrow-modern">
+                                                <ArrowRight size={18} />
+                                            </span>
                                         </div>
-                                        <Link to={`/blog/${post.slug}`} className="read-more-btn">Read More →</Link>
-                                    </article>
-                                ))}
-                            </div>
-
-                            {/* Coming Soon Message */}
-                            <div className="blog-coming-soon">
-                                <h3>More content coming soon!</h3>
-                                <p>We're working on bringing you the latest news and insights from the Base ecosystem.</p>
-                            </div>
-                        </>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
                     )}
                 </div>
             </main>
+
+            {/* Newsletter CTA */}
+            <section className="newsletter-section-modern">
+                <div className="container">
+                    <div className="newsletter-card-modern">
+                        <div className="newsletter-glow"></div>
+                        <div className="newsletter-content-modern">
+                            <h3>Stay in the loop</h3>
+                            <p>Get the latest Base ecosystem updates delivered to your inbox</p>
+                        </div>
+                        <div className="newsletter-form-modern">
+                            <input 
+                                type="email" 
+                                placeholder="your@email.com"
+                                className="newsletter-input-modern"
+                            />
+                            <button className="newsletter-button-modern">
+                                Subscribe
+                                <ArrowRight size={16} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Footer */}
             <footer className="footer">
