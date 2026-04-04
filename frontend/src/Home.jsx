@@ -45,11 +45,11 @@ const FAVORITE_DAPPS = [
     category: "Infrastructure"
   },
   {
-    name: "Talent Protocol",
-    description: "The professional network for the onchain era. Build your reputation and unlock opportunities.",
-    url: "https://talentprotocol.com",
-    logo: "https://www.google.com/s2/favicons?domain=talentprotocol.com&sz=256",
-    category: "Social"
+    name: "Morpho",
+    description: "A permissionless lending protocol enabling higher yields for lenders and better rates for borrowers.",
+    url: "https://morpho.org",
+    logo: "https://icons.llama.fi/morpho.png",
+    category: "Lending"
   }
 ]
 
@@ -58,39 +58,40 @@ const FAVORITE_DAPPS = [
 // ============================================
 const TRENDING_DAPPS = [
   {
-    name: "Aerodrome Finance",
-    description: "The central trading and liquidity marketplace on Base.",
-    url: "https://aerodrome.finance",
-    logo: "https://github.com/aerodrome-finance.png",
+    name: "Curve",
+    description: "Decentralized exchange optimized for stablecoins and low slippage swaps.",
+    url: "https://curve.fi",
+    logo: "https://icons.llama.fi/curve.png",
     category: "Dexs"
   },
   {
-    name: "Uniswap",
-    description: "Swap, earn, and build on the leading decentralized crypto trading protocol.",
-    url: "https://app.uniswap.org/",
-    logo: "https://cryptologos.cc/logos/uniswap-uni-logo.png",
+    name: "CobaltX",
+    description: "A Concentrated Liquidity AMM, Building DeFi Ecosystem on Soon Network",
+    category: "Dexs",
+    url: "https://cobaltx.io/swap",
+    logo: "https://icons.llama.fi/cobaltx.jpg",
     category: "Dexs"
   },
   {
-    name: "Aave",
-    description: "Earn interest, borrow assets, and build applications.",
-    url: "https://aave.com",
-    logo: "https://cryptologos.cc/logos/aave-aave-logo.png",
-    category: "Lending"
+    name: "Bybit",
+    description: "Crypto trading experience elevated. Buy, sell, trade BTC, altcoins & NFTs. Get access to the spot and futures market or stake your coins securely.",
+    url: "https://www.bybit.com",
+    logo: "https://icons.llama.fi/bybit.png",
+    category: "CEX"
   },
   {
-    name: "Farcaster",
-    description: "A sufficiently decentralized social network.",
-    url: "https://warpcast.com",
-    logo: "https://github.com/farcasterxyz.png",
+    name: "Friend.tech",
+    description: "Buy and sell shares of your friends on Base. The socialfi app that started it all.",
+    url: "https://friend.tech",
+    logo: "https://icons.llama.fi/friend.tech.png",
     category: "Social"
   },
   {
-    name: "Zora",
-    description: "Imagine, Create, and Mint on Zora.",
-    url: "https://zora.co",
-    logo: "https://github.com/ourzora.png",
-    category: "Art"
+    name: "OpenSea",
+    description: "The world's largest NFT marketplace. Discover, collect, and sell extraordinary NFTs on Base.",
+    url: "https://opensea.io",
+    logo: "https://icons.llama.fi/opensea.png",
+    category: "NFTs"
   }
 ]
 
