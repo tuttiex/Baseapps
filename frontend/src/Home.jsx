@@ -232,8 +232,8 @@ function Home() {
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-headline">
-              Discover the<br />
-              Heart of <span className="gradient-text">Base</span>
+              The Home of<br />
+              all things <span className="gradient-text">Base</span>
             </h1>
             <p className="hero-subtext">
               Explore the fastest growing ecosystem on Ethereum.
