@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 0;
+  padding: 4rem 0 6rem;
   background-color: #0f0f1e;
   background-image:
     radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.08) 0%, transparent 50%),
@@ -89,7 +89,6 @@
     10px 10px;
   background-attachment: fixed;
   position: relative;
-  overflow: hidden;
 }
 
 .hero-section::before {
@@ -256,7 +255,7 @@
   border-radius: 16px;
   padding: 0.75rem;
   box-shadow: var(--shadow-card);
-  z-index: 100;
+  z-index: 9999;
   max-height: 400px;
   overflow-y: auto;
   animation: slideDown 0.3s ease;
