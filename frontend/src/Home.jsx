@@ -1,97 +1,91 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { ConnectWallet } from './components/ConnectWallet'
 import { VoteButtons } from './components/VoteButtons'
-import { UserAuth } from './components/UserAuth'
 import { Header } from './components/Header'
-import { SearchIcon } from './components/Icons'
+import { SearchIcon, GlobeIcon, UsersIcon, GridIcon, ChevronLeftIcon, ChevronRightIcon } from './components/Icons'
 import { NewsCarousel } from './components/NewsCarousel'
-import { useUser } from './context/UserContext'
-import './App.css'
+import './Home.css'
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://baseapps-backend.onrender.com/api'
 
 // ============================================
-// FAVORITE DAPPS - Hard-coded data
+// FAVORITE DAPPS - Curated Featured DApps
 // ============================================
 const FAVORITE_DAPPS = [
   {
-    name: "Virtuals Protocol",
-    description: "The AI agent protocol. Build, own and monetize AI agents.",
-    url: "https://virtuals.io",
-    logo: "https://icons.llama.fi/virtuals-protocol.jpg", // Using a likely logo URL or fallback
-    category: "AI"
-  },
-  {
-    name: "Layer3",
-    description: "Interactive quest platform that makes learning and exploring Web3 engaging and rewarding.",
-    url: "https://layer3.xyz",
-    logo: "https://www.google.com/s2/favicons?domain=layer3.xyz&sz=256",
-    category: "Social & Entertainment"
-  },
-  {
-    name: "Aave V3",
-    description: "Earn interest, borrow assets, and build applications",
-    url: "https://aave.com",
-    logo: "https://icons.llama.fi/aave-v3.png",
-    category: "Lending & CDP"
-  },
-  {
-    name: "Alchemy",
-    description: "The leading web3 development platform. Build reliable decentralized apps.",
-    url: "https://www.alchemy.com/",
-    logo: "https://www.google.com/s2/favicons?domain=alchemy.com&sz=256",
-    category: "Infrastructure"
-  },
-  {
-    name: "Morpho",
-    description: "A permissionless lending protocol enabling higher yields for lenders and better rates for borrowers.",
-    url: "https://morpho.org",
-    logo: "https://icons.llama.fi/morpho.png",
-    category: "Lending"
-  }
-]
-
-// ============================================
-// TRENDING DAPPS - Hard-coded data (Manually Curated)
-// ============================================
-const TRENDING_DAPPS = [
-  {
     name: "Curve",
-    description: "Decentralized exchange optimized for stablecoins and low slippage swaps.",
+    description: "Exchange",
     url: "https://curve.fi",
     logo: "https://icons.llama.fi/curve.png",
     category: "Dexs"
   },
   {
-    name: "CobaltX",
-    description: "A Concentrated Liquidity AMM, Building DeFi Ecosystem on Soon Network",
-    category: "Dexs",
-    url: "https://cobaltx.io/swap",
-    logo: "https://icons.llama.fi/cobaltx.jpg",
-    category: "Dexs"
-  },
-  {
-    name: "Bybit",
-    description: "Crypto trading experience elevated. Buy, sell, trade BTC, altcoins & NFTs. Get access to the spot and futures market or stake your coins securely.",
-    url: "https://www.bybit.com",
-    logo: "https://icons.llama.fi/bybit.png",
-    category: "CEX"
-  },
-  {
-    name: "HAPI",
-    description: "Security layer providing trust scores and human verification for onchain interactions.",
-    url: "https://hapi.one",
-    logo: "https://www.google.com/s2/favicons?domain=hapi.one&sz=256",
-    category: "Security"
-  },
-  {
     name: "OpenSea",
-    description: "The world's largest NFT marketplace. Discover, collect, and sell extraordinary NFTs on Base.",
+    description: "NFT Marketplace",
     url: "https://opensea.io",
     logo: "https://icons.llama.fi/opensea.png",
     category: "NFTs"
+  },
+  {
+    name: "Uniswap",
+    description: "DEX",
+    url: "https://uniswap.org",
+    logo: "https://icons.llama.fi/uniswap.png",
+    category: "Dexs"
+  },
+  {
+    name: "Aave",
+    description: "Lending",
+    url: "https://aave.com",
+    logo: "https://icons.llama.fi/aave-v3.png",
+    category: "Lending"
+  }
+]
+
+// ============================================
+// TRENDING DAPPS - With metrics
+// ============================================
+const TRENDING_DAPPS = [
+  {
+    rank: 1,
+    name: "Curve",
+    description: "Decentralized exchange",
+    url: "https://curve.fi",
+    logo: "https://icons.llama.fi/curve.png",
+    volume: "$5.2M",
+    change: "+4.5%",
+    positive: true
+  },
+  {
+    rank: 2,
+    name: "OpenSea",
+    description: "NFT Marketplace",
+    url: "https://opensea.io",
+    logo: "https://icons.llama.fi/opensea.png",
+    volume: "$5.2M",
+    change: "+4.5%",
+    positive: true
+  },
+  {
+    rank: 3,
+    name: "Aave",
+    description: "Lending Protocol",
+    url: "https://aave.com",
+    logo: "https://icons.llama.fi/aave-v3.png",
+    volume: "$5.2M",
+    change: "+4.5%",
+    positive: true
+  },
+  {
+    rank: 4,
+    name: "Uniswap",
+    description: "DEX Protocol",
+    url: "https://uniswap.org",
+    logo: "https://icons.llama.fi/uniswap.png",
+    volume: "$5.2M",
+    change: "+4.5%",
+    positive: true
   }
 ]
 
@@ -104,16 +98,14 @@ function Home() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [selectedIndex, setSelectedIndex] = useState(-1)
   const [loadingSuggestions, setLoadingSuggestions] = useState(false)
+  const [trendingPage, setTrendingPage] = useState(0)
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Force dark mode always
     document.body.classList.add('dark-mode')
-
     fetchDappsCount()
   }, [])
 
-  // Debounced search for suggestions
   useEffect(() => {
     if (searchTerm.trim().length < 2) {
       setSuggestions([])
@@ -126,7 +118,6 @@ function Home() {
       try {
         const response = await axios.get(`${API_URL}/dapps?search=${encodeURIComponent(searchTerm.trim())}`)
         if (response.data.success) {
-          // Limit to top 8 suggestions
           setSuggestions(response.data.dapps.slice(0, 8))
           setShowSuggestions(true)
         }
@@ -136,15 +127,14 @@ function Home() {
       } finally {
         setLoadingSuggestions(false)
       }
-    }, 300) // 300ms debounce
+    }, 300)
 
     return () => clearTimeout(timer)
   }, [searchTerm])
 
-  // Click outside to close suggestions
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest('.home-search-box')) {
+      if (!e.target.closest('.hero-search-box')) {
         setShowSuggestions(false)
       }
     }
@@ -163,8 +153,6 @@ function Home() {
       setLoading(false)
     }
   }
-
-
 
   const handleSearch = (e) => {
     e.preventDefault()
@@ -198,22 +186,31 @@ function Home() {
     }
   }
 
+  const nextTrending = () => {
+    setTrendingPage(prev => (prev + 1) % Math.ceil(TRENDING_DAPPS.length / 4))
+  }
+
+  const prevTrending = () => {
+    setTrendingPage(prev => (prev - 1 + Math.ceil(TRENDING_DAPPS.length / 4)) % Math.ceil(TRENDING_DAPPS.length / 4))
+  }
+
   if (loading) {
     return (
       <div className="app dark-mode">
-        <div className="loading">Welcome to the home of all things Base</div>
+        <div className="loading-screen">
+          <div className="loading-spinner"></div>
+          <p>Loading BaseApps...</p>
+        </div>
       </div>
     )
   }
 
-  // Hydrate manual lists for voting
   const hydrateDapps = (manualList) => {
     return manualList.map(manualDapp => {
       const liveDapp = allDapps.find(d =>
         d.name.toLowerCase() === manualDapp.name.toLowerCase() ||
         d.url === manualDapp.url
       )
-      // Only merge ID/score/registered status. Keep manual text.
       return liveDapp ? {
         ...manualDapp,
         dappId: liveDapp.dappId,
@@ -231,231 +228,254 @@ function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero-section">
         <div className="container">
           <div className="hero-content">
-            <h1 className="hero-title">The home of all things <strong>Base</strong></h1>
-            <p className="hero-description">
-              Explore the fastest growing ecosystem
+            <h1 className="hero-headline">
+              Discover the<br />
+              Heart of <span className="gradient-text">Base</span>
+            </h1>
+            <p className="hero-subtext">
+              Explore the fastest growing ecosystem on Ethereum.
             </p>
-            <h2 className="section-title" style={{
-              fontSize: '2.5rem',
-              fontWeight: '700',
-              marginBottom: '1rem',
-              marginTop: '0',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              DApps
-            </h2>
-            <div className="hero-stats">
-              <div className="stat-card">
-                <div className="stat-number">1200+</div>
-                <div className="stat-label">Dapps</div>
+
+            {/* Search Bar */}
+            <form onSubmit={handleSearch} className="hero-search-form">
+              <div className="hero-search-box">
+                <SearchIcon size={20} className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="Search for dapps..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  className="hero-search-input"
+                  autoComplete="off"
+                />
+                <button type="submit" className="hero-search-btn">
+                  Search
+                </button>
+
+                {showSuggestions && (
+                  <div className="search-suggestions-dropdown">
+                    {loadingSuggestions ? (
+                      <div className="suggestion-loading">Searching...</div>
+                    ) : suggestions.length > 0 ? (
+                      suggestions.map((dapp, index) => (
+                        <div
+                          key={dapp.name}
+                          className={`suggestion-item ${index === selectedIndex ? 'active' : ''}`}
+                          onClick={() => handleSuggestionClick(dapp.name)}
+                          onMouseEnter={() => setSelectedIndex(index)}
+                        >
+                          <img
+                            src={dapp.logo || '/placeholder-logo.png'}
+                            alt={dapp.name}
+                            className="suggestion-logo"
+                            onError={(e) => { e.target.style.display = 'none' }}
+                          />
+                          <div className="suggestion-info">
+                            <div className="suggestion-name">{dapp.name}</div>
+                            <div className="suggestion-category">{dapp.category}</div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="suggestion-empty">No dapps found</div>
+                    )}
+                  </div>
+                )}
               </div>
-              <div className="stat-card">
-                <div className="stat-number">6</div>
+            </form>
+
+            {/* Stats Cards */}
+            <div className="stats-container">
+              <div className="stat-box">
+                <div className="stat-icon"><GlobeIcon size={24} /></div>
+                <div className="stat-value">1400+</div>
+                <div className="stat-label">Total DApps</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon"><UsersIcon size={24} /></div>
+                <div className="stat-value">150k+</div>
+                <div className="stat-label">Active Users</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon"><GridIcon size={24} /></div>
+                <div className="stat-value">7</div>
                 <div className="stat-label">Categories</div>
               </div>
-              <div className="stat-card">
-                <div className="stat-number">∞</div>
-                <div className="stat-label">Possibilities</div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-
-
-      {/* Search Section */}
-      <section className="home-search-section">
+      {/* Favorite DApps Section */}
+      <section className="favorite-section">
         <div className="container">
-          <form onSubmit={handleSearch} className="home-search-form">
-            <div className="home-search-box">
-              <input
-                type="text"
-                placeholder="Search for dapps..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="home-search-input"
-                autoComplete="off"
-              />
-              <button type="submit" className="home-search-btn">
-                <SearchIcon size={18} /> Search
-              </button>
-
-              {/* Suggestions Dropdown */}
-              {showSuggestions && (
-                <div className="search-suggestions">
-                  {loadingSuggestions ? (
-                    <div className="suggestion-loading">Searching...</div>
-                  ) : suggestions.length > 0 ? (
-                    suggestions.map((dapp, index) => (
-                      <div
-                        key={dapp.name}
-                        className={`suggestion-item ${index === selectedIndex ? 'active' : ''}`}
-                        onClick={() => handleSuggestionClick(dapp.name)}
-                        onMouseEnter={() => setSelectedIndex(index)}
-                      >
-                        <img
-                          src={dapp.logo || '/placeholder-logo.png'}
-                          alt={dapp.name}
-                          className="suggestion-logo"
-                          onError={(e) => { e.target.style.display = 'none' }}
-                        />
-                        <div className="suggestion-info">
-                          <div className="suggestion-name">{dapp.name}</div>
-                          <div className="suggestion-category">{dapp.category}</div>
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="suggestion-empty">No dapps found</div>
-                  )}
-                </div>
-              )}
-            </div>
-          </form>
-        </div>
-      </section>
-
-      {/* Explore All Dapps Button */}
-      <section className="explore-section">
-        <div className="container">
-          <Link to="/all-dapps" className="explore-all-btn">
-            <span className="explore-text">Explore All Dapps</span>
-            <span className="explore-arrow">→</span>
-          </Link>
-        </div>
-      </section>
-
-      {/* Favorite Dapps Section */}
-      <section className="featured-section">
-        <div className="container">
-          <h2 className="section-title favorite-title">
-            Favorite Dapps
-          </h2>
-          <div className="featured-grid">
+          <h2 className="section-heading">Favorite DApps</h2>
+          <div className="favorite-grid">
             {hydratedFavorites.map((dapp, index) => (
-              <FeaturedDappCard key={index} dapp={dapp} index={index} />
+              <FavoriteCard key={index} dapp={dapp} index={index} />
             ))}
           </div>
+          <div className="explore-wrapper">
+            <Link to="/all-dapps" className="explore-btn">
+              Explore
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Trending Dapps Section */}
-      <section className="featured-section trending-section">
+      {/* Trending DApps Section */}
+      <section className="trending-section">
         <div className="container">
-          <h2 className="section-title trending-title">
-            Trending Dapps
-          </h2>
-          <div className="featured-grid">
-            {hydratedTrending.map((dapp, index) => (
-              <FeaturedDappCard key={index} dapp={dapp} index={index} />
+          <div className="section-header">
+            <h2 className="section-heading">Trending DApps</h2>
+            <div className="carousel-controls">
+              <button className="carousel-btn" onClick={prevTrending}>
+                <ChevronLeftIcon size={20} />
+              </button>
+              <div className="carousel-dots">
+                {Array.from({ length: Math.ceil(TRENDING_DAPPS.length / 4) }).map((_, i) => (
+                  <span key={i} className={`dot ${i === trendingPage ? 'active' : ''}`} onClick={() => setTrendingPage(i)} />
+                ))}
+              </div>
+              <button className="carousel-btn" onClick={nextTrending}>
+                <ChevronRightIcon size={20} />
+              </button>
+            </div>
+          </div>
+          <div className="trending-carousel">
+            {hydratedTrending.slice(trendingPage * 4, (trendingPage + 1) * 4).map((dapp, index) => (
+              <TrendingCard key={index} dapp={dapp} />
             ))}
           </div>
         </div>
       </section>
 
       {/* Base News Section */}
-      <section className="base-news-section" style={{
-        padding: '4rem 0',
-        background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)'
-      }}>
-        <div className="container" style={{ textAlign: 'center' }}>
-          <h2 className="section-title" style={{
-            fontSize: '2.5rem',
-            fontWeight: '700',
-            marginBottom: '1rem',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
-            Base News
-          </h2>
-          <p style={{
-            fontSize: '1.1rem',
-            color: 'var(--text-secondary)',
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            Latest Base news and updates
-          </p>
+      <section className="news-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-heading">Base News</h2>
+            <div className="carousel-controls">
+              <button className="carousel-btn">
+                <ChevronLeftIcon size={20} />
+              </button>
+              <button className="carousel-btn">
+                <ChevronRightIcon size={20} />
+              </button>
+            </div>
+          </div>
+          <NewsCarousel />
         </div>
-
-        {/* News Carousel */}
-        <NewsCarousel />
       </section>
 
       {/* Footer */}
-      <footer className="footer">
-        <div className="container footer-content">
-          <p>Built for Base Network • Powered by Base</p>
-          <a
-            href="https://x.com/baseapps_"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-x-icon"
-            aria-label="Follow us on X (Twitter)"
-          >
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-          </a>
+      <footer className="modern-footer">
+        <div className="container">
+          <div className="footer-grid">
+            <div className="footer-column">
+              <h4>Community</h4>
+              <ul>
+                <li><Link to="/all-dapps">Community</Link></li>
+                <li><Link to="/add-dapps">Developers</Link></li>
+                <li><Link to="/blog">News</Link></li>
+                <li><a href="#">Team</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h4>Developers</h4>
+              <ul>
+                <li><a href="#">Content</a></li>
+                <li><Link to="/blog">Blog</Link></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Developments</a></li>
+                <li><a href="#">Form</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h4>Resources</h4>
+              <ul>
+                <li><Link to="/all-dapps">About</Link></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Post Analytics</a></li>
+              </ul>
+            </div>
+            <div className="footer-column">
+              <h4>Social Media</h4>
+              <div className="social-links">
+                <a href="https://x.com/baseapps_" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+                <a href="#" className="social-link">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href="#" className="social-link">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div className="footer-column built-on-base">
+              <div className="base-badge">
+                <div className="base-logo"></div>
+                <span>Built on<br/>Base</span>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
-
-      {/* Floating Add Dapp Button */}
-      <Link to="/add-dapps" className="floating-add-btn" aria-label="Add a Dapp">
-        <span className="add-text">Add Dapps</span>
-      </Link>
     </div>
   )
 }
 
-// Featured Dapp Card Component
-function FeaturedDappCard({ dapp, index }) {
+// Favorite Card Component
+function FavoriteCard({ dapp, index }) {
   return (
     <div
-      className="featured-card"
-      style={{ animationDelay: `${index * 0.1}s`, cursor: 'default' }}
+      className="favorite-card"
+      style={{ animationDelay: `${index * 0.1}s` }}
+      onClick={() => window.open(dapp.url, '_blank')}
     >
-      <div className="featured-card-image">
+      <div className="favorite-card-logo">
         <img
           src={dapp.logo || '/placeholder-logo.png'}
           alt={dapp.name}
-          onError={(e) => {
-            e.target.src = '/placeholder-logo.png'
-          }}
-          style={{ cursor: 'default' }}
+          onError={(e) => { e.target.src = '/placeholder-logo.png' }}
         />
       </div>
-      <div className="featured-card-content">
-        <h3 className="featured-card-name" style={{ cursor: 'text' }}>{dapp.name}</h3>
-        <p className="featured-card-description">{dapp.description}</p>
+      <div className="favorite-card-info">
+        <h3 className="favorite-card-name">{dapp.name}</h3>
+        <p className="favorite-card-desc">{dapp.description}</p>
+      </div>
+    </div>
+  )
+}
 
-        <div className="featured-card-footer">
-          <VoteButtons
-            dappId={dapp.dappId}
-            isRegistered={dapp.isRegistered}
-            initialScore={dapp.score}
-            layout="split"
-            showScore={false}
-            middleContent={
-              <button
-                className="featured-card-btn"
-                onClick={() => window.open(dapp.url, '_blank')}
-                style={{ width: 'auto', padding: '0.4rem 0.8rem', fontSize: '0.8rem', margin: '0 8px' }}
-              >
-                Explore →
-              </button>
-            }
-          />
+// Trending Card Component
+function TrendingCard({ dapp }) {
+  return (
+    <div className="trending-card" onClick={() => window.open(dapp.url, '_blank')}>
+      <div className="trending-rank">{dapp.rank}</div>
+      <div className="trending-logo">
+        <img src={dapp.logo || '/placeholder-logo.png'} alt={dapp.name} />
+      </div>
+      <div className="trending-info">
+        <h4 className="trending-name">{dapp.name}</h4>
+        <p className="trending-desc">{dapp.description}</p>
+        <div className="trending-metrics">
+          <span className="trending-volume">24h Volume: {dapp.volume}</span>
+          <span className={`trending-change ${dapp.positive ? 'positive' : 'negative'}`}>
+            {dapp.change}
+          </span>
         </div>
       </div>
     </div>
