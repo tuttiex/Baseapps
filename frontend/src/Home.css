@@ -168,7 +168,7 @@
 .hero-subtext {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   font-weight: 400;
 }
 
@@ -177,7 +177,7 @@
    ============================================ */
 .hero-search-form {
   max-width: 500px;
-  margin: 0 auto 3rem;
+  margin: 2rem auto 0;
   position: relative;
 }
 

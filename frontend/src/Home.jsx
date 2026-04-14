@@ -239,6 +239,25 @@ function Home() {
               Explore the fastest growing ecosystem on Ethereum.
             </p>
 
+            {/* Stats Cards */}
+            <div className="stats-container">
+              <div className="stat-box">
+                <div className="stat-icon"><GlobeIcon size={24} /></div>
+                <div className="stat-value">1400+</div>
+                <div className="stat-label">Total DApps</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon"><UsersIcon size={24} /></div>
+                <div className="stat-value">150k+</div>
+                <div className="stat-label">Active Users</div>
+              </div>
+              <div className="stat-box">
+                <div className="stat-icon"><GridIcon size={24} /></div>
+                <div className="stat-value">7</div>
+                <div className="stat-label">Categories</div>
+              </div>
+            </div>
+
             {/* Search Bar */}
             <form onSubmit={handleSearch} className="hero-search-form">
               <div className="hero-search-box">
@@ -287,25 +306,6 @@ function Home() {
                 )}
               </div>
             </form>
-
-            {/* Stats Cards */}
-            <div className="stats-container">
-              <div className="stat-box">
-                <div className="stat-icon"><GlobeIcon size={24} /></div>
-                <div className="stat-value">1400+</div>
-                <div className="stat-label">Total DApps</div>
-              </div>
-              <div className="stat-box">
-                <div className="stat-icon"><UsersIcon size={24} /></div>
-                <div className="stat-value">150k+</div>
-                <div className="stat-label">Active Users</div>
-              </div>
-              <div className="stat-box">
-                <div className="stat-icon"><GridIcon size={24} /></div>
-                <div className="stat-value">7</div>
-                <div className="stat-label">Categories</div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
