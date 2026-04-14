@@ -425,9 +425,8 @@ function Home() {
               </div>
             </div>
             <div className="footer-column built-on-base">
-              <div className="base-badge">
-                <div className="base-logo"></div>
-                <span>Built on<br/>Base</span>
+              <div className="baseapps-badge">
+                <img src="/Baseappslogo3.png" alt="BaseApps" className="baseapps-logo-footer" />
               </div>
             </div>
           </div>
