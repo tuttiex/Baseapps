@@ -980,7 +980,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .header-left {
@@ -1013,39 +1013,26 @@
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   flex: 1;
   justify-content: center;
 }
 
 .nav-link {
-  color: var(--text-secondary);
+  color: #aca9b8;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.3s ease;
-  position: relative;
   padding: 0.5rem 0;
 }
 
 .nav-link:hover {
-  color: var(--text-primary);
+  color: #a3a6ff;
 }
 
 .nav-link.active {
-  color: var(--accent-purple);
-}
-
-.nav-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 20px;
-  height: 2px;
-  background: var(--gradient-primary);
-  border-radius: 2px;
+  color: #ffffff;
 }
 
 .header-right {
