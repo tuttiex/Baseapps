@@ -969,7 +969,7 @@
    Header Navigation Styles
    ============================================ */
 .header {
-  background: rgba(10, 10, 15, 0.8);
+  background: rgba(15, 15, 25, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
