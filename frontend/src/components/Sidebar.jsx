@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext';
-import { HomeIcon, GridIcon, PlusIcon, BlogIcon, UserIcon, BountiesIcon } from './Icons';
+import { ConnectWallet } from './ConnectWallet';
+import { HomeIcon, GridIcon, PlusIcon, BlogIcon, UserIcon, BountiesIcon, XIcon, GithubIcon, UsersIcon } from './Icons';
 import './Sidebar.css';
 
 export function Sidebar() {
@@ -82,20 +83,44 @@ export function Sidebar() {
                     ))}
                 </nav>
 
+                {/* CTA Section */}
+                <div className="sidebar-cta">
+                    <ConnectWallet />
+                </div>
+
+                {/* Footer */}
                 <div className="sidebar-footer">
-                    <a
-                        href="https://x.com/baseapps_"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="sidebar-x-link"
-                        aria-label="Follow us on X (Twitter)"
-                    >
-                        <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                        </svg>
-                    </a>
-                    <div className="sidebar-footer-text">
-                        BaseApps • Base Network
+                    <div className="sidebar-socials">
+                        <a
+                            href="https://x.com/baseapps_"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sidebar-social-link"
+                            aria-label="Follow us on X (Twitter)"
+                        >
+                            <XIcon size={18} />
+                        </a>
+                        <a
+                            href="#"
+                            className="sidebar-social-link"
+                            aria-label="Discord"
+                        >
+                            <UsersIcon size={18} />
+                        </a>
+                        <a
+                            href="#"
+                            className="sidebar-social-link"
+                            aria-label="GitHub"
+                        >
+                            <GithubIcon size={18} />
+                        </a>
+                    </div>
+                    <div className="sidebar-status">
+                        <span className="sidebar-status-label">Built on Base</span>
+                        <div className="sidebar-status-indicator">
+                            <span className="status-dot"></span>
+                            <span className="status-text">Mainnet Live</span>
+                        </div>
                     </div>
                 </div>
             </div>
